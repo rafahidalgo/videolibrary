@@ -1,0 +1,6 @@
+framework module Pods_VideoLibrary {
+  umbrella header "Pods-VideoLibrary-umbrella.h"
+
+  export *
+  module * { export * }
+}
