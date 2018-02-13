@@ -10,6 +10,7 @@
 		3A38AECA20305D8300E753DF /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AEC920305D8300E753DF /* MoviesViewController.swift */; };
 		3A38AECE20305E3500E753DF /* TVShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECD20305E3500E753DF /* TVShowsViewController.swift */; };
 		3A38AED020305E5500E753DF /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECF20305E5500E753DF /* PeopleViewController.swift */; };
+		3A43FADD20337AE200CFD723 /* MovieViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A43FADC20337AE200CFD723 /* MovieViewCell.swift */; };
 		3A59DF822030BEF90097E327 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF812030BEF90097E327 /* Actor.swift */; };
 		3A59DF842030BF680097E327 /* ActorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF832030BF680097E327 /* ActorDetails.swift */; };
 		3A59DF862030BFB80097E327 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF852030BFB80097E327 /* Movie.swift */; };
@@ -32,6 +33,7 @@
 		3A38AEC920305D8300E753DF /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		3A38AECD20305E3500E753DF /* TVShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsViewController.swift; sourceTree = "<group>"; };
 		3A38AECF20305E5500E753DF /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
+		3A43FADC20337AE200CFD723 /* MovieViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewCell.swift; sourceTree = "<group>"; };
 		3A59DF812030BEF90097E327 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		3A59DF832030BF680097E327 /* ActorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorDetails.swift; sourceTree = "<group>"; };
 		3A59DF852030BFB80097E327 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				3A38AEC920305D8300E753DF /* MoviesViewController.swift */,
 				3A38AECD20305E3500E753DF /* TVShowsViewController.swift */,
 				3A38AECF20305E5500E753DF /* PeopleViewController.swift */,
+				3A43FADC20337AE200CFD723 /* MovieViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			files = (
 				3A7723192030DA7E007CB714 /* TheMovieDatabaseProtocol.swift in Sources */,
 				3A38AED020305E5500E753DF /* PeopleViewController.swift in Sources */,
+				3A43FADD20337AE200CFD723 /* MovieViewCell.swift in Sources */,
 				3A59DF842030BF680097E327 /* ActorDetails.swift in Sources */,
 				3A80B640202F679400DD731E /* ViewController.swift in Sources */,
 				3A80B63E202F679400DD731E /* AppDelegate.swift in Sources */,

@@ -10,5 +10,11 @@ import Foundation
 
 class Movie {
     
+    let title: String
+    let posterUrl: String?
     
+    init(title:String, posterUrl: String?) {
+        self.title = title
+        self.posterUrl = posterUrl
+    }
 }
