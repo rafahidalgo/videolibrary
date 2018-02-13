@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 protocol TheMovieDatabaseProtocol {
     
-    init()
-    func discoverMovies()
+    var apiUrl: String {get}
+    
+    func discoverMovies(completionHandler: @escaping (JSON?, Error?) -> ())
 }
