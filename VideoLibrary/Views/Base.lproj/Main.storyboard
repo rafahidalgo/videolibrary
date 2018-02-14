@@ -170,8 +170,5 @@
         <namedColor name="SecondaryColor">
             <color red="0.030999999493360519" green="0.10999999940395355" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="SecondaryColor">
-            <color red="0.030999999493360519" green="0.10999999940395355" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>

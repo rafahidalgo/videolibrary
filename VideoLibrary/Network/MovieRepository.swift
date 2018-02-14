@@ -1,5 +1,5 @@
 //
-//  TheMovieDatabaseProtocol.swift
+//  MovieRepository.swift
 //  VideoLibrary
 //
 //  Created by MIMO on 11/2/18.
@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-protocol TheMovieDatabaseProtocol {
+protocol MovieRepository {
     
     var apiUrl: String {get}
     

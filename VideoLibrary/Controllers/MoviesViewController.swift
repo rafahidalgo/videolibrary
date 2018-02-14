@@ -11,8 +11,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let api = APICalls()
-        api.discoverMovies(){ responseObject, error in
+        let repository = MovieDatabaseRepository()
+        repository.discoverMovies(){ responseObject, error in
             if let response = responseObject {
                 for item in response["results"] {
                     let movie = Movie(title: item.1["title"].string!, posterUrl: item.1["poster_path"].string)

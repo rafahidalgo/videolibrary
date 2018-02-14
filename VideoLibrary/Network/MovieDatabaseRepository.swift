@@ -1,5 +1,5 @@
 //
-//  APICalls.swift
+//  MovieDatabaseRepository.swift
 //  VideoLibrary
 //
 //  Created by MIMO on 12/2/18.
@@ -10,9 +10,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-struct APICalls: TheMovieDatabaseProtocol {
+struct MovieDatabaseRepository: MovieRepository {
     
-    let apiUrl: String
+    let apiUrl: String  
     let apiKey: String
     
     
