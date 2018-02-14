@@ -10,11 +10,19 @@ import Foundation
 
 class Movie {
     
+    let id: Int
     let title: String
     let posterUrl: String?
+    let vote: Float
+    let release: String
+    let overview: String
     
-    init(title:String, posterUrl: String?) {
+    init(id:Int, title:String, posterUrl: String?, vote: Float, release: String, overview: String) {
+        self.id = id
         self.title = title
         self.posterUrl = posterUrl
+        self.vote = vote
+        self.release = release
+        self.overview = overview
     }
 }

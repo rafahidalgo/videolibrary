@@ -15,7 +15,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         repository.discoverMovies(){ responseObject, error in
             if let response = responseObject {
                 for item in response["results"] {
-                    let movie = Movie(title: item.1["title"].string!, posterUrl: item.1["poster_path"].string)
+                    let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
+                                      vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
                     self.movies.append(movie)
                 }
                 self.tableView.reloadData()
@@ -43,7 +44,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.moviePoster.af_setImage(withURL: url!)
         }
         else {
-            //TODO no image
+            //TODO no image da null
         }
         return cell
     }
