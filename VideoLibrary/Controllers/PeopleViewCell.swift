@@ -10,7 +10,9 @@ import UIKit
 
 class PeopleViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var peopleName: UIImageView!
-    @IBOutlet weak var peopleImage: UILabel!    
+    @IBOutlet weak var actorImage: UIImageView!
+    @IBOutlet weak var actorName: UILabel!
+    
+    
     
 }
