@@ -14,4 +14,8 @@ protocol MovieRepository {
     var apiUrl: String {get}
     
     func discoverMovies(completionHandler: @escaping (JSON?, Error?) -> ())
+    
+    
+    
+    func discoverPeople(completionHandler: @escaping (JSON?, Error?) -> ())
 }
