@@ -24,6 +24,7 @@
 		3A80B643202F679400DD731E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A80B641202F679400DD731E /* Main.storyboard */; };
 		3A80B645202F679400DD731E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A80B644202F679400DD731E /* Assets.xcassets */; };
 		3A80B648202F679400DD731E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A80B646202F679400DD731E /* LaunchScreen.storyboard */; };
+		3A8A1397203444A800D022FE /* PeopleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8A1396203444A800D022FE /* PeopleViewCell.swift */; };
 		3A8AAAC320308BD600C63DB5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AAAC220308BD600C63DB5 /* Utils.swift */; };
 		F5352286DCE02D743DE3897E /* Pods_VideoLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 007DCA01D19A3FD5BAA4E23E /* Pods_VideoLibrary.framework */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		3A80B644202F679400DD731E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A80B647202F679400DD731E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A80B649202F679400DD731E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A8A1396203444A800D022FE /* PeopleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewCell.swift; sourceTree = "<group>"; };
 		3A8AAAC220308BD600C63DB5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		8FE4C8167B934B745FB8FC8C /* Pods-VideoLibrary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoLibrary.release.xcconfig"; path = "Pods/Target Support Files/Pods-VideoLibrary/Pods-VideoLibrary.release.xcconfig"; sourceTree = "<group>"; };
 		9BF94C5775625E493CA4B7CE /* Pods-VideoLibrary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoLibrary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VideoLibrary/Pods-VideoLibrary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				3A38AECD20305E3500E753DF /* TVShowsViewController.swift */,
 				3A38AECF20305E5500E753DF /* PeopleViewController.swift */,
 				3A43FADC20337AE200CFD723 /* MovieViewCell.swift */,
+				3A8A1396203444A800D022FE /* PeopleViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				3A59DF8A2030C00D0097E327 /* TVShow.swift in Sources */,
 				3A59DF882030BFE10097E327 /* MovieDetails.swift in Sources */,
 				3A59DF8C2030C0350097E327 /* TVShowDetails.swift in Sources */,
+				3A8A1397203444A800D022FE /* PeopleViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
