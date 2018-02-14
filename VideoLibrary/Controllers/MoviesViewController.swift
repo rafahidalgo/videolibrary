@@ -1,5 +1,6 @@
 
 import UIKit
+import AlamofireImage
 
 class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -37,7 +38,13 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieViewCell
         
         cell.movieTitle.text = movies[indexPath.row].title
-        //cell.moviePoster.setI
+        if let poster = movies[indexPath.row].posterUrl {
+            let url = URL(string: "https://image.tmdb.org/t/p/w500\(poster)")
+            cell.moviePoster.af_setImage(withURL: url!)
+        }
+        else {
+            //TODO no image
+        }
         return cell
     }
     
