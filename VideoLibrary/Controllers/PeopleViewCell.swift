@@ -13,6 +13,4 @@ class PeopleViewCell: UICollectionViewCell {
     @IBOutlet weak var actorImage: UIImageView!
     @IBOutlet weak var actorName: UILabel!
     
-    
-    
 }
