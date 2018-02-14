@@ -12,6 +12,14 @@ import SwiftyJSON
 protocol MovieRepository {
     
     var apiUrl: String {get}
+    var apiKey: String {get}
+    
+    init()
     
     func discoverMovies(completionHandler: @escaping (JSON?, Error?) -> ())
+    func getPopularMovies()
+    func getTopRatedMovies()
+    func moviesReleaseDateAsc()
+    
+    func getPosterImage(poster: String) -> URL?
 }

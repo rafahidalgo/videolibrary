@@ -14,12 +14,14 @@ struct MovieDatabaseRepository: MovieRepository {
     
     let apiUrl: String  
     let apiKey: String
+    let posterUrl: String
     
     
     init() {
         
         self.apiUrl = "https://api.themoviedb.org/3/"
         self.apiKey = "592d2665d929bc693a5ef6ece254bf2a"
+        self.posterUrl = "https://image.tmdb.org/t/p/w500"
         
     }
     
@@ -39,6 +41,31 @@ struct MovieDatabaseRepository: MovieRepository {
                 completionHandler(nil, error)
             }
         )
+        
+    }
+    
+    func getPopularMovies() {
+        
+        /*Alamofire.request("\(self.apiUrl)",
+            method: .get,
+            parameters: [])
+            .responseJSON { (response) in
+                
+        }*/
+    }
+    
+    func getTopRatedMovies() {
+        
+    }
+    
+    func moviesReleaseDateAsc() {
+        
+    }
+    
+    func getPosterImage(poster: String) -> URL? {
+        
+        let url = URL(string: "\(self.posterUrl)\(poster)")
+        return url
         
     }
     
