@@ -20,6 +20,7 @@ protocol MovieRepository {
     func getPopularMovies()
     func getTopRatedMovies()
     func moviesReleaseDateAsc()
-    
     func getPosterImage(poster: String) -> URL?
+    func discoverPeople(completionHandler: @escaping (JSON?, Error?) -> ())
+
 }

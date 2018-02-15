@@ -12,8 +12,8 @@ class ActorDetails: Actor {
     
     var biography: String?
     
-    public init(name:String, photo:URL?, biography:String?){
-        super.init(name: name, photo: photo)
+    public init(name:String, photoURL:String?, biography:String?){
+        super.init(name: name, photoURL: photoURL)
         self.biography = biography
     }
 }
