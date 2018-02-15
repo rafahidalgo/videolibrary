@@ -2,10 +2,9 @@
 import UIKit
 import AlamofireImage
 
-class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    @IBOutlet weak var tableView: UITableView!
+class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    @IBOutlet weak var collectionView: UICollectionView!
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var movies: [Movie] = []
@@ -13,6 +12,9 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         indicator.0.startAnimating()
@@ -25,7 +27,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                       vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
                     self.movies.append(movie)
                 }
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
                 indicator.0.stopAnimating()
                 indicator.1.removeFromSuperview()
                 return
@@ -39,19 +41,19 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.didReceiveMemoryWarning()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return movies.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieViewCell
         
         cell.movieTitle.text = movies[indexPath.row].title
         if let poster = movies[indexPath.row].posterUrl {
             let url = repository.getPosterImage(poster: poster)
-            cell.moviePoster.af_setImage(withURL: url!)
+            cell.moviePoster.af_setImage(withURL: url!)//TODO
         }
         else {
             //TODO no image da null
