@@ -1,6 +1,5 @@
 
 import UIKit
-import AlamofireImage
 
 class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -51,9 +50,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieViewCell
         
         cell.movieTitle.text = movies[indexPath.row].title
+        cell.movieDescription.text = movies[indexPath.row].overview
         if let poster = movies[indexPath.row].posterUrl {
-            let url = repository.getPosterImage(poster: poster)
-            cell.moviePoster.af_setImage(withURL: url!)//TODO
+            repository.getPosterImage(poster: poster, view: cell.moviePoster)
         }
         else {
             //TODO no image da null

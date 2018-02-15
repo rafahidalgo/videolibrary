@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
 struct MovieDatabaseRepository: MovieRepository {
@@ -66,10 +67,10 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func getPosterImage(poster: String) -> URL? {
+    func getPosterImage(poster: String, view: UIImageView) {
         
         let url = URL(string: "\(self.posterUrl)\(poster)")
-        return url
+        view.af_setImage(withURL: url!)
         
     }
     
