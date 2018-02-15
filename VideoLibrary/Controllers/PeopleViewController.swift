@@ -5,6 +5,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     @IBOutlet weak var collectionView: UICollectionView!
     var people: [Actor] = []
+    let utils = Utils()
     
 
     override func viewDidLoad() {
@@ -12,6 +13,10 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        indicator.0.startAnimating()
+        view.addSubview(indicator.1)
         
         let repository = MovieDatabaseRepository()
         repository.discoverPeople { (responseObject, error) in
@@ -21,6 +26,8 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
                     self.people.append(actor)
                 }
                 self.collectionView.reloadData()
+                indicator.0.stopAnimating()
+                indicator.1.removeFromSuperview()
                 return
             }
             print("\(String(describing: error))")
