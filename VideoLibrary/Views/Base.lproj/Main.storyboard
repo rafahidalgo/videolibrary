@@ -62,34 +62,38 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="MiR-jO-PVB" customClass="PeopleViewCell" customModule="VideoLibrary" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="275"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="180"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="275"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B7F-SC-MDC">
-                                                    <rect key="frame" x="16" y="13" width="169" height="228"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="y1R-hp-BJy">
-                                                    <rect key="frame" x="20" y="244" width="160" height="24"/>
+                                                    <rect key="frame" x="0.0" y="150" width="150" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="PaI-ge-Hk0"/>
+                                                        <constraint firstAttribute="width" constant="150" id="axO-lL-8fp"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" name="PrimaryColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B7F-SC-MDC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="YJ1-tA-Ex5"/>
+                                                        <constraint firstAttribute="height" constant="150" id="k8r-SP-QHm"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="y1R-hp-BJy" secondAttribute="trailing" constant="20" id="1Sw-U5-9rA"/>
-                                            <constraint firstItem="B7F-SC-MDC" firstAttribute="top" secondItem="MiR-jO-PVB" secondAttribute="topMargin" constant="5" id="BfW-Oz-qQW"/>
-                                            <constraint firstAttribute="bottom" secondItem="y1R-hp-BJy" secondAttribute="bottom" constant="7" id="Xlj-Cv-2DO"/>
-                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="top" secondItem="B7F-SC-MDC" secondAttribute="bottom" constant="3" id="ZJi-Q9-QIL"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="B7F-SC-MDC" secondAttribute="trailing" constant="7" id="hev-ib-3eC"/>
-                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="leading" secondItem="MiR-jO-PVB" secondAttribute="leading" constant="20" id="kap-KY-cIw"/>
-                                            <constraint firstItem="B7F-SC-MDC" firstAttribute="leading" secondItem="MiR-jO-PVB" secondAttribute="leadingMargin" constant="8" id="vqo-oA-c4w"/>
-                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="top" secondItem="B7F-SC-MDC" secondAttribute="bottom" constant="3" id="zKQ-3C-CU4"/>
+                                            <constraint firstAttribute="bottom" secondItem="y1R-hp-BJy" secondAttribute="bottom" id="Ii1-HA-8ga"/>
+                                            <constraint firstItem="B7F-SC-MDC" firstAttribute="top" secondItem="MiR-jO-PVB" secondAttribute="top" id="OAb-sM-8yG"/>
+                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="centerX" secondItem="MiR-jO-PVB" secondAttribute="centerX" id="RoG-6g-yEh"/>
+                                            <constraint firstItem="B7F-SC-MDC" firstAttribute="centerX" secondItem="MiR-jO-PVB" secondAttribute="centerX" id="czN-Fj-3O2"/>
                                         </constraints>
-                                        <size key="customSize" width="200" height="275"/>
+                                        <size key="customSize" width="150" height="180"/>
                                         <connections>
                                             <outlet property="actorImage" destination="B7F-SC-MDC" id="uhi-4A-CcK"/>
                                             <outlet property="actorName" destination="y1R-hp-BJy" id="gAm-DT-2xm"/>
@@ -114,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47c-lf-zbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="286" y="988"/>
+            <point key="canvasLocation" x="285.50724637681162" y="987.22826086956525"/>
         </scene>
         <!--Movies-->
         <scene sceneID="wtd-ev-W06">

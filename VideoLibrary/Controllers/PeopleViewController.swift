@@ -51,6 +51,8 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.actorName.text = self.people[indexPath.row].name
         if let imageURL = self.people[indexPath.row].photoURL {
             cell.actorImage.af_setImage(withURL: URL(string: "https://image.tmdb.org/t/p/w500\(imageURL)")!)
+            cell.actorImage.clipsToBounds = true
+            cell.actorImage.layer.cornerRadius = cell.actorImage.layer.frame.height / 2
         } else {
             //TODO si no hay foto
         }
