@@ -57,16 +57,16 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let options = UIAlertController(title: nil, message: "Choose an option", preferredStyle: .actionSheet)
         
-        let popular = UIAlertAction(title: "Popular movies", style: .default) { (alert: UIAlertAction) in
-            
-        }
+        let popular = UIAlertAction(title: "Popular movies", style: .default, handler: { (UIAlertAction) in
+            self.repository.getPopularMovies()
+        })
         
         let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
-            
+            print("Has pulsado popular")
         }
         
         let release = UIAlertAction(title: "Release date (asc)", style: .default) { (alert: UIAlertAction) in
-            
+            print("Has pulsado popular")
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alert: UIAlertAction) in
@@ -78,7 +78,12 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         options.addAction(release)
         options.addAction(cancel)
         
-        present(options, animated: true, completion: nil)
+        self.present(options, animated: true, completion: nil)
+    }
+    
+    func resetPageNumber() {
+        
+        
     }
     
 }

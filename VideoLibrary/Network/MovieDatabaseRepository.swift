@@ -46,12 +46,12 @@ struct MovieDatabaseRepository: MovieRepository {
     
     func getPopularMovies() {
         
-        /*Alamofire.request("\(self.apiUrl)",
+        Alamofire.request("\(self.apiUrl)\("movie/popular")",
             method: .get,
-            parameters: [])
+            parameters: ["api_key":self.apiKey, "language":"es-ES", "page":"1"])
             .responseJSON { (response) in
-                
-        }*/
+                print(response)
+        }
     }
     
     func getTopRatedMovies() {
