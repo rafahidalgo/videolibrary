@@ -7,11 +7,16 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     let repository = MovieDatabaseRepository()
+    let utils = Utils()
     var movies: [Movie] = []
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        indicator.0.startAnimating()
+        view.addSubview(indicator.1)
         
         repository.discoverMovies(){ responseObject, error in
             if let response = responseObject {
@@ -21,6 +26,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.movies.append(movie)
                 }
                 self.tableView.reloadData()
+                indicator.0.stopAnimating()
+                indicator.1.removeFromSuperview()
                 return
             }
             print("\(String(describing: error))")
@@ -48,6 +55,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         else {
             //TODO no image da null
+            
         }
         
         return cell
@@ -56,6 +64,10 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
         
         let options = UIAlertController(title: nil, message: "Choose an option", preferredStyle: .actionSheet)
+        
+        let discover = UIAlertAction(title: "Discover movies", style: .default, handler: { (UIAlertAction) in
+            
+        })
         
         let popular = UIAlertAction(title: "Popular movies", style: .default, handler: { (UIAlertAction) in
             self.repository.getPopularMovies()
@@ -73,6 +85,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
         
+        options.addAction(discover)
         options.addAction(popular)
         options.addAction(top)
         options.addAction(release)
@@ -81,7 +94,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.present(options, animated: true, completion: nil)
     }
     
-    func resetPageNumber() {
+    func resetContent() {
         
         
     }

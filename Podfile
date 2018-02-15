@@ -7,6 +7,7 @@ target 'VideoLibrary' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'AlamofireImage', '~> 3.3'
+
   # Pods for VideoLibrary
 
 end
