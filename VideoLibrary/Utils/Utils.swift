@@ -37,6 +37,28 @@ struct Utils {
         effectView.contentView.addSubview(activityIndicator)
         effectView.contentView.addSubview(strLabel)
         
+        activityIndicator.startAnimating()
+        view.addSubview(effectView)
+        
         return (activityIndicator, effectView)
     }
+    
+    func styleCardMoviesAndTVShows(cell: UICollectionViewCell) -> UICollectionViewCell{
+        
+        cell.contentView.layer.cornerRadius = 12.0
+        cell.contentView.layer.borderWidth = 0.5
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = false
+        cell.layer.shadowColor = UIColor.gray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        cell.layer.shadowRadius = 5.0
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+        
+        return cell
+    }
+    
+    
+    
 }

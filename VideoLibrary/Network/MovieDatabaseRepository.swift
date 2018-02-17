@@ -49,22 +49,58 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func getPopularMovies() {
+    func getPopularMovies(completionHandler: @escaping (JSON?, Error?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("movie/popular")",
             method: .get,
             parameters: ["api_key":self.apiKey, "language":"es-ES", "page":"1"])
             .responseJSON { (response) in
-                print(response)
+                if let data = response.result.value {
+                    let json = JSON(data)
+                    completionHandler(json, nil)
+                    return
+                }
+                let error = response.result.error
+                completionHandler(nil, error)
         }
     }
     
-    func getTopRatedMovies() {
+    func getTopRatedMovies(completionHandler: @escaping (JSON?, Error?) -> ()) {
         
+        Alamofire.request("\(self.apiUrl)\("movie/top_rated")",
+            method: .get,
+            parameters: ["api_key":self.apiKey, "language":"es-ES", "page":"1"])
+            .responseJSON { (response) in
+                if let data = response.result.value {
+                    let json = JSON(data)
+                    completionHandler(json, nil)
+                    return
+                }
+                let error = response.result.error
+                completionHandler(nil, error)
+        }
     }
     
-    func moviesReleaseDateAsc() {
+    func moviesReleaseDateAsc(completionHandler: @escaping (JSON?, Error?) -> ()) {
         
+        Alamofire.request("\(self.apiUrl)\("discover/movie")",
+            method: .get,
+            parameters: ["api_key":self.apiKey,
+                         "language":"es-ES",
+                         "sort_by":"release_date.asc",
+                         "include_adult":"false",
+                         "include_video":"false",
+                         "page":"1"])
+            .responseJSON(completionHandler: {response in
+                if let data = response.result.value {
+                    let json = JSON(data)
+                    completionHandler(json, nil)
+                    return
+                }
+                let error = response.result.error
+                completionHandler(nil, error)
+            }
+        )
     }
     
     func getPosterImage(poster: String, view: UIImageView) {
@@ -92,6 +128,5 @@ struct MovieDatabaseRepository: MovieRepository {
         }
         
     }
-    
     
 }

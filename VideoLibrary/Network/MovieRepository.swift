@@ -17,9 +17,9 @@ protocol MovieRepository {
     init()
     
     func discoverMovies(completionHandler: @escaping (JSON?, Error?) -> ())
-    func getPopularMovies()
-    func getTopRatedMovies()
-    func moviesReleaseDateAsc()
+    func getPopularMovies(completionHandler: @escaping (JSON?, Error?) -> ())
+    func getTopRatedMovies(completionHandler: @escaping (JSON?, Error?) -> ())
+    func moviesReleaseDateAsc(completionHandler: @escaping (JSON?, Error?) -> ())
     func getPosterImage(poster: String, view: UIImageView)
     func discoverPeople(completionHandler: @escaping (JSON?, Error?) -> ())
 
