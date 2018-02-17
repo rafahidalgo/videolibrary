@@ -43,6 +43,12 @@ struct Utils {
         return (activityIndicator, effectView)
     }
     
+    func stopLoadingIndicator(indicator: (UIActivityIndicatorView, UIVisualEffectView)) {
+        
+        indicator.0.stopAnimating()
+        indicator.1.removeFromSuperview()
+    }
+    
     func styleCardMoviesAndTVShows(cell: UICollectionViewCell) -> UICollectionViewCell{
         
         cell.contentView.layer.cornerRadius = 12.0

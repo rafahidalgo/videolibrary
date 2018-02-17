@@ -1,12 +1,14 @@
 
 import UIKit
+import SwiftyJSON
 
-class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {//TODO crear protocolo comun
     
     @IBOutlet weak var collectionView: UICollectionView!
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var movies: [Movie] = []
+    var page: Int = 1
     
     override func viewDidLoad() {
         
@@ -16,30 +18,15 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         collectionView.dataSource = self
         //TODO conexion internet
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
-        //TODO meter esto en una función
+
         repository.discoverMovies(){ responseObject, error in
             
-            if let response = responseObject {
-                
-                for item in response["results"] {
-                    let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
-                                      vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
-                    self.movies.append(movie)
-                }
-                
-                self.collectionView.reloadData()
-                indicator.0.stopAnimating()
-                indicator.1.removeFromSuperview()
-                
-                return
-            }
-            
-            print("\(String(describing: error))")//TODO cuadro de dialogo
+            self.saveDataToModel(data: responseObject, error: error)
+            self.utils.stopLoadingIndicator(indicator: indicator)
         }
     }
 
     override func didReceiveMemoryWarning() {
-        
         super.didReceiveMemoryWarning()
     }
     
@@ -73,23 +60,11 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.repository.discoverMovies(){ responseObject, error in
-                if let response = responseObject {
-                    
-                    self.resetContent()
-                    for item in response["results"] {
-                        let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
-                                          vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
-                        self.movies.append(movie)
-                    }
-                    
-                    self.collectionView.reloadData()
-                    indicator.0.stopAnimating()
-                    indicator.1.removeFromSuperview()
-                    
-                    return
-                }
                 
-                print("\(String(describing: error))")
+                self.resetContent()
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+                
             }
             
         })
@@ -99,25 +74,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.repository.getPopularMovies(){ responseObject, error in
             
-                if let response = responseObject {
-                    
-                    self.resetContent()
-                    for item in response["results"] {
-                        
-                        let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
-                                          vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
-                        self.movies.append(movie)
-                    }
-                    
-                    self.collectionView.reloadData()
-                    indicator.0.stopAnimating()
-                    indicator.1.removeFromSuperview()
-                    
-                    return
-                
-                }
-                
-                print("\(String(describing: error))")
+                self.resetContent()
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
                 
             }
         })
@@ -127,25 +86,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.repository.getTopRatedMovies() { responseObject, error in
                 
-                if let response = responseObject {
-                    
-                    self.resetContent()
-                    for item in response["results"] {
-                        
-                        let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
-                                          vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
-                        self.movies.append(movie)
-                    }
-                    
-                    self.collectionView.reloadData()
-                    indicator.0.stopAnimating()
-                    indicator.1.removeFromSuperview()
-                    
-                    return
-                    
-                }
-                
-                print("\(String(describing: error))")
+                self.resetContent()
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
                 
             }
         }
@@ -153,31 +96,14 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let release = UIAlertAction(title: "Release date (asc)", style: .default) { (alert: UIAlertAction) in
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
-            self.repository.moviesReleaseDateAsc() {
+            self.repository.moviesReleaseDateAsc() { responseObject, error in
                 
-                responseObject, error in
-                
-                if let response = responseObject {
-                    
-                    self.resetContent()
-                    for item in response["results"] {
-                        
-                        let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
-                                          vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
-                        self.movies.append(movie)
-                    }
-                    
-                    self.collectionView.reloadData()
-                    indicator.0.stopAnimating()
-                    indicator.1.removeFromSuperview()
-                    
-                    return
-                    
-                }
-                
-                print("\(String(describing: error))")
+               self.resetContent()
+               self.saveDataToModel(data: responseObject, error: error)
+               self.utils.stopLoadingIndicator(indicator: indicator)
                 
             }
+            
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alert: UIAlertAction) in
@@ -193,13 +119,27 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         self.present(options, animated: true, completion: nil)
     }
     
-    func saveMoviesData() {
+    func saveDataToModel(data: JSON?, error: Error?) {
         
+        if let response = data {
+            
+            for item in response["results"] {
+                let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
+                                  vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
+                self.movies.append(movie)
+            }
+            
+            self.collectionView.reloadData()
+            
+            return
+        }
         
+        print("\(String(describing: error))")//TODO cuadro de dialogo
     }
     
     func resetContent() {
-        //TODO reset página
+        
+        page = 1
         movies.removeAll()
     }
     
