@@ -50,6 +50,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         return utils.styleCardMoviesAndTVShows(cell: cell)
+
     }
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
