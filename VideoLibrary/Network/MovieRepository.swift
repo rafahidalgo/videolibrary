@@ -13,6 +13,7 @@ protocol MovieRepository {
     
     var apiUrl: String {get}
     var apiKey: String {get}
+    var posterUrl: String {get}
     
     init()
     

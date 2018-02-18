@@ -128,7 +128,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func saveDataToModel(data: JSON?, error: Error?) {
-        
+
         if let response = data {
             
             for item in response["results"] {
@@ -141,7 +141,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             return
         }
-        
+        /*let alert = UIAlertController(title: "Connection Lost",
+                                      message: "The device has lost connection to the server. Please, check the internet connection", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)*/
         print("\(String(describing: error))")//TODO cuadro de dialogo
     }
     

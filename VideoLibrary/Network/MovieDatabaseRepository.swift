@@ -37,13 +37,23 @@ struct MovieDatabaseRepository: MovieRepository {
                          "include_video":"false",
                          "page":"1"])
             .responseJSON(completionHandler: {response in
-                if let data = response.result.value {
+                
+                switch response.result {
+                    case .success(let data):
+                        let json = JSON(data)
+                        completionHandler(json, nil)
+                    case .failure(let error):
+                        let error = response.result.error
+                        
+                        completionHandler(nil, error)
+                }
+                /*if let data = response.result.value {
                     let json = JSON(data)
                     completionHandler(json, nil)
                     return
                 }
                 let error = response.result.error
-                completionHandler(nil, error)
+                completionHandler(nil, error)*/
             }
         )
         

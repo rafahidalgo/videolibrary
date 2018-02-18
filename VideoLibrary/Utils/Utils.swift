@@ -49,7 +49,12 @@ struct Utils {
         indicator.1.removeFromSuperview()
     }
     
-    
+    func alertConnectioLost(view: UIViewController) {
+        
+        let alert = UIAlertController(title: "Connection Lost",
+                                      message: "The device has lost connection to the server. Please, check the internet connection", preferredStyle: .alert)
+        view.present(alert, animated: true, completion: nil)
+    }
     
     func styleCardMoviesAndTVShows(cell: MovieViewCell) -> UICollectionViewCell{//lo pongo aqui porque puede que lo necesitemos para otra pantalla
         
