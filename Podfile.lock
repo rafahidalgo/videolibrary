@@ -3,17 +3,20 @@ PODS:
   - AlamofireImage (3.3.0):
     - Alamofire (~> 4.5)
   - SwiftyJSON (4.0.0)
+  - UICircularProgressRing (1.8.0)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage (~> 3.3)
   - SwiftyJSON
+  - UICircularProgressRing
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  UICircularProgressRing: c37a16e6b71c92eb31824e773e881203ba669306
 
-PODFILE CHECKSUM: e63fab68e7ffa9ee54bd165e40180c9c7728daa7
+PODFILE CHECKSUM: 0d84ab432942f256fb0ddbf52adc5d4a38f72817
 
 COCOAPODS: 1.4.0

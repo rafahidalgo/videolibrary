@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import UICircularProgressRing
 
 class MovieViewCell: UICollectionViewCell {
     
     @IBOutlet weak var moviePoster: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
-    @IBOutlet weak var movieDescription: UILabel!
+    @IBOutlet weak var movieRelease: UILabel!
+    @IBOutlet weak var voteAverage: UICircularProgressRingView!
     
 }

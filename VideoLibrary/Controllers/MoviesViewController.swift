@@ -40,7 +40,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieViewCell
         
         cell.movieTitle.text = movies[indexPath.row].title
-        cell.movieDescription.text = movies[indexPath.row].overview
+        cell.voteAverage.setProgress(value: CGFloat(movies[indexPath.row].vote), animationDuration: 0)
+        cell.movieRelease.text = movies[indexPath.row].release
         if let poster = movies[indexPath.row].posterUrl {
             repository.getPosterImage(poster: poster, view: cell.moviePoster)
         }
