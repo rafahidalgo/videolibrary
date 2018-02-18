@@ -118,6 +118,12 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         options.addAction(release)
         options.addAction(cancel)
         
+        //Crash del action sheet en tablets https://stackoverflow.com/questions/31577140/uialertcontroller-is-crashed-ipad/31577494
+        if let popover = options.popoverPresentationController {
+            popover.sourceView = view
+            popover.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.maxY, width: 1.0, height: 1.0)
+        }
+        
         self.present(options, animated: true, completion: nil)
     }
     
