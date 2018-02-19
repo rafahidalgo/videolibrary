@@ -22,5 +22,7 @@ protocol MovieRepository {
     func moviesReleaseDateAsc()
     func getPosterImage(poster: String) -> URL?
     func discoverPeople(completionHandler: @escaping (JSON?, Error?) -> ())
+    func getPerson(name: String, completionHandler: @escaping (JSON?, Error?) -> ())
+
 
 }

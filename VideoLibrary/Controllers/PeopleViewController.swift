@@ -1,7 +1,7 @@
 
 import UIKit
 
-class PeopleViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class PeopleViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -15,6 +15,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        searchBar.delegate = self
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         indicator.0.startAnimating()
@@ -76,6 +77,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
+    //Funcionalidad botón search
     
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
         
@@ -85,9 +87,48 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
+    //Funcionalidad barra search
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let name = searchBar.text {
+            searchPerson(name: name)
+        } else {
+            //TODO meter alarma si no se ha introducido texto en la barra
+        }
+        
+    }    
+    
+    //Búsqueda de actores por nombre completo
+    
+    func searchPerson(name: String) {
+        people = []
+        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        indicator.0.startAnimating()
+        view.addSubview(indicator.1)
+        let repository = MovieDatabaseRepository()
+        repository.getPerson(name: name) { (responseObject, error) in
+            if let response = responseObject {
+                for item in response["results"] {
+                    if let name = item.1["name"].string {
+                        if let photo = item.1["profile_path"].string {
+                            let actor = Actor(name: name, photoURL: photo)
+                            self.people.append(actor)
+                        }
+//                        else {
+//                            let actor = Actor(name: name, photoURL: nil) //TODO poner imagen de no hay foto
+//                            self.people.append(actor)
+//                        }
+                    }
+                }
+                self.collectionView.reloadData()
+                indicator.0.stopAnimating()
+                indicator.1.removeFromSuperview()
+                return
+            }
+            print("\(String(describing: error))")
+            //TODO metemos alerta?
+        }
+    }
     
     
-
-  
-
 }
