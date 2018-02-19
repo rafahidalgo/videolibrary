@@ -7,7 +7,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var searchBar: UISearchBar!
     var people: [Actor] = []
     let utils = Utils()
-    
+    let repository = MovieDatabaseRepository()
     
     
     override func viewDidLoad() {
@@ -16,35 +16,10 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
-        
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
-        indicator.0.startAnimating()
-        view.addSubview(indicator.1)
-        
-        let repository = MovieDatabaseRepository()
-        repository.discoverPeople { (responseObject, error) in
-            if let response = responseObject {
-                for item in response["results"] {                    
-                    let actor = Actor(name: item.1["name"].string!, photoURL: item.1["profile_path"].string!)
-                    self.people.append(actor)
-                }
-                self.collectionView.reloadData()
-                indicator.0.stopAnimating()
-                indicator.1.removeFromSuperview()
-                return
-            }
-            print("\(String(describing: error))")
-            //TODO metemos alerta?
-        }
-        
+        searchPopularPeople()
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-    }
-    
     
     //CollectionView
     
@@ -96,16 +71,43 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
             //TODO meter alarma si no se ha introducido texto en la barra
         }
         
-    }    
+    }
+    
+    //Búsqueda de actores populares
+    
+    func searchPopularPeople() {
+        
+        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        indicator.0.startAnimating()
+        view.addSubview(indicator.1)
+        
+        repository.discoverPeople { (responseObject, error) in
+            if let response = responseObject {
+                for item in response["results"] {
+                    let actor = Actor(name: item.1["name"].string!, photoURL: item.1["profile_path"].string!)
+                    self.people.append(actor)
+                }
+                self.collectionView.reloadData()
+                indicator.0.stopAnimating()
+                indicator.1.removeFromSuperview()
+                return
+            }
+            print("\(String(describing: error))")
+            //TODO metemos alerta?
+        }
+    }
+    
     
     //Búsqueda de actores por nombre completo
     
     func searchPerson(name: String) {
+        
         people = []
+        
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         indicator.0.startAnimating()
         view.addSubview(indicator.1)
-        let repository = MovieDatabaseRepository()
+        
         repository.getPerson(name: name) { (responseObject, error) in
             if let response = responseObject {
                 for item in response["results"] {
