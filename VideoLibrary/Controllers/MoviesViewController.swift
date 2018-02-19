@@ -16,10 +16,10 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        //TODO conexion internet
+
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
 
-        repository.discoverMovies(){ responseObject, error in
+        repository.discoverMovies(page: page){ responseObject, error in
             
             self.saveDataToModel(data: responseObject, error: error)
             self.utils.stopLoadingIndicator(indicator: indicator)
@@ -31,7 +31,6 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return movies.count
     }
     
@@ -61,9 +60,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let discover = UIAlertAction(title: "Discover movies", style: .default, handler: { (UIAlertAction) in
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
-            self.repository.discoverMovies(){ responseObject, error in
+            self.resetContent()
+            self.repository.discoverMovies(page: self.page){ responseObject, error in
                 
-                self.resetContent()
                 self.saveDataToModel(data: responseObject, error: error)
                 self.utils.stopLoadingIndicator(indicator: indicator)
                 
@@ -74,9 +73,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let popular = UIAlertAction(title: "Popular movies", style: .default, handler: { (UIAlertAction) in
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
+            self.resetContent()
             self.repository.getPopularMovies(){ responseObject, error in
             
-                self.resetContent()
                 self.saveDataToModel(data: responseObject, error: error)
                 self.utils.stopLoadingIndicator(indicator: indicator)
                 
@@ -86,9 +85,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
+            self.resetContent()
             self.repository.getTopRatedMovies() { responseObject, error in
                 
-                self.resetContent()
                 self.saveDataToModel(data: responseObject, error: error)
                 self.utils.stopLoadingIndicator(indicator: indicator)
                 
@@ -98,9 +97,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let release = UIAlertAction(title: "Release date (asc)", style: .default) { (alert: UIAlertAction) in
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
+            self.resetContent()
             self.repository.moviesReleaseDateAsc() { responseObject, error in
                 
-               self.resetContent()
                self.saveDataToModel(data: responseObject, error: error)
                self.utils.stopLoadingIndicator(indicator: indicator)
                 
@@ -149,6 +148,18 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
         }
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == movies.count - 1 {
+            let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+            page += 1
+            repository.discoverMovies(page: page){ responseObject, error in
+                
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+            }
+        }
     }
     
     func resetContent() {

@@ -26,8 +26,8 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func discoverMovies(completionHandler: @escaping (JSON?, NSError?) -> ()) {
-        
+    func discoverMovies(page:Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+//TODO meter una funcion privada que verifique el codigo de respuesta
         Alamofire.request("\(self.apiUrl)\("discover/movie")",
             method: .get,
             parameters: ["api_key":self.apiKey,
@@ -35,7 +35,7 @@ struct MovieDatabaseRepository: MovieRepository {
                          "sort_by":"popularity.desc",
                          "include_adult":"false",
                          "include_video":"false",
-                         "page":"1"])
+                         "page":page])
             .responseJSON(completionHandler: {response in
 
                 switch response.result {
