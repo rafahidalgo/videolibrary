@@ -4,10 +4,12 @@ import UIKit
 class PeopleViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
     var people: [Actor] = []
     let utils = Utils()
     
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +44,9 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     }
     
+    
+    //CollectionView
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return people.count
     }
@@ -68,7 +73,6 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
         
         return cell
-        
         
     }
     
