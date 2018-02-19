@@ -59,6 +59,9 @@
                     <navigationItem key="navigationItem" title="TV Shows" id="7kH-pX-GMs">
                         <barButtonItem key="rightBarButtonItem" image="More Toolbar Icon" landscapeImage="More Toolbar Icon" id="v95-yw-zg9">
                             <color key="tintColor" name="PrimaryColor"/>
+                            <connections>
+                                <action selector="showActionSheet:" destination="BYZ-38-t0r" id="zrs-Vw-Z7S"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>

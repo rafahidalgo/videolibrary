@@ -60,11 +60,11 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func getPopularMovies(completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getPopularMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("movie/popular")",
             method: .get,
-            parameters: ["api_key":self.apiKey, "language":"es-ES", "page":"1"])
+            parameters: ["api_key":self.apiKey, "language":"es-ES", "page":page])
             .responseJSON { (response) in
                 
                 switch response.result {
@@ -87,11 +87,11 @@ struct MovieDatabaseRepository: MovieRepository {
         }
     }
     
-    func getTopRatedMovies(completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getTopRatedMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("movie/top_rated")",
             method: .get,
-            parameters: ["api_key":self.apiKey, "language":"es-ES", "page":"1"])
+            parameters: ["api_key":self.apiKey, "language":"es-ES", "page":page])
             .responseJSON { (response) in
                 
                 switch response.result {
@@ -114,7 +114,7 @@ struct MovieDatabaseRepository: MovieRepository {
         }
     }
     
-    func moviesReleaseDateAsc(completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func moviesReleaseDateAsc(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("discover/movie")",
             method: .get,
@@ -123,7 +123,7 @@ struct MovieDatabaseRepository: MovieRepository {
                          "sort_by":"release_date.asc",
                          "include_adult":"false",
                          "include_video":"false",
-                         "page":"1"])
+                         "page":page])
             .responseJSON(completionHandler: {response in
                 
                 switch response.result {

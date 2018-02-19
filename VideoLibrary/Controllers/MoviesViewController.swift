@@ -74,7 +74,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.resetContent()
-            self.repository.getPopularMovies(){ responseObject, error in
+            self.repository.getPopularMovies(page: self.page){ responseObject, error in
             
                 self.saveDataToModel(data: responseObject, error: error)
                 self.utils.stopLoadingIndicator(indicator: indicator)
@@ -86,7 +86,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.resetContent()
-            self.repository.getTopRatedMovies() { responseObject, error in
+            self.repository.getTopRatedMovies(page: self.page) { responseObject, error in
                 
                 self.saveDataToModel(data: responseObject, error: error)
                 self.utils.stopLoadingIndicator(indicator: indicator)
@@ -98,7 +98,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.resetContent()
-            self.repository.moviesReleaseDateAsc() { responseObject, error in
+            self.repository.moviesReleaseDateAsc(page: self.page) { responseObject, error in
                 
                self.saveDataToModel(data: responseObject, error: error)
                self.utils.stopLoadingIndicator(indicator: indicator)
