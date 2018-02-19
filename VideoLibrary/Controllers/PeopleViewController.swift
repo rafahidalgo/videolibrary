@@ -65,10 +65,11 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     //Funcionalidad barra search
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let name = searchBar.text {
-            searchPerson(name: name)
+        
+        if searchBar.text == "" {
+            searchPopularPeople()
         } else {
-            //TODO meter alarma si no se ha introducido texto en la barra
+            searchPerson(name: searchBar.text!)
         }
         
     }
@@ -76,6 +77,8 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     //Búsqueda de actores populares
     
     func searchPopularPeople() {
+        
+        self.people = []
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         indicator.0.startAnimating()
@@ -102,7 +105,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     func searchPerson(name: String) {
         
-        people = []
+        self.people = []
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         indicator.0.startAnimating()
