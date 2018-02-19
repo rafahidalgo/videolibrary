@@ -76,6 +76,17 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
+    
+    @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
+        
+        let view = (navigationItem.titleView == searchBar) ? nil : searchBar
+        navigationItem.titleView = view
+        searchBar.text = nil
+        
+    }
+    
+    
+    
 
   
 

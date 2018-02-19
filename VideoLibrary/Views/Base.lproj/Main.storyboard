@@ -42,7 +42,7 @@
             </objects>
             <point key="canvasLocation" x="2186.9565217391305" y="378.26086956521743"/>
         </scene>
-        <!--People-->
+        <!--Popular People-->
         <scene sceneID="WdB-x3-hfm">
             <objects>
                 <viewController id="O67-wg-1l8" customClass="PeopleViewController" customModule="VideoLibrary" customModuleProvider="target" sceneMemberID="viewController">
@@ -111,7 +111,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pDM-j4-mP0"/>
                     </view>
-                    <navigationItem key="navigationItem" title="People" id="Ehf-sk-GEE">
+                    <navigationItem key="navigationItem" title="Popular People" id="Ehf-sk-GEE">
                         <rightBarButtonItems>
                             <barButtonItem image="More Toolbar Icon" style="done" id="5cd-Qe-Gr2">
                                 <color key="tintColor" name="PrimaryColor"/>
@@ -121,6 +121,9 @@
                             </barButtonItem>
                             <barButtonItem systemItem="search" id="gWX-re-vgK">
                                 <color key="tintColor" name="PrimaryColor"/>
+                                <connections>
+                                    <action selector="showSearchBar:" destination="O67-wg-1l8" id="1Wu-GQ-AUZ"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
