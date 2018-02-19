@@ -142,7 +142,12 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             return
         }
         
-        utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+        if (error?.code)! < 0 {
+            utils.showAlertConnectionLost(view: self)
+        }
+        else {
+            utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+        }
 
     }
     

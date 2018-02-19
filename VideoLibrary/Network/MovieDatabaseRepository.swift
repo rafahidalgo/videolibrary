@@ -154,32 +154,21 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func discoverPeople(completionHandler: @escaping (JSON?, NSError?) -> ()) {
-        
+    func discoverPeople(completionHandler: @escaping (JSON?, Error?) -> ()) {
+        //TODO poner switch para que compruebe el codigo de la respuesta del API y cambiar a NSError
         Alamofire.request("\(self.apiUrl)person/popular",
             method: .get,
             parameters: ["api_key": self.apiKey,
                          "language": "es-ES",
                          "page": "1"])
             .responseJSON { response in
-                
-                switch response.result {
-                    
-                    case .success(let data):
-                        let json = JSON(data)
-                        let code = (response.response?.statusCode)! as Int
-                    
-                    switch code {
-                        case 200:
-                            completionHandler(json, nil)
-                        default:
-                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
-                            completionHandler(nil, error)
-                    }
-                    
-                case .failure(let error as NSError):
-                    completionHandler(nil, error)
+                if let data = response.result.value {
+                    let json = JSON(data)
+                    completionHandler(json, nil)
+                    return
                 }
+                let error = response.result.error
+                completionHandler(nil, error)
         }
         
     }
