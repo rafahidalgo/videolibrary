@@ -49,10 +49,31 @@ struct Utils {
         indicator.1.removeFromSuperview()
     }
     
-    func alertConnectioLost(view: UIViewController) {
+    func showAlertConnectionLost(view: UIViewController) {
         
         let alert = UIAlertController(title: "Connection Lost",
                                       message: "The device has lost connection to the server. Please, check the internet connection", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        })
+        
+        alert.addAction(okAction)
+        
+        view.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlertError(code: Int, message: String, view: UIViewController) {
+        
+        let alert = UIAlertController(title: "Error \(code)",
+                                      message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        })
+        
+        alert.addAction(okAction)
+        
         view.present(alert, animated: true, completion: nil)
     }
     

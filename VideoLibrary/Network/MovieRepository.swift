@@ -17,11 +17,11 @@ protocol MovieRepository {
     
     init()
     
-    func discoverMovies(completionHandler: @escaping (JSON?, Error?) -> ())
-    func getPopularMovies(completionHandler: @escaping (JSON?, Error?) -> ())
-    func getTopRatedMovies(completionHandler: @escaping (JSON?, Error?) -> ())
-    func moviesReleaseDateAsc(completionHandler: @escaping (JSON?, Error?) -> ())
+    func discoverMovies(completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getPopularMovies(completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getTopRatedMovies(completionHandler: @escaping (JSON?, NSError?) -> ())
+    func moviesReleaseDateAsc(completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPosterImage(poster: String, view: UIImageView)
-    func discoverPeople(completionHandler: @escaping (JSON?, Error?) -> ())
+    func discoverPeople(completionHandler: @escaping (JSON?, NSError?) -> ())
 
 }

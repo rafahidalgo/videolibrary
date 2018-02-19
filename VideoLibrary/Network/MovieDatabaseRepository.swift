@@ -26,7 +26,7 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func discoverMovies(completionHandler: @escaping (JSON?, Error?) -> ()) {
+    func discoverMovies(completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("discover/movie")",
             method: .get,
@@ -37,61 +37,84 @@ struct MovieDatabaseRepository: MovieRepository {
                          "include_video":"false",
                          "page":"1"])
             .responseJSON(completionHandler: {response in
-                
+
                 switch response.result {
+                    
                     case .success(let data):
                         let json = JSON(data)
-                        completionHandler(json, nil)
-                    case .failure(let error):
-                        let error = response.result.error
+                        let code = (response.response?.statusCode)! as Int
                         
+                        switch code {
+                            case 200:
+                                completionHandler(json, nil)
+                            default:
+                                let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                                completionHandler(nil, error)
+                        }
+                    
+                    case .failure(let error as NSError)://internet lost
                         completionHandler(nil, error)
                 }
-                /*if let data = response.result.value {
-                    let json = JSON(data)
-                    completionHandler(json, nil)
-                    return
-                }
-                let error = response.result.error
-                completionHandler(nil, error)*/
             }
         )
         
     }
     
-    func getPopularMovies(completionHandler: @escaping (JSON?, Error?) -> ()) {
+    func getPopularMovies(completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("movie/popular")",
             method: .get,
             parameters: ["api_key":self.apiKey, "language":"es-ES", "page":"1"])
             .responseJSON { (response) in
-                if let data = response.result.value {
-                    let json = JSON(data)
-                    completionHandler(json, nil)
-                    return
-                }
-                let error = response.result.error
-                completionHandler(nil, error)
+                
+                switch response.result {
+                    
+                    case .success(let data):
+                        let json = JSON(data)
+                        let code = (response.response?.statusCode)! as Int
+                    
+                    switch code {
+                        case 200:
+                            completionHandler(json, nil)
+                        default:
+                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                            completionHandler(nil, error)
+                    }
+                    
+                case .failure(let error as NSError):
+                    completionHandler(nil, error)
+            }
         }
     }
     
-    func getTopRatedMovies(completionHandler: @escaping (JSON?, Error?) -> ()) {
+    func getTopRatedMovies(completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("movie/top_rated")",
             method: .get,
             parameters: ["api_key":self.apiKey, "language":"es-ES", "page":"1"])
             .responseJSON { (response) in
-                if let data = response.result.value {
-                    let json = JSON(data)
-                    completionHandler(json, nil)
-                    return
-                }
-                let error = response.result.error
-                completionHandler(nil, error)
+                
+                switch response.result {
+                    
+                    case .success(let data):
+                        let json = JSON(data)
+                        let code = (response.response?.statusCode)! as Int
+                    
+                    switch code {
+                        case 200:
+                            completionHandler(json, nil)
+                        default:
+                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                            completionHandler(nil, error)
+                    }
+                    
+                case .failure(let error as NSError):
+                    completionHandler(nil, error)
+            }
         }
     }
     
-    func moviesReleaseDateAsc(completionHandler: @escaping (JSON?, Error?) -> ()) {
+    func moviesReleaseDateAsc(completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("discover/movie")",
             method: .get,
@@ -102,13 +125,24 @@ struct MovieDatabaseRepository: MovieRepository {
                          "include_video":"false",
                          "page":"1"])
             .responseJSON(completionHandler: {response in
-                if let data = response.result.value {
-                    let json = JSON(data)
-                    completionHandler(json, nil)
-                    return
+                
+                switch response.result {
+                    
+                    case .success(let data):
+                        let json = JSON(data)
+                        let code = (response.response?.statusCode)! as Int
+                    
+                    switch code {
+                        case 200:
+                            completionHandler(json, nil)
+                        default:
+                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                            completionHandler(nil, error)
+                    }
+                    
+                case .failure(let error as NSError):
+                    completionHandler(nil, error)
                 }
-                let error = response.result.error
-                completionHandler(nil, error)
             }
         )
     }
@@ -120,7 +154,7 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func discoverPeople(completionHandler: @escaping (JSON?, Error?) -> ()) {
+    func discoverPeople(completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)person/popular",
             method: .get,
@@ -128,13 +162,24 @@ struct MovieDatabaseRepository: MovieRepository {
                          "language": "es-ES",
                          "page": "1"])
             .responseJSON { response in
-                if let data = response.result.value {
-                    let json = JSON(data)
-                    completionHandler(json, nil)
-                    return
+                
+                switch response.result {
+                    
+                    case .success(let data):
+                        let json = JSON(data)
+                        let code = (response.response?.statusCode)! as Int
+                    
+                    switch code {
+                        case 200:
+                            completionHandler(json, nil)
+                        default:
+                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                            completionHandler(nil, error)
+                    }
+                    
+                case .failure(let error as NSError):
+                    completionHandler(nil, error)
                 }
-                let error = response.result.error
-                completionHandler(nil, error)
         }
         
     }
