@@ -173,4 +173,24 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
+
+    func getPerson(name: String, completionHandler: @escaping (JSON?, Error?) -> ()) {
+        Alamofire.request("\(self.apiUrl)search/person",
+            method: .get,
+            parameters: ["api_key": self.apiKey,
+                         "language": "es-ES",
+                         "query": name,
+                         "page": "1"])
+            .responseJSON { response in
+                if let data = response.result.value {
+                    let json = JSON(data)
+                    completionHandler(json, nil)
+                    return
+                }
+                let error = response.result.error
+                completionHandler(nil, error)
+        }
+    }    
+    
+
 }
