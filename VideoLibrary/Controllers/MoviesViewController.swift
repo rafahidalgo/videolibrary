@@ -2,13 +2,21 @@
 import UIKit
 import SwiftyJSON
 
+enum Load: String {
+    case discover
+    case popular
+    case top_rated
+    case release_date
+}
+
 class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {//TODO crear protocolo comun
     
     @IBOutlet weak var collectionView: UICollectionView!
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var movies: [Movie] = []
-    var page: Int = 1
+    var page = 1
+    var content = Load.discover
     
     override func viewDidLoad() {
         
@@ -17,13 +25,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
-
-        repository.discoverMovies(page: page){ responseObject, error in
-            
-            self.saveDataToModel(data: responseObject, error: error)
-            self.utils.stopLoadingIndicator(indicator: indicator)
-        }
+        getData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,56 +56,36 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
-        //TODO revisar para pagina
+
         let options = UIAlertController(title: nil, message: "Choose an option", preferredStyle: .actionSheet)
         
         let discover = UIAlertAction(title: "Discover movies", style: .default, handler: { (UIAlertAction) in
-            
-            let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
+
             self.resetContent()
-            self.repository.discoverMovies(page: self.page){ responseObject, error in
-                
-                self.saveDataToModel(data: responseObject, error: error)
-                self.utils.stopLoadingIndicator(indicator: indicator)
-                
-            }
+            self.content = .discover
+            self.getData()
             
         })
         
         let popular = UIAlertAction(title: "Popular movies", style: .default, handler: { (UIAlertAction) in
             
-            let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.resetContent()
-            self.repository.getPopularMovies(page: self.page){ responseObject, error in
-            
-                self.saveDataToModel(data: responseObject, error: error)
-                self.utils.stopLoadingIndicator(indicator: indicator)
-                
-            }
+            self.content = .popular
+            self.getData()
         })
         
         let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
             
-            let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.resetContent()
-            self.repository.getTopRatedMovies(page: self.page) { responseObject, error in
-                
-                self.saveDataToModel(data: responseObject, error: error)
-                self.utils.stopLoadingIndicator(indicator: indicator)
-                
-            }
+            self.content = .top_rated
+            self.getData()
         }
         
         let release = UIAlertAction(title: "Release date (asc)", style: .default) { (alert: UIAlertAction) in
             
-            let indicator = self.utils.showLoadingIndicator(title: "Loading...", view: self.view)
             self.resetContent()
-            self.repository.moviesReleaseDateAsc(page: self.page) { responseObject, error in
-                
-               self.saveDataToModel(data: responseObject, error: error)
-               self.utils.stopLoadingIndicator(indicator: indicator)
-                
-            }
+            self.content = .release_date
+            self.getData()
             
         }
         
@@ -126,6 +108,51 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         self.present(options, animated: true, completion: nil)
     }
     
+    //Scroll infinito
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == movies.count - 1 {
+            page += 1
+            getData()
+        }
+    }
+    
+    func getData() {
+        
+        //La vista de películas puede mostrar los datos filtrados por diversos criterios (películas populares, mejor valoradas,...) por lo que cuando un usuario
+        //realiza scroll en la pantalla debe conocerse qué criterio está fijado para cargar los datos de la página correspondiente
+        //de una dirección u otra. Una manera de hacer esto es mediante una variable, en este caso content, que almacena la opción seleccionada y
+        //en función de su valor se obtienen los datos correspondientes.
+        
+        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        switch content {
+            case .discover:
+                repository.discoverMovies(page: page){ responseObject, error in
+                    
+                    self.saveDataToModel(data: responseObject, error: error)
+                    self.utils.stopLoadingIndicator(indicator: indicator)
+            }
+            case .popular:
+                repository.getPopularMovies(page: page){ responseObject, error in
+                    
+                    self.saveDataToModel(data: responseObject, error: error)
+                    self.utils.stopLoadingIndicator(indicator: indicator)
+            }
+            case .top_rated:
+                repository.getTopRatedMovies(page: page) { responseObject, error in
+                    
+                    self.saveDataToModel(data: responseObject, error: error)
+                    self.utils.stopLoadingIndicator(indicator: indicator)
+            }
+            default:
+                repository.moviesReleaseDateAsc(page: page) { responseObject, error in
+                    
+                    self.saveDataToModel(data: responseObject, error: error)
+                    self.utils.stopLoadingIndicator(indicator: indicator)
+            }
+        }
+    }
+    
+    //Esta función recorre el objeto JSON que tiene la información de las películas y almacena estos datos en el modelo
     func saveDataToModel(data: JSON?, error: NSError?) {
 
         if let response = data {
@@ -150,22 +177,10 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
 
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 1 {
-            let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
-            page += 1
-            repository.discoverMovies(page: page){ responseObject, error in
-                
-                self.saveDataToModel(data: responseObject, error: error)
-                self.utils.stopLoadingIndicator(indicator: indicator)
-            }
-        }
-    }
-    
     func resetContent() {
-        
         page = 1
         movies.removeAll()
+        collectionView.setContentOffset(CGPoint.zero, animated: true)
     }
     
 }
