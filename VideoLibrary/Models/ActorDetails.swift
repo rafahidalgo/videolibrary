@@ -10,10 +10,20 @@ import Foundation
 
 class ActorDetails: Actor {
     
-    var biography: String?
+    let biography: String?
+    let birthday: Date?
+    let placeOfBirth: String?
+    let movie: [Movie]?
+    let tvShow: [TVShow]?
     
-    public init(name:String, photoURL:String?, biography:String?){
-        super.init(name: name, photoURL: photoURL)
+    public init(id: Int, name: String, photoURL: String?, biography: String?, birthday: Date?, placeOfBirth: String?, movie: [Movie]?, tvShow: [TVShow]?){
+        
         self.biography = biography
+        self.birthday = birthday
+        self.placeOfBirth = placeOfBirth
+        self.movie = movie
+        self.tvShow = tvShow
+        super.init(id: id, name: name, photoURL: photoURL)
+
     }
 }
