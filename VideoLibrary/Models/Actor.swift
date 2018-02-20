@@ -10,10 +10,12 @@ import Foundation
 
 class Actor {
     
+    let id: Int
     let name: String
-    var photoURL: String? //puede que el actor no tenga foto
+    var photoURL: String?
     
-    public init(name: String, photoURL: String?){
+    public init(id: Int, name: String, photoURL: String?){
+        self.id = id
         self.name = name
         self.photoURL = photoURL
     }

@@ -97,7 +97,8 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
                 for item in response["results"] {
                     if let name = item.1["name"].string {
                         if let photo = item.1["profile_path"].string {
-                            let actor = Actor(name: name, photoURL: photo)
+                            let id = item.1["id"].int!
+                            let actor = Actor(id: id, name: name, photoURL: photo)
                             self.people.append(actor)
                         }
 //                        else {
@@ -131,7 +132,8 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
                 for item in response["results"] {
                     if let name = item.1["name"].string {
                         if let photo = item.1["profile_path"].string {
-                            let actor = Actor(name: name, photoURL: photo)
+                            let id = item.1["id"].int!
+                            let actor = Actor(id: id, name: name, photoURL: photo)
                             self.people.append(actor)
                         }
 //                        else {
@@ -169,6 +171,15 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.people.removeAll()
         self.collectionView.setContentOffset(CGPoint.zero, animated: false)
     }
+    
+    //Pasar id al controlador de detalle
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! PeopleViewCell
+        let indexPath = collectionView.indexPath(for: cell)
+        let detailViewController = segue.destination as! PeopleDetailViewController
+        detailViewController.id = people[(indexPath?.row)!].id
+    }
+    
     
     
 }
