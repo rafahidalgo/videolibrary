@@ -24,8 +24,8 @@ protocol MovieRepository {
     
     func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPosterImage(poster: String, view: UIImageView)
-    func discoverPeople(page: Int, completionHandler: @escaping (JSON?, Error?) -> ())
-    func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, Error?) -> ())
+    func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
 
 
 }

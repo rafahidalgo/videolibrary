@@ -69,20 +69,20 @@ struct MovieDatabaseRepository: MovieRepository {
                 
                 switch response.result {
                     
-                    case .success(let data):
-                        let json = JSON(data)
-                        let code = (response.response?.statusCode)! as Int
+                        case .success(let data):
+                            let json = JSON(data)
+                            let code = (response.response?.statusCode)! as Int
                     
-                    switch code {
-                        case 200:
-                            completionHandler(json, nil)
-                        default:
-                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
-                            completionHandler(nil, error)
+                            switch code {
+                                case 200:
+                                    completionHandler(json, nil)
+                                default:
+                                    let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                                    completionHandler(nil, error)
                     }
                     
-                case .failure(let error as NSError):
-                    completionHandler(nil, error)
+                        case .failure(let error as NSError):
+                            completionHandler(nil, error)
             }
         }
     }
@@ -100,16 +100,16 @@ struct MovieDatabaseRepository: MovieRepository {
                         let json = JSON(data)
                         let code = (response.response?.statusCode)! as Int
                     
-                    switch code {
-                        case 200:
-                            completionHandler(json, nil)
-                        default:
-                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
-                            completionHandler(nil, error)
+                        switch code {
+                            case 200:
+                                completionHandler(json, nil)
+                            default:
+                                let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                                completionHandler(nil, error)
                     }
                     
-                case .failure(let error as NSError):
-                    completionHandler(nil, error)
+                    case .failure(let error as NSError):
+                        completionHandler(nil, error)
             }
         }
     }
@@ -132,16 +132,16 @@ struct MovieDatabaseRepository: MovieRepository {
                         let json = JSON(data)
                         let code = (response.response?.statusCode)! as Int
                     
-                    switch code {
-                        case 200:
-                            completionHandler(json, nil)
-                        default:
-                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
-                            completionHandler(nil, error)
+                        switch code {
+                            case 200:
+                                completionHandler(json, nil)
+                            default:
+                                let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                                completionHandler(nil, error)
                     }
                     
-                case .failure(let error as NSError):
-                    completionHandler(nil, error)
+                    case .failure(let error as NSError):
+                        completionHandler(nil, error)
                 }
             }
         )
@@ -161,20 +161,20 @@ struct MovieDatabaseRepository: MovieRepository {
                 
                 switch response.result {
                     
-                case .success(let data):
-                    let json = JSON(data)
-                    let code = (response.response?.statusCode)! as Int
-                    
-                    switch code {
-                    case 200:
-                        completionHandler(json, nil)
-                    default:
-                        let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
-                        completionHandler(nil, error)
+                    case .success(let data):
+                        let json = JSON(data)
+                        let code = (response.response?.statusCode)! as Int
+                        
+                        switch code {
+                            case 200:
+                                completionHandler(json, nil)
+                            default:
+                                let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                                completionHandler(nil, error)
                     }
                     
-                case .failure(let error as NSError):
-                    completionHandler(nil, error)
+                    case .failure(let error as NSError):
+                        completionHandler(nil, error)
                 }
             }
         )
@@ -187,27 +187,38 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func discoverPeople(page: Int, completionHandler: @escaping (JSON?, Error?) -> ()) {
-        //TODO poner switch para que compruebe el codigo de la respuesta del API y cambiar a NSError
+    func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+
         Alamofire.request("\(self.apiUrl)person/popular",
             method: .get,
             parameters: ["api_key": self.apiKey,
                          "language": "es-ES",
                          "page": page])
             .responseJSON { response in
-                if let data = response.result.value {
-                    let json = JSON(data)
-                    completionHandler(json, nil)
-                    return
-                }
-                let error = response.result.error
-                completionHandler(nil, error)
+                
+                switch response.result {
+                    
+                    case .success(let data):
+                        let json = JSON(data)
+                        let code = (response.response?.statusCode)! as Int
+                        
+                        switch code {
+                            case 200:
+                                completionHandler(json, nil)
+                            default:
+                                let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                                completionHandler(nil, error)
+                    }
+                    
+                    case .failure(let error as NSError):
+                        completionHandler(nil, error)
+            }
         }
         
     }
     
 
-    func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, Error?) -> ()) {
+    func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         Alamofire.request("\(self.apiUrl)search/person",
             method: .get,
             parameters: ["api_key": self.apiKey,
@@ -215,13 +226,24 @@ struct MovieDatabaseRepository: MovieRepository {
                          "query": name,
                          "page": page])
             .responseJSON { response in
-                if let data = response.result.value {
-                    let json = JSON(data)
-                    completionHandler(json, nil)
-                    return
+                
+                switch response.result {
+                    
+                    case .success(let data):
+                        let json = JSON(data)
+                        let code = (response.response?.statusCode)! as Int
+                        
+                        switch code {
+                            case 200:
+                                completionHandler(json, nil)
+                            default:
+                                let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                                completionHandler(nil, error)
+                    }
+                    
+                    case .failure(let error as NSError):
+                        completionHandler(nil, error)
                 }
-                let error = response.result.error
-                completionHandler(nil, error)
         }
     }    
     

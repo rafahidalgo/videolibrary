@@ -89,8 +89,6 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     func searchPopularPeople(page: Int) {
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
-        indicator.0.startAnimating()
-        view.addSubview(indicator.1)
         
         repository.discoverPeople(page: page) { (responseObject, error) in
             if let response = responseObject {
@@ -109,12 +107,16 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                 }
                 self.collectionView.reloadData()
-                indicator.0.stopAnimating()
-                indicator.1.removeFromSuperview()
+                self.utils.stopLoadingIndicator(indicator: indicator)
                 return
             }
-            print("\(String(describing: error))")
-            //TODO metemos alerta?
+            
+            if (error?.code)! < 0 {
+                self.utils.showAlertConnectionLost(view: self)
+            }
+            else {
+                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+            }
         }
     }
     
@@ -124,8 +126,6 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     func searchPerson(name: String, page: Int) {
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
-        indicator.0.startAnimating()
-        view.addSubview(indicator.1)
         
         repository.getPerson(name: name, page: page) { (responseObject, error) in
             if let response = responseObject {
@@ -143,12 +143,16 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
                     }
                 }
                 self.collectionView.reloadData()
-                indicator.0.stopAnimating()
-                indicator.1.removeFromSuperview()
+                self.utils.stopLoadingIndicator(indicator: indicator)
                 return
             }
-            print("\(String(describing: error))")
-            //TODO metemos alerta?
+            
+            if (error?.code)! < 0 {
+                self.utils.showAlertConnectionLost(view: self)
+            }
+            else {
+                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+            }
         }
     }
     
