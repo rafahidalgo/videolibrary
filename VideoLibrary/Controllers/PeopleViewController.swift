@@ -167,6 +167,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     func resetContent() {
         self.page = 1
         self.people.removeAll()
+        self.collectionView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     
