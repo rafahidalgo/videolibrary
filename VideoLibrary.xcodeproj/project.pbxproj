@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A1BAAE6203CAEF1008E7B1D /* TVShowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */; };
 		3A38AECA20305D8300E753DF /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AEC920305D8300E753DF /* MoviesViewController.swift */; };
 		3A38AECE20305E3500E753DF /* TVShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECD20305E3500E753DF /* TVShowsViewController.swift */; };
 		3A38AED020305E5500E753DF /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECF20305E5500E753DF /* PeopleViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		007DCA01D19A3FD5BAA4E23E /* Pods_VideoLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowViewCell.swift; sourceTree = "<group>"; };
 		3A38AEC920305D8300E753DF /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		3A38AECD20305E3500E753DF /* TVShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsViewController.swift; sourceTree = "<group>"; };
 		3A38AECF20305E5500E753DF /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				3A38AECF20305E5500E753DF /* PeopleViewController.swift */,
 				3A8A1396203444A800D022FE /* PeopleViewCell.swift */,
 				3A6F9C932035EE3300FDC421 /* MovieViewCell.swift */,
+				3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A7723192030DA7E007CB714 /* MovieRepository.swift in Sources */,
+				3A1BAAE6203CAEF1008E7B1D /* TVShowViewCell.swift in Sources */,
 				3A38AED020305E5500E753DF /* PeopleViewController.swift in Sources */,
 				3A59DF842030BF680097E327 /* ActorDetails.swift in Sources */,
 				3A80B640202F679400DD731E /* ViewController.swift in Sources */,
