@@ -154,13 +154,13 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func discoverPeople(completionHandler: @escaping (JSON?, Error?) -> ()) {
+    func discoverPeople(page: Int, completionHandler: @escaping (JSON?, Error?) -> ()) {
         //TODO poner switch para que compruebe el codigo de la respuesta del API y cambiar a NSError
         Alamofire.request("\(self.apiUrl)person/popular",
             method: .get,
             parameters: ["api_key": self.apiKey,
                          "language": "es-ES",
-                         "page": "1"])
+                         "page": page])
             .responseJSON { response in
                 if let data = response.result.value {
                     let json = JSON(data)
@@ -174,13 +174,13 @@ struct MovieDatabaseRepository: MovieRepository {
     }
     
 
-    func getPerson(name: String, completionHandler: @escaping (JSON?, Error?) -> ()) {
+    func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, Error?) -> ()) {
         Alamofire.request("\(self.apiUrl)search/person",
             method: .get,
             parameters: ["api_key": self.apiKey,
                          "language": "es-ES",
                          "query": name,
-                         "page": "1"])
+                         "page": page])
             .responseJSON { response in
                 if let data = response.result.value {
                     let json = JSON(data)

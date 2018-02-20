@@ -7,7 +7,11 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var searchBar: UISearchBar!
     var people: [Actor] = []
     let utils = Utils()
+    var page = 1
     let repository = MovieDatabaseRepository()
+    var searching = false
+    var nameSearched = ""
+    
     
     
     override func viewDidLoad() {
@@ -17,7 +21,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.dataSource = self
         searchBar.delegate = self
         
-        searchPopularPeople()
+        searchPopularPeople(page: page)
 
     }
 
@@ -68,24 +72,27 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if searchBar.text == "" {
-            searchPopularPeople()
+            self.searching = false
+            resetContent()
+            searchPopularPeople(page: page)
         } else {
-            searchPerson(name: searchBar.text!)
+            self.searching = true
+            resetContent()            
+            self.nameSearched = searchBar.text!
+            searchPerson(name: self.nameSearched, page: page)
         }
         
     }
     
     //Búsqueda de actores populares
     
-    func searchPopularPeople() {
-        
-        self.people = []
+    func searchPopularPeople(page: Int) {
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         indicator.0.startAnimating()
         view.addSubview(indicator.1)
         
-        repository.discoverPeople { (responseObject, error) in
+        repository.discoverPeople(page: page) { (responseObject, error) in
             if let response = responseObject {
                 for item in response["results"] {
                     if let name = item.1["name"].string {
@@ -113,15 +120,13 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //Búsqueda de actores por nombre completo
     
-    func searchPerson(name: String) {
-        
-        self.people = []
+    func searchPerson(name: String, page: Int) {
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         indicator.0.startAnimating()
         view.addSubview(indicator.1)
         
-        repository.getPerson(name: name) { (responseObject, error) in
+        repository.getPerson(name: name, page: page) { (responseObject, error) in
             if let response = responseObject {
                 for item in response["results"] {
                     if let name = item.1["name"].string {
@@ -143,6 +148,25 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
             print("\(String(describing: error))")
             //TODO metemos alerta?
         }
+    }
+    
+    //Scroll infinito
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == people.count - 1 {
+            page += 1
+            if self.searching {
+                self.searchPerson(name: self.nameSearched, page: page)
+            } else {
+                self.searchPopularPeople(page: page)
+            }
+            
+        }
+    }
+    
+    //Resetear el contenido
+    func resetContent() {
+        self.page = 1
+        self.people.removeAll()
     }
     
     
