@@ -36,7 +36,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PeopleViewCell
         cell.actorName.text = self.people[indexPath.row].name
         if let imageURL = self.people[indexPath.row].photoURL {
-            cell.actorImage.af_setImage(withURL: URL(string: "https://image.tmdb.org/t/p/w500\(imageURL)")!)
+            repository.getPosterImage(poster: imageURL, view: cell.actorImage)
         } else {
             //TODO si no hay foto
         }
