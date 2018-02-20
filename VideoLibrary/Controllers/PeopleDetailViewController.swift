@@ -2,10 +2,12 @@
 import UIKit
 
 class PeopleDetailViewController: UIViewController {
+    
+    var id: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(id!)
         // Do any additional setup after loading the view.
     }
 

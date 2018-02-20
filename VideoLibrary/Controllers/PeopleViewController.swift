@@ -172,5 +172,14 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.collectionView.setContentOffset(CGPoint.zero, animated: false)
     }
     
+    //Pasar id al controlador de detalle
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! PeopleViewCell
+        let indexPath = collectionView.indexPath(for: cell)
+        let detailViewController = segue.destination as! PeopleDetailViewController
+        detailViewController.id = people[(indexPath?.row)!].id
+    }
+    
+    
     
 }
