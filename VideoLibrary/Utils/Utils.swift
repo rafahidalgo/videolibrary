@@ -15,6 +15,7 @@ struct Utils {
         
     }
     
+    //Indicador de carga
     func showLoadingIndicator(title: String, view: UIView) -> (UIActivityIndicatorView, UIVisualEffectView) {
         //https://stackoverflow.com/questions/28785715/how-to-display-an-activity-indicator-with-text-on-ios-8-with-swift
         
@@ -49,6 +50,7 @@ struct Utils {
         indicator.1.removeFromSuperview()
     }
     
+    //Alerta de conexión perdida
     func showAlertConnectionLost(view: UIViewController) {
         
         let alert = UIAlertController(title: "Connection Lost",
@@ -63,6 +65,7 @@ struct Utils {
         view.present(alert, animated: true, completion: nil)
     }
     
+    //Mostrar alerta
     func showAlertError(code: Int, message: String, view: UIViewController) {
         
         let alert = UIAlertController(title: "Error \(code)",
@@ -77,7 +80,8 @@ struct Utils {
         view.present(alert, animated: true, completion: nil)
     }
     
-    func styleCardMoviesAndTVShows(cell: MovieViewCell) -> UICollectionViewCell{//lo pongo aqui porque puede que lo necesitemos para otra pantalla
+    //Estilo de tarjeta para películas y series
+    func styleCardMoviesAndTVShows(cell: MovieViewCell) -> UICollectionViewCell{
         
         cell.layer.cornerRadius = 10.0
         cell.moviePoster.layer.cornerRadius = 10.0
