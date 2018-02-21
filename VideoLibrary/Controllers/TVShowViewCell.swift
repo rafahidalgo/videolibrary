@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import UICircularProgressRing
 
 class TVShowViewCell: UICollectionViewCell {
     
     @IBOutlet weak var tvPoster: UIImageView!
-    @IBOutlet weak var showTitle: UILabel!
+    @IBOutlet weak var showName: UILabel!
+    @IBOutlet weak var showAirDate: UILabel!
+    @IBOutlet weak var voteAverage: UICircularProgressRingView!
 }

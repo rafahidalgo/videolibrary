@@ -10,5 +10,19 @@ import Foundation
 
 class TVShow {
     
+    let id: Int
+    let name: String
+    let posterUrl: String?
+    let vote: Float
+    let first_air: String
+    let overview: String
     
+    init(id:Int, name:String, posterUrl: String?, vote: Float, first_air: String, overview: String) {
+        self.id = id
+        self.name = name
+        self.posterUrl = posterUrl
+        self.vote = vote
+        self.first_air = first_air
+        self.overview = overview
+    }
 }

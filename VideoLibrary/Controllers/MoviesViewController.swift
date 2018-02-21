@@ -2,13 +2,6 @@
 import UIKit
 import SwiftyJSON
 
-enum Load: String {
-    case discover
-    case popular
-    case top_rated
-    case release_date
-}
-
 class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {//TODO crear protocolo comun
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -16,7 +9,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     let utils = Utils()
     var movies: [Movie] = []
     var page = 1
-    var content = Load.discover
+    var content = FilterMovies.discover
     
     override func viewDidLoad() {
         
@@ -43,6 +36,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         cell.movieTitle.text = movies[indexPath.row].title
         cell.voteAverage.setProgress(value: CGFloat(movies[indexPath.row].vote), animationDuration: 0)
         cell.movieRelease.text = movies[indexPath.row].release
+        cell.moviePoster.layer.cornerRadius = 10.0
         if let poster = movies[indexPath.row].posterUrl {
             repository.getPosterImage(poster: poster, view: cell.moviePoster)
         }
@@ -51,7 +45,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             
         }
         
-        return utils.styleCardMoviesAndTVShows(cell: cell)
+        return utils.customCardMoviesAndTVShows(cell: cell)
 
     }
     

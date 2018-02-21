@@ -81,10 +81,9 @@ struct Utils {
     }
     
     //Estilo de tarjeta para películas y series
-    func styleCardMoviesAndTVShows(cell: MovieViewCell) -> UICollectionViewCell{
+    func customCardMoviesAndTVShows(cell: UICollectionViewCell) -> UICollectionViewCell {
         
         cell.layer.cornerRadius = 10.0
-        cell.moviePoster.layer.cornerRadius = 10.0
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.clear.cgColor
         cell.layer.masksToBounds = false
