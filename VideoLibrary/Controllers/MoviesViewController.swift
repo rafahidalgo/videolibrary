@@ -101,6 +101,10 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         self.present(options, animated: true, completion: nil)
     }
     
+    @IBAction func addFavoriteMovie(_ sender: UIButton) {
+        
+    }
+    
     //Scroll infinito
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 1 {

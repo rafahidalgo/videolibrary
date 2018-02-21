@@ -67,6 +67,10 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
+    @IBAction func addFavoriteShow(_ sender: UIButton) {
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == tvShows.count - 1 {
             page += 1

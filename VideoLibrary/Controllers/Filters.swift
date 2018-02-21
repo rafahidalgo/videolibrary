@@ -19,6 +19,6 @@ enum FilterShows: String {
     case discover
     case popular
     case top_rated
-    case latest
+    case on_air
 }
 
