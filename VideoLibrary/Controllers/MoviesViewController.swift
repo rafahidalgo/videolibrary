@@ -18,7 +18,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        getData()
+        getData {() -> () in
+            self.collectionView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,10 +55,14 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let options = UIAlertController(title: nil, message: "Choose an option", preferredStyle: .actionSheet)
         
         let discover = UIAlertAction(title: "Discover movies", style: .default, handler: { (UIAlertAction) in
-
+            
             self.resetContent()
             self.content = .discover
-            self.getData()
+            self.getData {() -> () in
+                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self.collectionView.reloadData()
+            }
+
             
         })
         
@@ -64,21 +70,32 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             self.resetContent()
             self.content = .popular
-            self.getData()
+            self.getData {() -> () in
+                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self.collectionView.reloadData()
+            }
+
         })
         
         let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
             
             self.resetContent()
             self.content = .top_rated
-            self.getData()
+            self.getData {() -> () in
+                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self.collectionView.reloadData()
+            }
+
         }
         
         let release = UIAlertAction(title: "Release date (asc)", style: .default) { (alert: UIAlertAction) in
             
             self.resetContent()
             self.content = .release_date
-            self.getData()
+            self.getData {() -> () in
+                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self.collectionView.reloadData()
+            }
             
         }
         
@@ -109,16 +126,20 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 1 {
             page += 1
-            getData()
+            getData {() -> () in
+                self.collectionView.reloadData()
+            }
         }
     }
     
-    func getData() {
+    func getData(completionHandler:@escaping (() -> ())) {
         
         //La vista de películas puede mostrar los datos filtrados por diversos criterios (películas populares, mejor valoradas,...) por lo que cuando un usuario
         //realiza scroll en la pantalla debe conocerse qué criterio está fijado para cargar los datos de la página correspondiente
         //de una dirección u otra. Una manera de hacer esto es mediante una variable, en este caso content, que almacena la opción seleccionada y
-        //en función de su valor se obtienen los datos correspondientes.
+        //en función de su valor se obtienen los datos correspondientes. Además cuando se cambia de criterio de visualización (de películas populares a mejor valoradas p.e.)
+        //debe hacerse scroll a la parte superior automáticamente para que se visualice el primer elemento del array de películas pero teniendo en cuenta la reutilización de
+        //celdas. Para ello se ha usado una closure que informa de la disponibilidad de los datos en el modelo.
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         switch content {
@@ -127,24 +148,28 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
                     
                     self.saveDataToModel(data: responseObject, error: error)
                     self.utils.stopLoadingIndicator(indicator: indicator)
+                    completionHandler()
             }
             case .popular:
                 repository.getPopularMovies(page: page){ responseObject, error in
                     
                     self.saveDataToModel(data: responseObject, error: error)
                     self.utils.stopLoadingIndicator(indicator: indicator)
+                    completionHandler()
             }
             case .top_rated:
                 repository.getTopRatedMovies(page: page) { responseObject, error in
                     
                     self.saveDataToModel(data: responseObject, error: error)
                     self.utils.stopLoadingIndicator(indicator: indicator)
+                    completionHandler()
             }
             default:
                 repository.moviesReleaseDateAsc(page: page) { responseObject, error in
                     
                     self.saveDataToModel(data: responseObject, error: error)
                     self.utils.stopLoadingIndicator(indicator: indicator)
+                    completionHandler()
             }
         }
     }
@@ -159,8 +184,6 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
                                   vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
                 self.movies.append(movie)
             }
-            
-            self.collectionView.reloadData()
             return
         }
         
@@ -176,7 +199,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     func resetContent() {
         page = 1
         movies.removeAll()
-        collectionView.setContentOffset(CGPoint.zero, animated: true)
+        self.collectionView.setContentOffset(CGPoint.zero, animated: true)
     }
     
 }

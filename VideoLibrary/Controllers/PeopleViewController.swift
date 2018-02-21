@@ -100,7 +100,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
                             self.people.append(actor)
                         }
                         else {
-                            let actor = Actor(id: id, name: name, photoURL: nil) //TODO poner imagen de no hay foto
+                            let actor = Actor(id: id, name: name, photoURL: nil)
                             self.people.append(actor)
                         }
                     }
