@@ -41,8 +41,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             repository.getPosterImage(poster: poster, view: cell.moviePoster)
         }
         else {
-            //TODO no image da null
-            
+            cell.moviePoster.image = UIImage(named: "No Image")
         }
         
         return utils.customCardMoviesAndTVShows(cell: cell)

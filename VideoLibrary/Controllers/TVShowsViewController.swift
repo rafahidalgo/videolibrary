@@ -55,8 +55,7 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
             repository.getPosterImage(poster: poster, view: cell.tvPoster)
         }
         else {
-            //TODO no image da null
-            
+            cell.tvPoster.image = UIImage(named: "No Image")
         }
         
         return utils.customCardMoviesAndTVShows(cell: cell)

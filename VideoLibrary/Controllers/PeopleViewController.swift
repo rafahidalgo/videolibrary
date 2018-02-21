@@ -38,7 +38,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         if let imageURL = self.people[indexPath.row].photoURL {
             repository.getPosterImage(poster: imageURL, view: cell.actorImage)
         } else {
-            //TODO si no hay foto
+            cell.actorImage.image = UIImage(named: "No Image")
         }
         
         cell.contentView.layer.cornerRadius = 10.0
@@ -94,15 +94,15 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
             if let response = responseObject {
                 for item in response["results"] {
                     if let name = item.1["name"].string {
+                        let id = item.1["id"].int!
                         if let photo = item.1["profile_path"].string {
-                            let id = item.1["id"].int!
                             let actor = Actor(id: id, name: name, photoURL: photo)
                             self.people.append(actor)
                         }
-//                        else {
-//                            let actor = Actor(name: name, photoURL: nil) //TODO poner imagen de no hay foto
-//                            self.people.append(actor)
-//                        }
+                        else {
+                            let actor = Actor(id: id, name: name, photoURL: nil) //TODO poner imagen de no hay foto
+                            self.people.append(actor)
+                        }
                     }
                     
                 }
@@ -131,15 +131,15 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
             if let response = responseObject {
                 for item in response["results"] {
                     if let name = item.1["name"].string {
+                        let id = item.1["id"].int!
                         if let photo = item.1["profile_path"].string {
-                            let id = item.1["id"].int!
                             let actor = Actor(id: id, name: name, photoURL: photo)
                             self.people.append(actor)
                         }
-//                        else {
-//                            let actor = Actor(name: name, photoURL: nil) //TODO poner imagen de no hay foto
-//                            self.people.append(actor)
-//                        }
+                        else {
+                            let actor = Actor(id: id, name: name, photoURL: nil)
+                            self.people.append(actor)
+                        }
                     }
                 }
                 self.collectionView.reloadData()
