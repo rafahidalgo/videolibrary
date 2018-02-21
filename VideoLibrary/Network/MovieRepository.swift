@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SwiftyJSON
 
 protocol MovieRepository {
@@ -32,5 +33,5 @@ protocol MovieRepository {
     func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
 
-
+    func checkResponseCode(response: DataResponse<Any>) -> (JSON?, NSError?)
 }
