@@ -17,21 +17,7 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        repository.discoverTVShows(page: page){ responseObject, error in
-            
-            if let response = responseObject {
-                
-                for item in response["results"] {
-                    let show = TVShow(id: item.1["id"].int!, name: item.1["name"].string!, posterUrl: item.1["poster_path"].string,
-                                      vote: item.1["vote_average"].float!, first_air: item.1["first_air_date"].string!, overview: item.1["overview"].string!)
-                    self.tvShows.append(show)
-                }
-                
-                self.collectionView.reloadData()
-                
-                return
-            }
-        }
+        getData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,32 +50,122 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
         
+        let options = UIAlertController(title: nil, message: "Choose an option", preferredStyle: .actionSheet)
         
+        let discover = UIAlertAction(title: "Discover TV Shows", style: .default, handler: { (UIAlertAction) in
+            
+            self.resetContent()
+            self.filter = .discover
+            self.getData()
+        })
+        
+        let popular = UIAlertAction(title: "Popular TV Shows", style: .default, handler: { (UIAlertAction) in
+            
+            self.resetContent()
+            self.filter = .popular
+            self.getData()
+        })
+        
+        let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
+
+            self.resetContent()
+            self.filter = .top_rated
+            self.getData()
+        }
+        
+        let on_air = UIAlertAction(title: "On air", style: .default) { (alert: UIAlertAction) in
+            
+            self.resetContent()
+            self.filter = .on_air
+            self.getData()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alert: UIAlertAction) in
+            
+        }
+        
+        options.addAction(discover)
+        options.addAction(popular)
+        options.addAction(top)
+        options.addAction(on_air)
+        options.addAction(cancel)
+        
+        //Crash del action sheet en tablets https://stackoverflow.com/questions/31577140/uialertcontroller-is-crashed-ipad/31577494
+        if let popover = options.popoverPresentationController {
+            popover.sourceView = view
+            popover.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.maxY, width: 1.0, height: 1.0)
+        }
+        
+        self.present(options, animated: true, completion: nil)
     }
     
     @IBAction func addFavoriteShow(_ sender: UIButton) {
+        
         
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == tvShows.count - 1 {
             page += 1
+            getData()
+        }
+    }
+    
+    func getData() {
+        
+        //Función análoga a la del controlador de películas pero aplicada a series.
+        
+        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        switch filter {
+        case .discover:
             repository.discoverTVShows(page: page){ responseObject, error in
                 
-                if let response = responseObject {
-                    
-                    for item in response["results"] {
-                        let show = TVShow(id: item.1["id"].int!, name: item.1["name"].string!, posterUrl: item.1["poster_path"].string,
-                                          vote: item.1["vote_average"].float!, first_air: item.1["first_air_date"].string!, overview: item.1["overview"].string!)
-                        self.tvShows.append(show)
-                    }
-                    
-                    self.collectionView.reloadData()
-                    
-                    return
-                }
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+            }
+        case .popular:
+            repository.getPopularTVShows(page: page){ responseObject, error in
+                
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+            }
+        case .top_rated:
+            repository.getTopRatedTVShows(page: page) { responseObject, error in
+                
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+            }
+        default:
+            repository.getOnAirTVShows(page: page) { responseObject, error in
+                
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
             }
         }
+    }
+    
+    //Esta función recorre el objeto JSON que tiene la información de las series y almacena estos datos en el modelo
+    func saveDataToModel(data: JSON?, error: NSError?) {
+        
+        if let response = data {
+            
+            for item in response["results"] {
+                let show = TVShow(id: item.1["id"].int!, name: item.1["name"].string!, posterUrl: item.1["poster_path"].string,
+                                  vote: item.1["vote_average"].float!, first_air: item.1["first_air_date"].string!, overview: item.1["overview"].string!)
+                self.tvShows.append(show)
+            }
+            
+            self.collectionView.reloadData()
+            return
+        }
+        
+        if (error?.code)! < 0 {
+            utils.showAlertConnectionLost(view: self)
+        }
+        else {
+            utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+        }
+        
     }
     
     func resetContent() {

@@ -161,7 +161,6 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             }
             
             self.collectionView.reloadData()
-            
             return
         }
         
