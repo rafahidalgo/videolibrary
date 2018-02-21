@@ -147,6 +147,35 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
+    func getMovie(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+        
+        Alamofire.request("\(self.apiUrl)\("movie/\(id)")",
+            method: .get,
+            parameters: ["api_key":self.apiKey,
+                         "language":"es-ES"])
+            .responseJSON(completionHandler: {response in
+                
+                switch response.result {
+                    
+                    case .success(let data):
+                        let json = JSON(data)
+                        let code = (response.response?.statusCode)! as Int
+                        
+                        switch code {
+                            case 200:
+                                completionHandler(json, nil)
+                            default:
+                                let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
+                                completionHandler(nil, error)
+                        }
+                    
+                    case .failure(let error as NSError):
+                        completionHandler(nil, error)
+                }
+            }
+        )
+    }
+    
     func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)\("discover/tv")",
@@ -269,10 +298,10 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
-    func getPosterImage(poster: String, view: UIImageView) {
+    func getPosterImage(poster: String, imageView: UIImageView) {
         
         let url = URL(string: "\(self.posterUrl)\(poster)")
-        view.af_setImage(withURL: url!)
+        imageView.af_setImage(withURL: url!)
         
     }
     

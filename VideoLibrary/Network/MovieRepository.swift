@@ -21,13 +21,14 @@ protocol MovieRepository {
     func getPopularMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getTopRatedMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func moviesReleaseDateAsc(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getMovie(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
     func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPopularTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getTopRatedTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getOnAirTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
-    func getPosterImage(poster: String, view: UIImageView)
+    func getPosterImage(poster: String, imageView: UIImageView)
     func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
 

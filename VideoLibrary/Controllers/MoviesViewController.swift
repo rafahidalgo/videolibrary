@@ -2,7 +2,7 @@
 import UIKit
 import SwiftyJSON
 
-class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {//TODO crear protocolo comun
+class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var collectionView: UICollectionView!
     let repository = MovieDatabaseRepository()
@@ -40,7 +40,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         cell.movieRelease.text = movies[indexPath.row].release
         cell.moviePoster.layer.cornerRadius = 10.0
         if let poster = movies[indexPath.row].posterUrl {
-            repository.getPosterImage(poster: poster, view: cell.moviePoster)
+            repository.getPosterImage(poster: poster, imageView: cell.moviePoster)
         }
         else {
             cell.moviePoster.image = UIImage(named: "No Image")
@@ -200,6 +200,14 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         page = 1
         movies.removeAll()
         self.collectionView.setContentOffset(CGPoint.zero, animated: true)
+    }
+    
+    //Abrir detalle película
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! MovieViewCell
+        let indexPath = collectionView.indexPath(for: cell)
+        let detailViewController = segue.destination as! MovieDetailViewController
+        detailViewController.id = movies[(indexPath?.row)!].id
     }
     
 }

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -509,16 +508,25 @@
             </objects>
             <point key="canvasLocation" x="1874.4000000000001" y="-300"/>
         </scene>
-        <!--View Controller-->
+        <!--Movie Detail View Controller-->
         <scene sceneID="Lwt-Zi-Ll9">
             <objects>
-                <viewController id="KYD-PA-GW4" sceneMemberID="viewController">
+                <viewController id="KYD-PA-GW4" customClass="MovieDetailViewController" customModule="VideoLibrary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" alpha="0.90000000000000002" contentMode="scaleToFill" id="5Mb-l9-W8s">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qxf-si-Y3W" userLabel="Background">
+                                <rect key="frame" x="67" y="0.0" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" name="SecondaryColor"/>
                         <viewLayoutGuide key="safeArea" id="pAk-w2-EFU"/>
                     </view>
+                    <connections>
+                        <outlet property="background" destination="Qxf-si-Y3W" id="dUr-0V-Dkl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0RQ-Lu-J6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

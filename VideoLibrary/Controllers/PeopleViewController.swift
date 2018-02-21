@@ -36,7 +36,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PeopleViewCell
         cell.actorName.text = self.people[indexPath.row].name
         if let imageURL = self.people[indexPath.row].photoURL {
-            repository.getPosterImage(poster: imageURL, view: cell.actorImage)
+            repository.getPosterImage(poster: imageURL, imageView: cell.actorImage)
         } else {
             cell.actorImage.image = UIImage(named: "No Image")
         }
