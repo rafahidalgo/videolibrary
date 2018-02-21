@@ -11,6 +11,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     let repository = MovieDatabaseRepository()
     var searching = false
     var nameSearched = ""
+    var totalPages = 1
     
     
     
@@ -92,6 +93,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         repository.discoverPeople(page: page) { (responseObject, error) in
             if let response = responseObject {
+                self.totalPages = response["total_pages"].int!
                 for item in response["results"] {
                     if let name = item.1["name"].string {
                         let id = item.1["id"].int!
@@ -100,7 +102,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
                             self.people.append(actor)
                         }
                         else {
-                            let actor = Actor(id: id, name: name, photoURL: nil) //TODO poner imagen de no hay foto
+                            let actor = Actor(id: id, name: name, photoURL: nil)
                             self.people.append(actor)
                         }
                     }
@@ -129,6 +131,7 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         repository.getPerson(name: name, page: page) { (responseObject, error) in
             if let response = responseObject {
+                self.totalPages = response["total_pages"].int!
                 for item in response["results"] {
                     if let name = item.1["name"].string {
                         let id = item.1["id"].int!
@@ -158,6 +161,12 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //Scroll infinito
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if self.totalPages == 1 || self.page == self.totalPages {
+            return
+        }
+        
+        
         if indexPath.row == people.count - 1 {
             page += 1
             if self.searching {
@@ -165,8 +174,9 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
             } else {
                 self.searchPopularPeople(page: page)
             }
-            
         }
+        
+        
     }
     
     //Resetear el contenido
