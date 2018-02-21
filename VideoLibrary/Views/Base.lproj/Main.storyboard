@@ -283,20 +283,12 @@
                         <viewLayoutGuide key="safeArea" id="pDM-j4-mP0"/>
                     </view>
                     <navigationItem key="navigationItem" title="Popular People" id="Ehf-sk-GEE">
-                        <rightBarButtonItems>
-                            <barButtonItem image="More Toolbar Icon" style="done" id="5cd-Qe-Gr2">
-                                <color key="tintColor" name="PrimaryColor"/>
-                                <connections>
-                                    <action selector="showActionSheet:" destination="0n4-wY-yOc" id="aZh-FI-k10"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="search" id="gWX-re-vgK">
-                                <color key="tintColor" name="PrimaryColor"/>
-                                <connections>
-                                    <action selector="showSearchBar:" destination="O67-wg-1l8" id="1Wu-GQ-AUZ"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="gWX-re-vgK">
+                            <color key="tintColor" name="PrimaryColor"/>
+                            <connections>
+                                <action selector="showSearchBar:" destination="O67-wg-1l8" id="1Wu-GQ-AUZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="1rM-N2-Egt" id="mFN-9J-Hmd"/>
