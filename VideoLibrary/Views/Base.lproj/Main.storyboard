@@ -193,9 +193,15 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="9gy-Ax-zED" id="ikK-Ft-R3H"/>
+                        <outlet property="searchBar" destination="yg9-AF-aon" id="EKl-gJ-tMI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchBar contentMode="redraw" id="yg9-AF-aon">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </objects>
             <point key="canvasLocation" x="1874" y="392"/>
         </scene>

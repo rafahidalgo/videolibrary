@@ -180,6 +180,22 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
+    func searchTVShow(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+        
+        Alamofire.request("\(self.apiUrl)search/tv",
+            method: .get,
+            parameters: ["api_key":self.apiKey,
+                         "language":"es-ES",
+                         "query": query,
+                         "page":page])
+            .responseJSON(completionHandler: {response in
+                
+                let result = self.checkResponseCode(response: response)
+                completionHandler(result.0, result.1)
+            }
+        )
+    }
+    
     func getPosterImage(poster: String, imageView: UIImageView) {
         
         let url = URL(string: "\(self.posterUrl)\(poster)")

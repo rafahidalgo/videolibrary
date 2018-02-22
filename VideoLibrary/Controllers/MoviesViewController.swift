@@ -11,8 +11,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     var movies: [Movie] = []
     var page = 1
     var total_pages = 1
-    var content = FilterMovies.discover
-    var nameSearched = ""
+    var filterMovies = FilterMovies.discover
+    var state = FilterMovies.discover// para poder volver al estado anterior al realizar búsquedas
     
     override func viewDidLoad() {
         
@@ -54,8 +54,20 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
-        print("hola")
-        let view = (navigationItem.titleView == searchBar) ? nil : searchBar
+        
+        let view: UISearchBar?
+        
+        if (navigationItem.titleView == searchBar) {
+            resetContent()
+            filterMovies = state
+            view = nil
+            getData {
+                self.collectionView.reloadData()
+            }
+        }
+        else {
+            view = searchBar
+        }
         navigationItem.titleView = view
         searchBar.text = nil
     }
@@ -67,8 +79,10 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         else {
             resetContent()
-            content = .searchMovie
+            state = filterMovies
+            filterMovies = .searchMovie
             getData {() -> () in
+                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
             }
         }
@@ -81,7 +95,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let discover = UIAlertAction(title: "Discover movies", style: .default, handler: { (UIAlertAction) in
             
             self.resetContent()
-            self.content = .discover
+            self.filterMovies = .discover
+            self.state = self.filterMovies
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
@@ -92,7 +107,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let popular = UIAlertAction(title: "Popular movies", style: .default, handler: { (UIAlertAction) in
             
             self.resetContent()
-            self.content = .popular
+            self.filterMovies = .popular
+            self.state = self.filterMovies
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
@@ -103,7 +119,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
             
             self.resetContent()
-            self.content = .top_rated
+            self.filterMovies = .top_rated
+            self.state = self.filterMovies
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
@@ -114,7 +131,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         let release = UIAlertAction(title: "Release date (asc)", style: .default) { (alert: UIAlertAction) in
             
             self.resetContent()
-            self.content = .release_date
+            self.filterMovies = .release_date
+            self.state = self.filterMovies
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
@@ -166,7 +184,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         //celdas. Para ello se ha usado una closure que informa de la disponibilidad de los datos en el modelo.
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
-        switch content {
+        switch filterMovies {
             case .discover:
                 repository.discoverMovies(page: page){ responseObject, error in
                     

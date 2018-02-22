@@ -2,22 +2,24 @@
 import UIKit
 import SwiftyJSON
 
-class TVShowsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class TVShowsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var searchBar: UISearchBar!
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var tvShows: [TVShow] = []
     var page = 1
     var total_pages = 1
-    var filter = FilterShows.discover
+    var filterShows = FilterShows.discover
+    var state = FilterShows.discover// para poder volver al estado anterior al realizar búsquedas
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+        searchBar.delegate = self
         
         getData {() -> () in
             self.collectionView.reloadData()
@@ -53,7 +55,37 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
         
+        let view: UISearchBar?
         
+        if (navigationItem.titleView == searchBar) {
+            resetContent()
+            filterShows = state
+            view = nil
+            getData {
+                self.collectionView.reloadData()
+            }
+        }
+        else {
+            view = searchBar
+        }
+        navigationItem.titleView = view
+        searchBar.text = nil
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if searchBar.text == "" {
+            utils.showToast(message: "The search bar is empty", view: view)
+        }
+        else {
+            resetContent()
+            state = filterShows
+            filterShows = .searchTVShow
+            getData {() -> () in
+                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
@@ -63,7 +95,8 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         let discover = UIAlertAction(title: "Discover TV Shows", style: .default, handler: { (UIAlertAction) in
             
             self.resetContent()
-            self.filter = .discover
+            self.filterShows = .discover
+            self.state = self.filterShows
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
@@ -73,7 +106,8 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         let popular = UIAlertAction(title: "Popular TV Shows", style: .default, handler: { (UIAlertAction) in
             
             self.resetContent()
-            self.filter = .popular
+            self.filterShows = .popular
+            self.state = self.filterShows
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
@@ -83,7 +117,8 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
 
             self.resetContent()
-            self.filter = .top_rated
+            self.filterShows = .top_rated
+            self.state = self.filterShows
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
@@ -93,7 +128,8 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         let on_air = UIAlertAction(title: "On air", style: .default) { (alert: UIAlertAction) in
             
             self.resetContent()
-            self.filter = .on_air
+            self.filterShows = .on_air
+            self.state = self.filterShows
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
@@ -142,7 +178,7 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         //closure que informa de la disponibilidad de los datos en el modelo.
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
-        switch filter {
+        switch filterShows {
         case .discover:
             repository.discoverTVShows(page: page){ responseObject, error in
                 
@@ -164,8 +200,15 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
                 self.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
-        default:
+        case .on_air:
             repository.getOnAirTVShows(page: page) { responseObject, error in
+                
+                self.saveDataToModel(data: responseObject, error: error)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+                completionHandler()
+            }
+        default:
+            repository.searchTVShow(page: page, query: searchBar.text!) { responseObject, error in
                 
                 self.saveDataToModel(data: responseObject, error: error)
                 self.utils.stopLoadingIndicator(indicator: indicator)
@@ -179,6 +222,7 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
 
         if let response = data {
             
+            total_pages = response["total_pages"].int!
             for item in response["results"] {
                 let show = TVShow(id: item.1["id"].int!, name: item.1["name"].string!, posterUrl: item.1["poster_path"].string,
                                   vote: item.1["vote_average"].float!, first_air: item.1["first_air_date"].string!, overview: item.1["overview"].string!)
@@ -201,5 +245,7 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         total_pages = 1
         tvShows.removeAll()
     }
+    
+    
     
 }
