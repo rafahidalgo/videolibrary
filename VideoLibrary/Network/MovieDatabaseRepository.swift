@@ -47,7 +47,7 @@ struct MovieDatabaseRepository: MovieRepository {
     
     func getPopularMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)\("movie/popular")",
+        Alamofire.request("\(self.apiUrl)movie/popular",
             method: .get,
             parameters: ["api_key":self.apiKey, "language":"es-ES", "page":page])
             .responseJSON { (response) in
@@ -59,7 +59,7 @@ struct MovieDatabaseRepository: MovieRepository {
     
     func getTopRatedMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)\("movie/top_rated")",
+        Alamofire.request("\(self.apiUrl)movie/top_rated",
             method: .get,
             parameters: ["api_key":self.apiKey, "language":"es-ES", "page":page])
             .responseJSON { (response) in
@@ -71,7 +71,7 @@ struct MovieDatabaseRepository: MovieRepository {
     
     func moviesReleaseDateAsc(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)\("discover/movie")",
+        Alamofire.request("\(self.apiUrl)discover/movie",
             method: .get,
             parameters: ["api_key":self.apiKey,
                          "language":"es-ES",
@@ -87,9 +87,26 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
+    func searchMovie(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+
+        Alamofire.request("\(self.apiUrl)search/movie",
+            method: .get,
+            parameters: ["api_key":self.apiKey,
+                         "language":"es-ES",
+                         "query": query,
+                         "page":page,
+                         "include_adult":"false"])
+            .responseJSON(completionHandler: {response in
+                
+                let result = self.checkResponseCode(response: response)
+                completionHandler(result.0, result.1)
+            }
+        )
+    }
+    
     func getMovie(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)\("movie/\(id)")",
+        Alamofire.request("\(self.apiUrl)movie/\(id)",
             method: .get,
             parameters: ["api_key":self.apiKey,
                          "language":"es-ES"])
@@ -103,7 +120,7 @@ struct MovieDatabaseRepository: MovieRepository {
     
     func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)\("discover/tv")",
+        Alamofire.request("\(self.apiUrl)discover/tv",
             method: .get,
             parameters: ["api_key":self.apiKey,
                          "language":"es-ES",
@@ -121,7 +138,7 @@ struct MovieDatabaseRepository: MovieRepository {
     
     func getPopularTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)\("tv/popular")",
+        Alamofire.request("\(self.apiUrl)tv/popular",
             method: .get,
             parameters: ["api_key":self.apiKey,
                          "language":"es-ES",
@@ -136,7 +153,7 @@ struct MovieDatabaseRepository: MovieRepository {
     
     func getTopRatedTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)\("tv/top_rated")",
+        Alamofire.request("\(self.apiUrl)tv/top_rated",
             method: .get,
             parameters: ["api_key":self.apiKey,
                          "language":"es-ES",
@@ -151,7 +168,7 @@ struct MovieDatabaseRepository: MovieRepository {
     
     func getOnAirTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)\("tv/on_the_air")",
+        Alamofire.request("\(self.apiUrl)tv/on_the_air",
             method: .get,
             parameters: ["api_key":self.apiKey,
                          "language":"es-ES"])

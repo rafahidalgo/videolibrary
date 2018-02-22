@@ -9,6 +9,7 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
     let utils = Utils()
     var tvShows: [TVShow] = []
     var page = 1
+    var total_pages = 1
     var filter = FilterShows.discover
 
     override func viewDidLoad() {
@@ -47,6 +48,10 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         
         return utils.customCardMoviesAndTVShows(cell: cell)
+    }
+    
+    @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
+        
         
     }
     

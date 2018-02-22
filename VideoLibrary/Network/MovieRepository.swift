@@ -22,6 +22,7 @@ protocol MovieRepository {
     func getPopularMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getTopRatedMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func moviesReleaseDateAsc(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func searchMovie(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getMovie(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
     func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())

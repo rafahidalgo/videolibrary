@@ -177,7 +177,7 @@
                             <color key="tintColor" name="PrimaryColor"/>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem image="More Toolbar Icon" landscapeImage="More Toolbar Icon" id="v95-yw-zg9">
+                            <barButtonItem image="More Toolbar Icon" landscapeImage="More Toolbar Icon" id="v95-yw-zg9" userLabel="Filter">
                                 <color key="tintColor" name="PrimaryColor"/>
                                 <connections>
                                     <action selector="showActionSheet:" destination="BYZ-38-t0r" id="zrs-Vw-Z7S"/>
@@ -185,6 +185,9 @@
                             </barButtonItem>
                             <barButtonItem systemItem="search" id="xtt-oD-2NQ">
                                 <color key="tintColor" name="PrimaryColor"/>
+                                <connections>
+                                    <action selector="showSearchBar:" destination="BYZ-38-t0r" id="AoT-WW-dUB"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -283,7 +286,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Popular People" id="Ehf-sk-GEE">
                         <rightBarButtonItems>
-                            <barButtonItem image="More Toolbar Icon" style="done" id="5cd-Qe-Gr2">
+                            <barButtonItem image="More Toolbar Icon" style="done" id="5cd-Qe-Gr2" userLabel="Filter">
                                 <color key="tintColor" name="PrimaryColor"/>
                                 <connections>
                                     <action selector="showActionSheet:" destination="0n4-wY-yOc" id="aZh-FI-k10"/>
@@ -483,7 +486,7 @@
                             <color key="tintColor" name="PrimaryColor"/>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem image="More Toolbar Icon" style="done" id="amz-J3-6qp">
+                            <barButtonItem image="More Toolbar Icon" style="done" id="amz-J3-6qp" userLabel="Filter">
                                 <color key="tintColor" name="PrimaryColor"/>
                                 <connections>
                                     <action selector="showActionSheet:" destination="0n4-wY-yOc" id="zm3-aw-vLv"/>
@@ -491,11 +494,15 @@
                             </barButtonItem>
                             <barButtonItem systemItem="search" id="eZR-o1-Xtj">
                                 <color key="tintColor" name="PrimaryColor"/>
+                                <connections>
+                                    <action selector="showSearchBar:" destination="0n4-wY-yOc" id="PJd-GP-ow1"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="HQy-fE-nHP" id="cwT-YW-loR"/>
+                        <outlet property="searchBar" destination="uvM-JG-X1z" id="B06-4a-xtF"/>
                     </connections>
                 </viewController>
                 <barButtonItem systemItem="add" id="Qbl-uU-IRO">
@@ -505,6 +512,11 @@
                     </connections>
                 </barButtonItem>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0n5-99-tw1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchBar contentMode="redraw" id="uvM-JG-X1z">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </objects>
             <point key="canvasLocation" x="1874.4000000000001" y="-300"/>
         </scene>

@@ -2,14 +2,17 @@
 import UIKit
 import SwiftyJSON
 
-class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var searchBar: UISearchBar!
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var movies: [Movie] = []
     var page = 1
+    var total_pages = 1
     var content = FilterMovies.discover
+    var nameSearched = ""
     
     override func viewDidLoad() {
         
@@ -17,6 +20,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        searchBar.delegate = self
 
         getData {() -> () in
             self.collectionView.reloadData()
@@ -32,7 +36,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieViewCell
         
         cell.movieTitle.text = movies[indexPath.row].title
@@ -47,7 +51,27 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         return utils.customCardMoviesAndTVShows(cell: cell)
+    }
+    
+    @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
+        
+        let view = (navigationItem.titleView == searchBar) ? nil : searchBar
+        navigationItem.titleView = view
+        searchBar.text = nil
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
+        if searchBar.text == "" {
+            print("Barra vacía")
+        }
+        else {
+            resetContent()
+            content = .searchMovie
+            getData {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
@@ -62,7 +86,6 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
             }
-
             
         })
         
@@ -124,10 +147,10 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     //Scroll infinito
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 1 {
+        if indexPath.row == movies.count - 1 && page <= total_pages{
             page += 1
             getData {() -> () in
-                self.collectionView.reloadData()
+                self.collectionView.reloadData()//TODO revisar
             }
         }
     }
@@ -164,9 +187,16 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
             }
-            default:
+            case .release_date:
                 repository.moviesReleaseDateAsc(page: page) { responseObject, error in
                     
+                    self.saveDataToModel(data: responseObject, error: error)
+                    self.utils.stopLoadingIndicator(indicator: indicator)
+                    completionHandler()
+            }
+            default:
+                repository.searchMovie(page: page, query: searchBar.text!) {responseObject,error in
+
                     self.saveDataToModel(data: responseObject, error: error)
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
@@ -179,6 +209,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
 
         if let response = data {
             
+            total_pages = response["total_pages"].int!
             for item in response["results"] {
                 let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
                                   vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
@@ -198,8 +229,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func resetContent() {
         page = 1
+        total_pages = 0
         movies.removeAll()
-        self.collectionView.setContentOffset(CGPoint.zero, animated: true)
     }
     
     //Abrir detalle película

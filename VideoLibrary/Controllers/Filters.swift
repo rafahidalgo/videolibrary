@@ -13,6 +13,7 @@ enum FilterMovies: String {
     case popular
     case top_rated
     case release_date
+    case searchMovie
 }
 
 enum FilterShows: String {
@@ -20,5 +21,6 @@ enum FilterShows: String {
     case popular
     case top_rated
     case on_air
+    case searchTVShow
 }
 
