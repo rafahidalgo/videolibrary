@@ -18,6 +18,7 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        
         getData {() -> () in
             self.collectionView.reloadData()
         }
@@ -124,7 +125,8 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == tvShows.count - 1 {
+        
+        if indexPath.row == tvShows.count - 1 && page < total_pages{
             page += 1
             getData {() -> () in
                 self.collectionView.reloadData()
@@ -196,6 +198,7 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func resetContent() {
         page = 1
+        total_pages = 1
         tvShows.removeAll()
     }
     

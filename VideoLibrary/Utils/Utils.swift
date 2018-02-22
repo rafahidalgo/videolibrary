@@ -44,10 +44,32 @@ struct Utils {
         return (activityIndicator, effectView)
     }
     
+    //Parar el indicador de carga
     func stopLoadingIndicator(indicator: (UIActivityIndicatorView, UIVisualEffectView)) {
         
         indicator.0.stopAnimating()
         indicator.1.removeFromSuperview()
+    }
+    
+    func showToast(message: String, view: UIView) {
+        //https://stackoverflow.com/questions/31540375/how-to-toast-message-in-swift
+        
+        let toast =  UILabel(frame: CGRect(x: view.frame.midX - 100, y: 0, width: 200, height: 50))
+        toast.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        toast.textColor = UIColor.white
+        toast.textAlignment = .center
+        toast.font = UIFont(name: "Monserrat-Light", size: 12.0)
+        toast.text = message
+        toast.alpha = 1.0
+        toast.layer.cornerRadius = 10
+        toast.clipsToBounds = true
+        view.addSubview(toast)
+        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toast.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toast.removeFromSuperview()
+        })
+        
     }
     
     //Alerta de conexión perdida

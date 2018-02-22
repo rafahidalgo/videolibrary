@@ -54,7 +54,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
-        
+        print("hola")
         let view = (navigationItem.titleView == searchBar) ? nil : searchBar
         navigationItem.titleView = view
         searchBar.text = nil
@@ -63,12 +63,12 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
         if searchBar.text == "" {
-            print("Barra vacía")
+            utils.showToast(message: "The search bar is empty", view: view)
         }
         else {
             resetContent()
             content = .searchMovie
-            getData {
+            getData {() -> () in
                 self.collectionView.reloadData()
             }
         }
@@ -147,10 +147,11 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     //Scroll infinito
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 1 && page <= total_pages{
+        
+        if indexPath.row == movies.count - 1 && page < total_pages{
             page += 1
             getData {() -> () in
-                self.collectionView.reloadData()//TODO revisar
+                self.collectionView.reloadData()
             }
         }
     }
@@ -229,7 +230,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func resetContent() {
         page = 1
-        total_pages = 0
+        total_pages = 1
         movies.removeAll()
     }
     
