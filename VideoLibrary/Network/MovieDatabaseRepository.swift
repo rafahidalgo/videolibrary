@@ -16,13 +16,14 @@ struct MovieDatabaseRepository: MovieRepository {
     let apiUrl: String  
     let apiKey: String
     let posterUrl: String
-    
+    let backDropUrl: String
     
     init() {
         
         self.apiUrl = "https://api.themoviedb.org/3/"
         self.apiKey = "592d2665d929bc693a5ef6ece254bf2a"
         self.posterUrl = "https://image.tmdb.org/t/p/w500"
+        self.backDropUrl = "https://image.tmdb.org/t/p/w1280"
         
     }
     
@@ -201,6 +202,12 @@ struct MovieDatabaseRepository: MovieRepository {
         let url = URL(string: "\(self.posterUrl)\(poster)")
         imageView.af_setImage(withURL: url!)
         
+    }
+    
+    func getBackdropImage(backdrop: String, imageView: UIImageView) {
+        
+        let url = URL(string: "\(self.backDropUrl)\(backdrop)")
+        imageView.af_setImage(withURL: url!)
     }
     
     func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {

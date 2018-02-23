@@ -15,6 +15,7 @@ protocol MovieRepository {
     var apiUrl: String {get}
     var apiKey: String {get}
     var posterUrl: String {get}
+    var backDropUrl: String {get}
     
     init()
     
@@ -32,6 +33,7 @@ protocol MovieRepository {
     func searchTVShow(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ())
     
     func getPosterImage(poster: String, imageView: UIImageView)
+    func getBackdropImage(backdrop: String, imageView: UIImageView)
     func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
 

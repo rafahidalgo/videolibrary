@@ -11,33 +11,25 @@ import UIKit
 class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var background: UIImageView!
+    @IBOutlet weak var movieTitle: UILabel!
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var id: Int?
+    var movieDetail: MovieDetails?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getMovieDetails {() -> () in
-            
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    func getMovieDetails(completionHandler:@escaping (() -> ())) {
         repository.getMovie(id: id!) {responseObject, error in
             
             if let response = responseObject {
                 
-                for item in response["results"] {
-                    let movie = MovieDetails(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
-                                      vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!,
-                                      backdrop: item.1["backdrop_path"].string!, genres: item.1["genres"].array, countries: item.1["production_countries"].array)
-                }
-                completionHandler()
+                self.movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
+                                         vote: response["vote_average"].float!, release: response["release_date"].string!, overview: response["overview"].string!,
+                                         backdrop: response["backdrop_path"].string!, genres: response["genres"].array, countries: response["production_countries"].array)
+                self.background.layer.cornerRadius = 10.0
+                self.repository.getBackdropImage(backdrop: (self.movieDetail?.backdropPath)!, imageView: self.background)//TODO puede que no haya imagen
+                self.movieTitle.text = self.movieDetail?.title
                 return
             }
             
@@ -49,4 +41,9 @@ class MovieDetailViewController: UIViewController {
             }
         }
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
 }
