@@ -246,6 +246,12 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         tvShows.removeAll()
     }
     
-    
+    //Abrir detalle serie
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! TVShowViewCell
+        let indexPath = collectionView.indexPath(for: cell)
+        let detailViewController = segue.destination as! TVShowDetailViewController
+        detailViewController.id = tvShows[(indexPath?.row)!].id
+    }
     
 }

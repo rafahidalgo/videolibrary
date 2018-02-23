@@ -11,6 +11,7 @@
 		3A38AECA20305D8300E753DF /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AEC920305D8300E753DF /* MoviesViewController.swift */; };
 		3A38AECE20305E3500E753DF /* TVShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECD20305E3500E753DF /* TVShowsViewController.swift */; };
 		3A38AED020305E5500E753DF /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECF20305E5500E753DF /* PeopleViewController.swift */; };
+		3A443BA6204041F900BEC2D7 /* TVShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A443BA5204041F900BEC2D7 /* TVShowDetailViewController.swift */; };
 		3A59DF822030BEF90097E327 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF812030BEF90097E327 /* Actor.swift */; };
 		3A59DF842030BF680097E327 /* ActorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF832030BF680097E327 /* ActorDetails.swift */; };
 		3A59DF862030BFB80097E327 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF852030BFB80097E327 /* Movie.swift */; };
@@ -39,6 +40,7 @@
 		3A38AEC920305D8300E753DF /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		3A38AECD20305E3500E753DF /* TVShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsViewController.swift; sourceTree = "<group>"; };
 		3A38AECF20305E5500E753DF /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
+		3A443BA5204041F900BEC2D7 /* TVShowDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowDetailViewController.swift; sourceTree = "<group>"; };
 		3A59DF812030BEF90097E327 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		3A59DF832030BF680097E327 /* ActorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorDetails.swift; sourceTree = "<group>"; };
 		3A59DF852030BFB80097E327 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */,
 				3A856B77203CFF77006F47A3 /* Filters.swift */,
 				3AB4C3CC203E04BA00C9E992 /* MovieDetailViewController.swift */,
+				3A443BA5204041F900BEC2D7 /* TVShowDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				3A6F9C942035EE3300FDC421 /* MovieViewCell.swift in Sources */,
 				3A38AECE20305E3500E753DF /* TVShowsViewController.swift in Sources */,
 				3A8AAAC320308BD600C63DB5 /* Utils.swift in Sources */,
+				3A443BA6204041F900BEC2D7 /* TVShowDetailViewController.swift in Sources */,
 				3A59DF8A2030C00D0097E327 /* TVShow.swift in Sources */,
 				3AB4C3CD203E04BA00C9E992 /* MovieDetailViewController.swift in Sources */,
 				3A59DF882030BFE10097E327 /* MovieDetails.swift in Sources */,
