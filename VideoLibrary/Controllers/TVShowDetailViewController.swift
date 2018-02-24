@@ -19,11 +19,19 @@ class TVShowDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        getShowdetails {
+            
+        }
+    }
+    
+    func getShowdetails(completionHandler: @escaping (() -> ())) {
+        
         repository.getTVShow(id: id!) {responseObject, error in
             
             if let response = responseObject {
                 
                 print(response)
+                completionHandler()
                 return
             }
             

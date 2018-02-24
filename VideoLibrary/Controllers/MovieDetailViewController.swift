@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UICircularProgressRing
 
 class MovieDetailViewController: UIViewController {
     
@@ -20,17 +21,24 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        getMovieDetails {
+            self.background.layer.cornerRadius = 10.0
+            let backdropImage = self.repository.getBackdropImage(backdrop: (self.movieDetail?.backdropPath)!)//TODO puede que no haya imagen
+            self.background.image = backdropImage
+            self.movieTitle.text = self.movieDetail?.title
+        }
+    }
+    
+    func getMovieDetails(completionHandler: @escaping (() -> ())) {
+    
         repository.getMovie(id: id!) {responseObject, error in
             
             if let response = responseObject {
                 
                 self.movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
-                                         vote: response["vote_average"].float!, release: response["release_date"].string!, overview: response["overview"].string!,
-                                         backdrop: response["backdrop_path"].string!, genres: response["genres"].array, countries: response["production_countries"].array)
-                self.background.layer.cornerRadius = 10.0
-                let backdropImage = self.repository.getBackdropImage(backdrop: (self.movieDetail?.backdropPath)!)//TODO puede que no haya imagen
-                self.background.image = backdropImage
-                self.movieTitle.text = self.movieDetail?.title
+                                                vote: response["vote_average"].float!, release: response["release_date"].string!, overview: response["overview"].string!,
+                                                backdrop: response["backdrop_path"].string!, genres: response["genres"].array, countries: response["production_countries"].array)
+                completionHandler()
                 return
             }
             

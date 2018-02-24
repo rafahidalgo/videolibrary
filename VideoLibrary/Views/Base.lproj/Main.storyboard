@@ -552,8 +552,13 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qxf-si-Y3W" userLabel="Background">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Qxf-si-Y3W" secondAttribute="height" multiplier="375:154" constant="-69.610389610389575" id="IXl-pK-VtT"/>
-                                    <constraint firstAttribute="height" constant="160" id="vt4-xP-Ned"/>
+                                    <constraint firstAttribute="width" secondItem="Qxf-si-Y3W" secondAttribute="height" multiplier="375:154" constant="-69.610389610389575" id="IXl-pK-VtT">
+                                        <variation key="widthClass=compact" constant="-69.610389610389575"/>
+                                    </constraint>
+                                    <constraint firstAttribute="height" constant="160" id="vt4-xP-Ned">
+                                        <variation key="widthClass=compact" constant="160"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="230"/>
+                                    </constraint>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoI-Dc-MD1">
