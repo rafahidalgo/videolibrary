@@ -33,8 +33,8 @@ protocol MovieRepository {
     func searchTVShow(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getTVShow(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
-    func getPosterImage(poster: String, imageView: UIImageView)
-    func getBackdropImage(backdrop: String, imageView: UIImageView)
+    func getPosterImage(poster: String) -> UIImage?
+    func getBackdropImage(backdrop: String) -> UIImage?
     func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
 

@@ -223,17 +223,24 @@ struct MovieDatabaseRepository: MovieRepository {
 /////////////////////////////////// RUTAS DE IMÁGENES ////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    func getPosterImage(poster: String, imageView: UIImageView) {
+    func getPosterImage(poster: String) -> UIImage? {
         
         let url = URL(string: "\(self.posterUrl)\(poster)")
-        imageView.af_setImage(withURL: url!)
+        let data = try! Data(contentsOf: url!)
+        let posterImage = UIImage(data: data)
         
+        posterImage?.af_inflate()
+        return posterImage
     }
     
-    func getBackdropImage(backdrop: String, imageView: UIImageView) {
+    func getBackdropImage(backdrop: String) -> UIImage?{
         
         let url = URL(string: "\(self.backDropUrl)\(backdrop)")
-        imageView.af_setImage(withURL: url!)
+        let data = try! Data(contentsOf: url!)
+        let backdropImage = UIImage(data: data)
+        
+        backdropImage?.af_inflate()
+        return backdropImage
     }
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -44,7 +44,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         cell.movieRelease.text = movies[indexPath.row].release
         cell.moviePoster.layer.cornerRadius = 10.0
         if let poster = movies[indexPath.row].posterUrl {
-            repository.getPosterImage(poster: poster, imageView: cell.moviePoster)
+            let posterImage = repository.getPosterImage(poster: poster)
+            cell.moviePoster.image = posterImage
         }
         else {
             cell.moviePoster.image = UIImage(named: "No Image")

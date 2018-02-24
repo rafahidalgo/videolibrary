@@ -28,7 +28,8 @@ class MovieDetailViewController: UIViewController {
                                          vote: response["vote_average"].float!, release: response["release_date"].string!, overview: response["overview"].string!,
                                          backdrop: response["backdrop_path"].string!, genres: response["genres"].array, countries: response["production_countries"].array)
                 self.background.layer.cornerRadius = 10.0
-                self.repository.getBackdropImage(backdrop: (self.movieDetail?.backdropPath)!, imageView: self.background)//TODO puede que no haya imagen
+                let backdropImage = self.repository.getBackdropImage(backdrop: (self.movieDetail?.backdropPath)!)//TODO puede que no haya imagen
+                self.background.image = backdropImage
                 self.movieTitle.text = self.movieDetail?.title
                 return
             }

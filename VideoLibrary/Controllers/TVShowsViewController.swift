@@ -44,7 +44,8 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         cell.showAirDate.text = tvShows[indexPath.row].first_air
         cell.tvPoster.layer.cornerRadius = 10.0
         if let poster = tvShows[indexPath.row].posterUrl {
-            repository.getPosterImage(poster: poster, imageView: cell.tvPoster)
+            let posterImage = repository.getPosterImage(poster: poster)
+            cell.tvPoster.image = posterImage
         }
         else {
             cell.tvPoster.image = UIImage(named: "No Image")
