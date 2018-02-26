@@ -13,6 +13,8 @@ class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
+    @IBOutlet weak var puntuation: UICircularProgressRingView!
+    @IBOutlet weak var overview: UILabel!
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var id: Int?
@@ -26,6 +28,8 @@ class MovieDetailViewController: UIViewController {
             let backdropImage = self.repository.getBackdropImage(backdrop: (self.movieDetail?.backdropPath)!)//TODO puede que no haya imagen
             self.background.image = backdropImage
             self.movieTitle.text = self.movieDetail?.title
+            self.puntuation.setProgress(value: CGFloat((self.movieDetail?.vote)!), animationDuration: 2.0)
+            self.overview.text = self.movieDetail?.overview
         }
     }
     
@@ -50,7 +54,15 @@ class MovieDetailViewController: UIViewController {
             }
         }
     }
-
+    
+    @IBAction func showTrailer(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func addMovie(_ sender: UIButton) {
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
