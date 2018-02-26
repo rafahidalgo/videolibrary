@@ -28,8 +28,8 @@ class MovieDetailViewController: UIViewController {
             let backdropImage = self.repository.getBackdropImage(backdrop: (self.movieDetail?.backdropPath)!)//TODO puede que no haya imagen
             self.background.image = backdropImage
             self.movieTitle.text = self.movieDetail?.title
-            self.puntuation.setProgress(value: CGFloat((self.movieDetail?.vote)!), animationDuration: 2.0)
-            self.overview.text = self.movieDetail?.overview
+            //self.puntuation.setProgress(value: CGFloat((self.movieDetail?.vote)!), animationDuration: 2.0)
+            //self.overview.text = self.movieDetail?.overview
         }
     }
     
