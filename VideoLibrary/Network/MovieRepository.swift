@@ -19,6 +19,7 @@ protocol MovieRepository {
     
     init()
     
+    //Movies
     func discoverMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPopularMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getTopRatedMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
@@ -26,6 +27,7 @@ protocol MovieRepository {
     func searchMovie(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getMovie(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
+    //TV Shows
     func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPopularTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getTopRatedTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
@@ -33,10 +35,17 @@ protocol MovieRepository {
     func searchTVShow(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getTVShow(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
-    func getPosterImage(poster: String) -> UIImage?
-    func getBackdropImage(backdrop: String) -> UIImage?
+    //People
     func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-
+    func getPersonDetail(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getMovieCredits(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    
+    //Resources
+    func getPosterImage(poster: String) -> UIImage?
+    func getBackdropImage(backdrop: String) -> UIImage?
+    
+    //Checkings
     func checkResponseCode(response: DataResponse<Any>) -> (JSON?, NSError?)
+
 }
