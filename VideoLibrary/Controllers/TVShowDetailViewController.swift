@@ -36,21 +36,39 @@ class TVShowDetailViewController: UIViewController {
                 
                 let showDetail = TVShowDetails(id: response["id"].int!, name: response["name"].string!, posterUrl: response["poster_path"].string,
                                                 vote: response["vote_average"].float!, first_air: response["first_air_date"].string!, overview: response["overview"].string!,
-                                                backdropPath: response["backdrop_path"].string!, genres: response["genres"].array, numberOfSeasons: response["number_of_seasons"].int!,
+                                                backdropPath: response["backdrop_path"].string!, genres: response["genres"].array!, numberOfSeasons: response["number_of_seasons"].int!,
                                                 episodes: response["number_of_episodes"].int!, seasons: response["seasons"].array)
-                self.background.layer.cornerRadius = 10.0
-                let backdropImage = self.repository.getBackdropImage(backdrop: (showDetail.backdropPath)!)//TODO puede que no haya imagen
-                self.background.image = backdropImage
+                
                 self.name.text = showDetail.name
+                self.background.layer.cornerRadius = 10.0
+                
+                if let backdropImage =  showDetail.backdropPath {
+                    
+                    let image = self.repository.getBackdropImage(backdrop: backdropImage)
+                    self.background.image = image
+                }
+                else {
+                    
+                    self.background.image = UIImage(named: "No Image")
+                }
+                
                 self.puntuation.setProgress(value: CGFloat(showDetail.vote), animationDuration: 2.0)
                 self.numberSeasons.text = "Seasons: \(showDetail.numberOfSeasons)"
-                self.overview.text = showDetail.overview
                 
-                if let generos = showDetail.genres {
+                if showDetail.overview.count != 0 {
+                    
+                    self.overview.text = showDetail.overview
+                }
+                else {
+                    self.overview.textAlignment = .center
+                    self.overview.text = "Information not available"
+                }
+                
+                if showDetail.genres.count != 0 {
                     
                     var nombres = ""
                     
-                    for item in generos {
+                    for item in showDetail.genres {
                         nombres += " \(item["name"].string!)"
                     }
                     self.genres.text = nombres
@@ -58,6 +76,7 @@ class TVShowDetailViewController: UIViewController {
                 else {
                     self.genres.text = "Information not available"
                 }
+                
                 return
             }
             

@@ -35,19 +35,37 @@ class MovieDetailViewController: UIViewController {
                 
                 let movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
                                                 vote: response["vote_average"].float!, release: response["release_date"].string!, overview: response["overview"].string!,
-                                                backdrop: response["backdrop_path"].string!, genres: response["genres"].array, countries: response["production_countries"].array)
-                self.background.layer.cornerRadius = 10.0
-                let backdropImage = self.repository.getBackdropImage(backdrop: (movieDetail.backdropPath)!)//TODO puede que no haya imagen
-                self.background.image = backdropImage
-                self.movieTitle.text = movieDetail.title
-                self.puntuation.setProgress(value: CGFloat(movieDetail.vote), animationDuration: 2.0)
-                self.overview.text = movieDetail.overview
+                                                backdrop: response["backdrop_path"].string, genres: response["genres"].array!, countries: response["production_countries"].array)
                 
-                if let generos = movieDetail.genres {
+                self.movieTitle.text = movieDetail.title
+                self.background.layer.cornerRadius = 10.0
+                
+                if let backdropImage =  movieDetail.backdropPath {
+                    
+                    let image = self.repository.getBackdropImage(backdrop: backdropImage)
+                    self.background.image = image
+                }
+                else {
+
+                    self.background.image = UIImage(named: "No Image")
+                }
+                
+                self.puntuation.setProgress(value: CGFloat(movieDetail.vote), animationDuration: 2.0)
+                
+                if movieDetail.overview.count != 0 {
+                    
+                    self.overview.text = movieDetail.overview
+                }
+                else {
+                    self.overview.textAlignment = .center
+                    self.overview.text = "Information not available"
+                }
+
+                if movieDetail.genres.count != 0 {
                     
                     var nombres = ""
                     
-                    for item in generos {
+                    for item in movieDetail.genres {
                         nombres += " \(item["name"].string!)"
                     }
                     self.genres.text = nombres
@@ -55,6 +73,7 @@ class MovieDetailViewController: UIViewController {
                 else {
                     self.genres.text = "Information not available"
                 }
+
                 return
             }
             

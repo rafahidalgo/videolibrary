@@ -12,10 +12,10 @@ import SwiftyJSON
 class MovieDetails: Movie {
     
     let backdropPath: String?
-    let genres: [JSON]?
+    let genres: [JSON]
     let countries: [JSON]?
     
-    init(id: Int, title: String, posterUrl: String?, vote: Float, release: String, overview: String, backdrop: String?, genres: [JSON]?, countries: [JSON]?) {
+    init(id: Int, title: String, posterUrl: String?, vote: Float, release: String, overview: String, backdrop: String?, genres: [JSON], countries: [JSON]?) {
         self.backdropPath = backdrop
         self.genres = genres
         self.countries = countries

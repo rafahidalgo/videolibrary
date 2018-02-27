@@ -12,13 +12,13 @@ import SwiftyJSON
 class TVShowDetails: TVShow {
     
     let backdropPath: String?
-    let genres: [JSON]?
+    let genres: [JSON]
     let numberOfSeasons: Int
     let episodes: Int
     let seasons: [JSON]?
     
     init(id: Int, name: String, posterUrl: String?, vote: Float, first_air: String, overview: String, backdropPath: String?
-                                                , genres: [JSON]?, numberOfSeasons: Int, episodes: Int, seasons: [JSON]?) {
+                                                , genres: [JSON], numberOfSeasons: Int, episodes: Int, seasons: [JSON]?) {
         self.backdropPath = backdropPath
         self.genres = genres
         self.numberOfSeasons = numberOfSeasons
