@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A0310CD2045FA1200514F86 /* CastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0310CC2045FA1200514F86 /* CastViewCell.swift */; };
 		3A1BAAE6203CAEF1008E7B1D /* TVShowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */; };
 		3A38AECA20305D8300E753DF /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AEC920305D8300E753DF /* MoviesViewController.swift */; };
 		3A38AECE20305E3500E753DF /* TVShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECD20305E3500E753DF /* TVShowsViewController.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		007DCA01D19A3FD5BAA4E23E /* Pods_VideoLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A0310CC2045FA1200514F86 /* CastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastViewCell.swift; sourceTree = "<group>"; };
 		3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowViewCell.swift; sourceTree = "<group>"; };
 		3A38AEC920305D8300E753DF /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		3A38AECD20305E3500E753DF /* TVShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				3A856B77203CFF77006F47A3 /* Filters.swift */,
 				3AB4C3CC203E04BA00C9E992 /* MovieDetailViewController.swift */,
 				3A443BA5204041F900BEC2D7 /* TVShowDetailViewController.swift */,
+				3A0310CC2045FA1200514F86 /* CastViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				3A7EE732203222620005BEC8 /* MovieDatabaseRepository.swift in Sources */,
 				3A6F9C942035EE3300FDC421 /* MovieViewCell.swift in Sources */,
 				3A38AECE20305E3500E753DF /* TVShowsViewController.swift in Sources */,
+				3A0310CD2045FA1200514F86 /* CastViewCell.swift in Sources */,
 				3A8AAAC320308BD600C63DB5 /* Utils.swift in Sources */,
 				3A443BA6204041F900BEC2D7 /* TVShowDetailViewController.swift in Sources */,
 				3A59DF8A2030C00D0097E327 /* TVShow.swift in Sources */,

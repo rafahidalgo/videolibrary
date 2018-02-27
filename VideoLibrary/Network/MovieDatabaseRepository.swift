@@ -123,6 +123,19 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
+    func getMovieCast(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+        
+        Alamofire.request("\(self.apiUrl)movie/\(id)/credits",
+            method: .get,
+            parameters: ["api_key":self.apiKey])
+            .responseJSON(completionHandler: {response in
+                
+                let result = self.checkResponseCode(response: response)
+                completionHandler(result.0, result.1)
+            }
+        )
+    }
+    
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// RUTAS DE SERIES //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -219,6 +232,20 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
+    func getTVShowCast(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+        
+        Alamofire.request("\(self.apiUrl)tv/\(id)/credits",
+            method: .get,
+            parameters: ["api_key":self.apiKey,
+                         "language":"es-ES"])
+            .responseJSON(completionHandler: {response in
+                
+                let result = self.checkResponseCode(response: response)
+                completionHandler(result.0, result.1)
+            }
+        )
+    }
+    
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// RUTAS DE IMÁGENES ////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -283,20 +310,8 @@ struct MovieDatabaseRepository: MovieRepository {
                          "language": "es-ES"])
             .responseJSON { response in
                 
-                switch response.result {
-                    case .success(let data):
-                        let json = JSON(data)
-                        let code = (response.response?.statusCode)! as Int
-                    switch code {
-                        case 200:
-                            completionHandler(json, nil)
-                        default:
-                            let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
-                            completionHandler(nil, error)
-                        }
-                    case .failure(let error as NSError):
-                        completionHandler(nil, error)
-                    }
+                let result = self.checkResponseCode(response: response)
+                completionHandler(result.0, result.1)
             }
     }
     
@@ -307,20 +322,8 @@ struct MovieDatabaseRepository: MovieRepository {
                          "language": "es-ES"])
             .responseJSON { response in
                 
-                switch response.result {
-                case .success(let data):
-                    let json = JSON(data)
-                    let code = (response.response?.statusCode)! as Int
-                    switch code {
-                    case 200:
-                        completionHandler(json, nil)
-                    default:
-                        let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
-                        completionHandler(nil, error)
-                    }
-                case .failure(let error as NSError):
-                    completionHandler(nil, error)
-                }
+                let result = self.checkResponseCode(response: response)
+                completionHandler(result.0, result.1)
         }
     }
     

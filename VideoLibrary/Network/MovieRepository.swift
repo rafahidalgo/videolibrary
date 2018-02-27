@@ -26,6 +26,7 @@ protocol MovieRepository {
     func moviesReleaseDateAsc(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func searchMovie(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getMovie(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getMovieCast(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
     //TV Shows
     func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
@@ -34,6 +35,7 @@ protocol MovieRepository {
     func getOnAirTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func searchTVShow(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getTVShow(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getTVShowCast(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
     //People
     func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())

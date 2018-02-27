@@ -33,7 +33,7 @@ class TVShowDetailViewController: UIViewController {
         repository.getTVShow(id: id) {responseObject, error in
             
             if let response = responseObject {
-                
+
                 let showDetail = TVShowDetails(id: response["id"].int!, name: response["name"].string!, posterUrl: response["poster_path"].string,
                                                 vote: response["vote_average"].float!, first_air: response["first_air_date"].string!, overview: response["overview"].string!,
                                                 backdropPath: response["backdrop_path"].string!, genres: response["genres"].array!, numberOfSeasons: response["number_of_seasons"].int!,

@@ -6,6 +6,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
+    
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var movies: [Movie] = []

@@ -8,26 +8,55 @@
 
 import UIKit
 import UICircularProgressRing
+import SwiftyJSON
 
-class MovieDetailViewController: UIViewController {
+class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var puntuation: UICircularProgressRingView!
     @IBOutlet weak var overview: UILabel!
     @IBOutlet weak var genres: UILabel!
+    @IBOutlet weak var collectionCast: UICollectionView!
     
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var id: Int?
+    var cast: [Actor] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getMovieDetails(id: id!)
+        collectionCast.delegate = self
+        collectionCast.dataSource = self
+        getMovieDetails(id: id!) {() -> () in
+            self.getMovieCredits(id: self.id!) {() -> () in
+                
+                self.collectionCast.reloadData()
+            }
+        }
+        
     }
     
-    func getMovieDetails(id: Int) {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cast.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActorCell", for: indexPath) as! CastViewCell
+    
+        if let imageURL = cast[indexPath.row].photoURL {
+            let posterImage = repository.getPosterImage(poster: imageURL)
+            cell.castImage.image = posterImage
+        } else {
+            cell.castImage.image = UIImage(named: "No Image")
+        }
+        
+        return cell
+    }
+    
+    func getMovieDetails(id: Int, completionHandler:@escaping (() -> ())) {
     
         repository.getMovie(id: id) {responseObject, error in
             
@@ -73,12 +102,37 @@ class MovieDetailViewController: UIViewController {
                 else {
                     self.genres.text = "Information not available"
                 }
-
+                completionHandler()
                 return
             }
             
             if (error?.code)! < 0 {
                 self.utils.showAlertConnectionLost(view: self)
+            }
+            else {
+                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+            }
+        }
+    }
+    
+    func getMovieCredits(id: Int, completionHandler:@escaping (() -> ())) {
+        
+        repository.getMovieCast(id: id) { responseObject, error in
+            
+            if let response = responseObject {
+                
+                for item in response["cast"] {
+                    
+                    let actor = Actor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)//TODO foto
+                    self.cast.append(actor)
+                }
+                
+                completionHandler()
+                return
+            }
+            
+            if (error?.code)! < 0 {
+                self.utils.showAlertConnectionLost(view: self)//TODO forzar error
             }
             else {
                 self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
