@@ -15,34 +15,46 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var puntuation: UICircularProgressRingView!
     @IBOutlet weak var overview: UILabel!
+    @IBOutlet weak var genres: UILabel!
+    
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var id: Int?
-    var movieDetail: MovieDetails?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getMovieDetails {
-            self.background.layer.cornerRadius = 10.0
-            let backdropImage = self.repository.getBackdropImage(backdrop: (self.movieDetail?.backdropPath)!)//TODO puede que no haya imagen
-            self.background.image = backdropImage
-            self.movieTitle.text = self.movieDetail?.title
-            //self.puntuation.setProgress(value: CGFloat((self.movieDetail?.vote)!), animationDuration: 2.0)
-            //self.overview.text = self.movieDetail?.overview
-        }
+        getMovieDetails(id: id!)
     }
     
-    func getMovieDetails(completionHandler: @escaping (() -> ())) {
+    func getMovieDetails(id: Int) {
     
-        repository.getMovie(id: id!) {responseObject, error in
+        repository.getMovie(id: id) {responseObject, error in
             
             if let response = responseObject {
                 
-                self.movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
+                let movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
                                                 vote: response["vote_average"].float!, release: response["release_date"].string!, overview: response["overview"].string!,
                                                 backdrop: response["backdrop_path"].string!, genres: response["genres"].array, countries: response["production_countries"].array)
-                completionHandler()
+                self.background.layer.cornerRadius = 10.0
+                let backdropImage = self.repository.getBackdropImage(backdrop: (movieDetail.backdropPath)!)//TODO puede que no haya imagen
+                self.background.image = backdropImage
+                self.movieTitle.text = movieDetail.title
+                self.puntuation.setProgress(value: CGFloat(movieDetail.vote), animationDuration: 2.0)
+                self.overview.text = movieDetail.overview
+                
+                if let generos = movieDetail.genres {
+                    
+                    var nombres = ""
+                    
+                    for item in generos {
+                        nombres += " \(item["name"].string!)"
+                    }
+                    self.genres.text = nombres
+                }
+                else {
+                    self.genres.text = "Information not available"
+                }
                 return
             }
             
