@@ -8,7 +8,7 @@ target 'VideoLibrary' do
   pod 'SwiftyJSON'
   pod 'AlamofireImage', '~> 3.3'
   pod 'UICircularProgressRing'
-
+  pod 'RAMAnimatedTabBarController'
   # Pods for VideoLibrary
 
 end
