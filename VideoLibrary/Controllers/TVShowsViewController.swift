@@ -1,6 +1,7 @@
 
 import UIKit
 import SwiftyJSON
+import CRRefresh
 
 class TVShowsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
 
@@ -21,6 +22,17 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
+        
+        //Se encarga de refrescar el contenido cuando el usuario desliza el dedo hacia abajo
+        collectionView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) {[weak self] in
+            
+            self?.resetContent()
+            self?.getData {() -> () in
+                self?.collectionView.reloadData()
+                self?.collectionView.cr.endHeaderRefresh()
+            }
+            
+        }
         
         getData {() -> () in
             self.collectionView.reloadData()

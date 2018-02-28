@@ -1,5 +1,6 @@
 
 import UIKit
+import CRRefresh
 
 class PeopleViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
@@ -21,6 +22,17 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
+        
+        //Se encarga de refrescar el contenido cuando el usuario desliza el dedo hacia abajo
+        collectionView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) {[weak self] in
+            
+            self?.resetContent()
+            self?.searchPopularPeople(page: (self?.page)!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                
+                self?.collectionView.cr.endHeaderRefresh()
+            })
+        }
         
         searchPopularPeople(page: page)
 

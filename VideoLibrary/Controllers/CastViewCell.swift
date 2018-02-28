@@ -11,5 +11,5 @@ import UIKit
 class CastViewCell: UICollectionViewCell {
 
     @IBOutlet weak var castImage: UIImageView!
-    
+    @IBOutlet weak var actorName: UILabel!
 }

@@ -253,20 +253,34 @@ struct MovieDatabaseRepository: MovieRepository {
     func getPosterImage(poster: String) -> UIImage? {
         
         let url = URL(string: "\(self.posterUrl)\(poster)")
-        let data = try! Data(contentsOf: url!)
-        let posterImage = UIImage(data: data)
+        let posterImage: UIImage?
         
-        posterImage?.af_inflate()
+        if let data = try? Data(contentsOf: url!) {
+            
+            posterImage = UIImage(data: data)
+            posterImage?.af_inflate()
+        }
+        else {
+            posterImage = UIImage(named: "No image")
+        }
+        
         return posterImage
     }
     
     func getBackdropImage(backdrop: String) -> UIImage?{
         
         let url = URL(string: "\(self.backDropUrl)\(backdrop)")
-        let data = try! Data(contentsOf: url!)
-        let backdropImage = UIImage(data: data)
+        let backdropImage: UIImage?
         
-        backdropImage?.af_inflate()
+        if let data = try? Data(contentsOf: url!) {
+            
+            backdropImage = UIImage(data: data)
+            backdropImage?.af_inflate()
+        }
+        else {
+            backdropImage = UIImage(named: "No image")
+        }
+        
         return backdropImage
     }
     

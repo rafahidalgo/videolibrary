@@ -9,6 +9,7 @@ target 'VideoLibrary' do
   pod 'AlamofireImage', '~> 3.3'
   pod 'UICircularProgressRing'
   pod 'RAMAnimatedTabBarController'
+  pod 'CRRefresh'
   # Pods for VideoLibrary
 
 end

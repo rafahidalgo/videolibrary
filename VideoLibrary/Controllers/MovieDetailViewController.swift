@@ -29,10 +29,14 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
 
         collectionCast.delegate = self
         collectionCast.dataSource = self
+        
+        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        
         getMovieDetails(id: id!) {() -> () in
+
             self.getMovieCredits(id: self.id!) {() -> () in
-                
                 self.collectionCast.reloadData()
+                self.utils.stopLoadingIndicator(indicator: indicator)
             }
         }
         
@@ -53,7 +57,10 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             cell.castImage.image = UIImage(named: "No Image")
         }
         
-        return cell
+        cell.castImage.layer.cornerRadius = 10.0
+        cell.actorName.text = cast[indexPath.row].name
+        
+        return utils.customCardMoviesAndTVShows(cell: cell)
     }
     
     func getMovieDetails(id: Int, completionHandler:@escaping (() -> ())) {
@@ -146,6 +153,13 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBAction func addMovie(_ sender: UIButton) {
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! CastViewCell
+        let indexPath = collectionCast.indexPath(for: cell)
+        let detailViewController = segue.destination as! PeopleDetailViewController
+        detailViewController.id = cast[(indexPath?.row)!].id
     }
     
     override func didReceiveMemoryWarning() {

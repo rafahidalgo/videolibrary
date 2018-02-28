@@ -208,7 +208,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
             </objects>
-            <point key="canvasLocation" x="1874" y="392"/>
+            <point key="canvasLocation" x="1871" y="482"/>
         </scene>
         <!--Show Detail View Controller-->
         <scene sceneID="bFn-wh-hkF">
@@ -431,7 +431,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1G0-8e-nFz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2679.375" y="391.90140845070425"/>
+            <point key="canvasLocation" x="2751" y="482"/>
         </scene>
         <!--Popular People-->
         <scene sceneID="WdB-x3-hfm">
@@ -523,7 +523,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
             </objects>
-            <point key="canvasLocation" x="1256.521739130435" y="1188.5869565217392"/>
+            <point key="canvasLocation" x="1869" y="1268"/>
         </scene>
         <!--People Detail View Controller-->
         <scene sceneID="Wo0-Qv-Zc2">
@@ -691,7 +691,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o53-Ha-XzQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2021.5999999999999" y="1186.9565217391305"/>
+            <point key="canvasLocation" x="3302" y="1268"/>
         </scene>
         <!--Movies-->
         <scene sceneID="wtd-ev-W06">
@@ -882,7 +882,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
             </objects>
-            <point key="canvasLocation" x="1874.4000000000001" y="-300"/>
+            <point key="canvasLocation" x="1873" y="-395"/>
         </scene>
         <!--Movie Detail View Controller-->
         <scene sceneID="Lwt-Zi-Ll9">
@@ -945,9 +945,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="ibRingStyle">
                                                         <integer key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                        <real key="value" value="0.0"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
@@ -1053,40 +1050,53 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Aai-2u-dc4" userLabel="Movie Cast">
-                                        <rect key="frame" x="29" y="226" width="302" height="140"/>
+                                        <rect key="frame" x="29" y="226" width="302" height="160"/>
                                         <color key="backgroundColor" name="SecondaryColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="ynt-N7-bxO"/>
+                                            <constraint firstAttribute="height" constant="160" id="ynt-N7-bxO"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XQc-vQ-Vpk">
-                                            <size key="itemSize" width="100" height="100"/>
+                                            <size key="itemSize" width="100" height="120"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="ActorCell" id="dBp-cd-4H7" customClass="CastViewCell" customModule="VideoLibrary" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="20" width="100" height="100"/>
+                                                <rect key="frame" x="0.0" y="20" width="100" height="120"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="120"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3hl-PC-Wbk" userLabel="Actor">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3hl-PC-Wbk" userLabel="Actor">
                                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="e28-69-OVE"/>
+                                                                <constraint firstAttribute="height" constant="100" id="iAs-EB-KLO"/>
+                                                            </constraints>
                                                         </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2x-yd-PV3">
+                                                            <rect key="frame" x="0.0" y="120" width="100" height="0.0"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" name="PrimaryColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                 </view>
+                                                <color key="backgroundColor" name="SecondaryColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="3hl-PC-Wbk" secondAttribute="bottom" id="Clh-Pe-R1W"/>
-                                                    <constraint firstAttribute="trailing" secondItem="3hl-PC-Wbk" secondAttribute="trailing" id="Fx5-Vu-7B6"/>
-                                                    <constraint firstItem="3hl-PC-Wbk" firstAttribute="leading" secondItem="dBp-cd-4H7" secondAttribute="leading" id="OcP-Yd-ble"/>
-                                                    <constraint firstItem="3hl-PC-Wbk" firstAttribute="top" secondItem="dBp-cd-4H7" secondAttribute="top" id="eDr-95-dkk"/>
-                                                    <constraint firstItem="3hl-PC-Wbk" firstAttribute="width" secondItem="dBp-cd-4H7" secondAttribute="width" id="mK0-RW-LaV"/>
-                                                    <constraint firstItem="3hl-PC-Wbk" firstAttribute="height" secondItem="dBp-cd-4H7" secondAttribute="height" id="mzC-k6-24Y"/>
+                                                    <constraint firstItem="3hl-PC-Wbk" firstAttribute="top" secondItem="dBp-cd-4H7" secondAttribute="top" id="1Rh-an-Rxy"/>
+                                                    <constraint firstItem="3hl-PC-Wbk" firstAttribute="leading" secondItem="dBp-cd-4H7" secondAttribute="leading" id="7JD-KZ-di6"/>
+                                                    <constraint firstItem="3hl-PC-Wbk" firstAttribute="centerX" secondItem="dBp-cd-4H7" secondAttribute="centerX" id="Jck-dy-EUt"/>
+                                                    <constraint firstAttribute="trailing" secondItem="H2x-yd-PV3" secondAttribute="trailing" id="O9r-xe-xzX"/>
+                                                    <constraint firstAttribute="bottom" secondItem="H2x-yd-PV3" secondAttribute="bottom" id="Vuq-yE-qRc"/>
+                                                    <constraint firstItem="H2x-yd-PV3" firstAttribute="leading" secondItem="dBp-cd-4H7" secondAttribute="leading" id="bsW-lk-mg8"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="actorName" destination="H2x-yd-PV3" id="oEI-Ub-6hw"/>
                                                     <outlet property="castImage" destination="3hl-PC-Wbk" id="klf-XH-EsP"/>
+                                                    <segue destination="GT8-fq-opT" kind="show" id="jy8-0h-otR"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -1141,7 +1151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0RQ-Lu-J6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2692.5" y="-300"/>
+            <point key="canvasLocation" x="3302" y="-395"/>
         </scene>
         <!--Animated Tab Bar Controller-->
         <scene sceneID="tqY-wm-Pae">
@@ -1282,7 +1292,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NKy-h2-UNq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="1al-xe-FGT" customClass="RAMBounceAnimation" customModule="VideoLibrary" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="286" y="1190"/>
+            <point key="canvasLocation" x="285" y="1268"/>
         </scene>
     </scenes>
     <resources>
@@ -1296,12 +1306,12 @@
         <namedColor name="PrimaryColor">
             <color red="0.0040000001900000002" green="0.82400000100000004" blue="0.46700000759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="PrimaryColor">
-            <color red="0.0040000001899898052" green="0.82400000095367432" blue="0.46700000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="SecondaryColor">
             <color red="0.030999999493360519" green="0.10999999940395355" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="jy8-0h-otR"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" name="PrimaryColor"/>
 </document>
