@@ -32,6 +32,10 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         
+        //Hay que hacer dos peticiones, una para obtener los detalles de una película y otra para el cast de actores.
+        //Con el siguiente código se busca que primero se obtengan los detalles de la película y cuando esten almacenados y listos para usar
+        //se obtiene el cast de actores. Si por algún motivo falla la conexión a internet al entrar en la vista de detalles de una película
+        //no se realizará la closure de getMovieDetails.
         getMovieDetails(id: id!) {() -> () in
 
             self.getMovieCredits(id: self.id!) {() -> () in
@@ -109,6 +113,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                 else {
                     self.genres.text = "Information not available"
                 }
+                
                 completionHandler()
                 return
             }
@@ -130,7 +135,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                 
                 for item in response["cast"] {
                     
-                    let actor = Actor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)//TODO foto
+                    let actor = Actor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)
                     self.cast.append(actor)
                 }
                 
@@ -139,7 +144,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)//TODO forzar error
+                self.utils.showAlertConnectionLost(view: self)
             }
             else {
                 self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
