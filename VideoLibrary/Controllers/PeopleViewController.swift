@@ -2,7 +2,7 @@
 import UIKit
 import CRRefresh
 
-class PeopleViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -18,6 +18,9 @@ class PeopleViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addSlideMenuButton()
+
         
         collectionView.delegate = self
         collectionView.dataSource = self

@@ -3,7 +3,7 @@ import UIKit
 import SwiftyJSON
 import CRRefresh
 
-class TVShowsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
+class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
@@ -18,6 +18,9 @@ class TVShowsViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addSlideMenuButton()
+
         
         collectionView.delegate = self
         collectionView.dataSource = self

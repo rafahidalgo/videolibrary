@@ -3,7 +3,7 @@ import UIKit
 import SwiftyJSON
 import CRRefresh
 
-class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
+class MoviesViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
@@ -19,6 +19,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        addSlideMenuButton()
         
         collectionView.delegate = self
         collectionView.dataSource = self
