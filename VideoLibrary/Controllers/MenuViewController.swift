@@ -32,6 +32,11 @@ class MenuViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        menuFormat()
+    }
+    
     @IBAction func btnCloseTapped(_ sender: UIButton) {
         
         btnMenu.tag = 0
@@ -63,10 +68,13 @@ extension MenuViewController {
         sideView.layer.shadowColor = UIColor.black.cgColor
         sideView.layer.shadowOpacity = 0.8
         sideView.layer.shadowOffset = CGSize(width: 5, height: 0)
-        menuWidthConstraint.constant = UIScreen.main.bounds.width * 0.5
+        
+        let widthConstraint = UIDevice.current.orientation.isPortrait ? 0.5 : 0.75
+        
+        menuWidthConstraint.constant = UIScreen.main.bounds.width * CGFloat(widthConstraint)
         
         for i in 0..<menuButtons.count {
-            buttonHeighConstraints[i].constant = menuButtons[i].layer.bounds.width / 7
+            buttonHeighConstraints[i].constant = menuButtons[i].layer.bounds.width / 5
             menuButtons[i].layer.cornerRadius = menuButtons[i].layer.bounds.width / 30
         }
         
