@@ -71,7 +71,7 @@ extension MenuViewController {
         
         let widthConstraint = UIDevice.current.orientation.isPortrait ? 0.5 : 0.75
         
-        menuWidthConstraint.constant = UIScreen.main.bounds.width * CGFloat(widthConstraint)
+        menuWidthConstraint.constant = self.view.frame.width * CGFloat(widthConstraint)
         
         for i in 0..<menuButtons.count {
             buttonHeighConstraints[i].constant = menuButtons[i].layer.bounds.width / 5
