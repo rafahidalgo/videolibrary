@@ -15,14 +15,12 @@ class Movie {
     let posterUrl: String?
     let vote: Float
     let release: String
-    let overview: String
     
-    init(id:Int, title:String, posterUrl: String?, vote: Float, release: String, overview: String) {
+    init(id:Int, title:String, posterUrl: String?, vote: Float, release: String) {
         self.id = id
         self.title = title
         self.posterUrl = posterUrl
         self.vote = vote
         self.release = release
-        self.overview = overview
     }
 }

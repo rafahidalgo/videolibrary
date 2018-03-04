@@ -24,7 +24,7 @@ struct MovieDatabaseRepository: MovieRepository {
         self.apiKey = "592d2665d929bc693a5ef6ece254bf2a"
         self.posterUrl = "https://image.tmdb.org/t/p/w500"
         self.backDropUrl = "https://image.tmdb.org/t/p/w1280"
-        
+
     }
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,6 +128,20 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)movie/\(id)/credits",
             method: .get,
             parameters: ["api_key":self.apiKey])
+            .responseJSON(completionHandler: {response in
+                
+                let result = self.checkResponseCode(response: response)
+                completionHandler(result.0, result.1)
+            }
+        )
+    }
+    
+    func getMovieTrailer(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+        
+        Alamofire.request("\(self.apiUrl)movie/\(id)/videos",
+            method: .get,
+            parameters: ["api_key":self.apiKey,
+            "language":"es-ES"])
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)

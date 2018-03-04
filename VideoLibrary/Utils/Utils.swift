@@ -102,6 +102,21 @@ struct Utils {
         view.present(alert, animated: true, completion: nil)
     }
     
+    //Mostrar alert con mensaje personalizado
+    func showAlertWithCustomMessage(title: String, message: String, view: UIViewController) {
+        
+        let alert = UIAlertController(title: title,
+            message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        })
+        
+        alert.addAction(okAction)
+        
+        view.present(alert, animated: true, completion: nil)
+    }
+    
     //Estilo de tarjeta para películas y series
     func customCardMoviesAndTVShows(cell: UICollectionViewCell) -> UICollectionViewCell {
         

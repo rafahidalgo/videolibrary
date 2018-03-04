@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A0310CD2045FA1200514F86 /* CastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0310CC2045FA1200514F86 /* CastViewCell.swift */; };
 		3A1BAAE6203CAEF1008E7B1D /* TVShowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */; };
+		3A21BB63204B1A07005BF434 /* TrailerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21BB62204B1A07005BF434 /* TrailerViewController.swift */; };
 		3A38AECA20305D8300E753DF /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AEC920305D8300E753DF /* MoviesViewController.swift */; };
 		3A38AECE20305E3500E753DF /* TVShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECD20305E3500E753DF /* TVShowsViewController.swift */; };
 		3A38AED020305E5500E753DF /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A38AECF20305E5500E753DF /* PeopleViewController.swift */; };
@@ -42,6 +43,7 @@
 		007DCA01D19A3FD5BAA4E23E /* Pods_VideoLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A0310CC2045FA1200514F86 /* CastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastViewCell.swift; sourceTree = "<group>"; };
 		3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowViewCell.swift; sourceTree = "<group>"; };
+		3A21BB62204B1A07005BF434 /* TrailerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewController.swift; sourceTree = "<group>"; };
 		3A38AEC920305D8300E753DF /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		3A38AECD20305E3500E753DF /* TVShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsViewController.swift; sourceTree = "<group>"; };
 		3A38AECF20305E5500E753DF /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				3A443BA5204041F900BEC2D7 /* TVShowDetailViewController.swift */,
 				3A0310CC2045FA1200514F86 /* CastViewCell.swift */,
 				3AC6736D2046C11D00D26B9F /* MenuViewController.swift */,
+				3A21BB62204B1A07005BF434 /* TrailerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				3A8AAAC320308BD600C63DB5 /* Utils.swift in Sources */,
 				3A443BA6204041F900BEC2D7 /* TVShowDetailViewController.swift in Sources */,
 				3A59DF8A2030C00D0097E327 /* TVShow.swift in Sources */,
+				3A21BB63204B1A07005BF434 /* TrailerViewController.swift in Sources */,
 				3AE30DD12045C27B006C3E04 /* RAMBounceAnimation.swift in Sources */,
 				3AB4C3CD203E04BA00C9E992 /* MovieDetailViewController.swift in Sources */,
 				3A59DF882030BFE10097E327 /* MovieDetails.swift in Sources */,

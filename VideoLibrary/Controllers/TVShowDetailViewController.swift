@@ -73,9 +73,9 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
             if let response = responseObject {
 
                 let showDetail = TVShowDetails(id: response["id"].int!, name: response["name"].string!, posterUrl: response["poster_path"].string,
-                                                vote: response["vote_average"].float!, first_air: response["first_air_date"].string!, overview: response["overview"].string!,
-                                                backdropPath: response["backdrop_path"].string!, genres: response["genres"].array!, numberOfSeasons: response["number_of_seasons"].int!,
-                                                episodes: response["number_of_episodes"].int!, seasons: response["seasons"].array)
+                                                vote: response["vote_average"].float!, first_air: response["first_air_date"].string!,
+                                                backdropPath: response["backdrop_path"].string!, overview: response["overview"].string!, genres: response["genres"].array!,
+                                                numberOfSeasons: response["number_of_seasons"].int!, episodes: response["number_of_episodes"].int!, seasons: response["seasons"].array)
                 
                 self.name.text = showDetail.name
                 self.background.layer.cornerRadius = 10.0

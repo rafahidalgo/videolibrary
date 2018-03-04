@@ -242,7 +242,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             total_pages = response["total_pages"].int!
             for item in response["results"] {
                 let show = TVShow(id: item.1["id"].int!, name: item.1["name"].string!, posterUrl: item.1["poster_path"].string,
-                                  vote: item.1["vote_average"].float!, first_air: item.1["first_air_date"].string!, overview: item.1["overview"].string!)
+                                  vote: item.1["vote_average"].float!, first_air: item.1["first_air_date"].string!)
                 self.tvShows.append(show)
             }
             return

@@ -247,7 +247,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             total_pages = response["total_pages"].int!
             for item in response["results"] {
                 let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
-                                  vote: item.1["vote_average"].float!, release: item.1["release_date"].string!, overview: item.1["overview"].string!)
+                                  vote: item.1["vote_average"].float!, release: item.1["release_date"].string!)
                 self.movies.append(movie)
             }
             return

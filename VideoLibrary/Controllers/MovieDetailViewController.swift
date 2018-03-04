@@ -74,8 +74,9 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             if let response = responseObject {
                 
                 let movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
-                                                vote: response["vote_average"].float!, release: response["release_date"].string!, overview: response["overview"].string!,
-                                                backdrop: response["backdrop_path"].string, genres: response["genres"].array!, countries: response["production_countries"].array)
+                                                vote: response["vote_average"].float!, release: response["release_date"].string!,
+                                                backdrop: response["backdrop_path"].string, overview: response["overview"].string!, genres: response["genres"].array!,
+                                                countries: response["production_countries"].array)
                 
                 self.movieTitle.text = movieDetail.title
                 self.background.layer.cornerRadius = 10.0
@@ -151,20 +152,29 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             }
         }
     }
-    
-    @IBAction func showTrailer(_ sender: UIButton) {
-        
-    }
-    
+
     @IBAction func addMovie(_ sender: UIButton) {
+        
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! CastViewCell
-        let indexPath = collectionCast.indexPath(for: cell)
-        let detailViewController = segue.destination as! PeopleDetailViewController
-        detailViewController.id = cast[(indexPath?.row)!].id
+        
+        if let segueID = segue.identifier {
+            if segueID == "modalTrailer" {
+                
+                let detailViewController = segue.destination as! TrailerViewController
+                detailViewController.id = self.id
+            }
+            
+        }
+        else {
+            let cell = sender as! CastViewCell
+            let indexPath = collectionCast.indexPath(for: cell)
+            let detailViewController = segue.destination as! PeopleDetailViewController
+            detailViewController.id = cast[(indexPath?.row)!].id
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
