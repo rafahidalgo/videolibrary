@@ -20,10 +20,10 @@ struct MovieDatabaseRepository: MovieRepository {
     
     init() {
         
-        self.apiUrl = "https://api.themoviedb.org/3/"
-        self.apiKey = "592d2665d929bc693a5ef6ece254bf2a"
-        self.posterUrl = "https://image.tmdb.org/t/p/w500"
-        self.backDropUrl = "https://image.tmdb.org/t/p/w1280"
+        self.apiUrl = NSLocalizedString("apiUrl", comment: "URL base")
+        self.apiKey = NSLocalizedString("apiKey", comment: "")
+        self.posterUrl = NSLocalizedString("posterUrl", comment: "")
+        self.backDropUrl = NSLocalizedString("backdropUrl", comment: "")
 
     }
     

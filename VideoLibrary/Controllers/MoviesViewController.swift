@@ -13,8 +13,8 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     var movies: [Movie] = []
     var page = 1
     var total_pages = 1
-    var filterMovies = FilterMovies.discover
-    var state = FilterMovies.discover// para poder volver al estado anterior al realizar búsquedas
+    var filterMovies = FilterMovies.discoverMovie
+    var state = FilterMovies.discoverMovie// para poder volver al estado anterior al realizar búsquedas
     
     override func viewDidLoad() {
         
@@ -91,7 +91,9 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
         if searchBar.text == "" {
-            utils.showToast(message: "The search bar is empty", view: view)
+            utils.showToast(message: NSLocalizedString("emptySearchBar",
+                                                       comment: "Mensaje que se muestra cuando se le da a buscar una película con la barra vacía"),
+                                                       view: view)
         }
         else {
             resetContent()
@@ -106,12 +108,12 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
 
-        let options = UIAlertController(title: nil, message: "Choose an option", preferredStyle: .actionSheet)
+        let options = UIAlertController(title: nil, message: NSLocalizedString("sheetTitle", comment: "Título del Action Sheet"), preferredStyle: .actionSheet)
         
-        let discover = UIAlertAction(title: "Discover movies", style: .default, handler: { (UIAlertAction) in
+        let discover = UIAlertAction(title: NSLocalizedString("discoverMovies", comment: ""), style: .default, handler: { (UIAlertAction) in
             
             self.resetContent()
-            self.filterMovies = .discover
+            self.filterMovies = .discoverMovie
             self.state = self.filterMovies
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
@@ -120,10 +122,10 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             
         })
         
-        let popular = UIAlertAction(title: "Popular movies", style: .default, handler: { (UIAlertAction) in
+        let popular = UIAlertAction(title: NSLocalizedString("popularMovies", comment: ""), style: .default, handler: { (UIAlertAction) in
             
             self.resetContent()
-            self.filterMovies = .popular
+            self.filterMovies = .popularMovie
             self.state = self.filterMovies
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
@@ -132,10 +134,10 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
 
         })
         
-        let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
+        let top = UIAlertAction(title: NSLocalizedString("topRatedMovies", comment: ""), style: .default) { (alert: UIAlertAction) in
             
             self.resetContent()
-            self.filterMovies = .top_rated
+            self.filterMovies = .topRatedMovie
             self.state = self.filterMovies
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
@@ -144,7 +146,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
 
         }
         
-        let release = UIAlertAction(title: "Release date (asc)", style: .default) { (alert: UIAlertAction) in
+        let release = UIAlertAction(title: NSLocalizedString("releaseDate", comment: ""), style: .default) { (alert: UIAlertAction) in
             
             self.resetContent()
             self.filterMovies = .release_date
@@ -156,7 +158,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alert: UIAlertAction) in
+        let cancel = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { (alert: UIAlertAction) in
             
         }
         
@@ -199,23 +201,23 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         //debe hacerse scroll a la parte superior automáticamente para que se visualice el primer elemento del array de películas pero teniendo en cuenta la reutilización de
         //celdas. Para ello se ha usado una closure que informa de la disponibilidad de los datos en el modelo.
         
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         switch filterMovies {
-            case .discover:
+            case .discoverMovie:
                 repository.discoverMovies(page: page){ responseObject, error in
                     
                     self.saveDataToModel(data: responseObject, error: error)
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
             }
-            case .popular:
+            case .popularMovie:
                 repository.getPopularMovies(page: page){ responseObject, error in
                     
                     self.saveDataToModel(data: responseObject, error: error)
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
             }
-            case .top_rated:
+            case .topRatedMovie:
                 repository.getTopRatedMovies(page: page) { responseObject, error in
                     
                     self.saveDataToModel(data: responseObject, error: error)
@@ -244,7 +246,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
 
         if let response = data {
             
-            total_pages = response["total_pages"].int!
+            total_pages = response[NSLocalizedString("total_pages", comment: "")].int!
             for item in response["results"] {
                 let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
                                   vote: item.1["vote_average"].float!, release: item.1["release_date"].string!)

@@ -1,0 +1,42 @@
+/* 
+  Localizable.strings
+  VideoLibrary
+
+  Created by MIMO on 4/3/18.
+  Copyright © 2018 MIMO. All rights reserved.
+*/
+
+
+//Cadenas relacionadas con la barra de búsqueda de las vistas principales
+"emptySearchBar" = "The search bar is empty";
+
+//Cadenas relacionadas con los action sheet de series y películas
+//Películas
+"sheetTitle" = "Choose an option";
+"discoverMovies" = "Discover movies";
+"popularMovies" = "Popular movies";
+"topRatedMovies" = "Top rated movies";
+"releaseDate" = "Release date (asc)";
+
+//Series
+"onAir" = "On air";
+"discoverTVShows" = "Discover TV Shows";
+"popularTVShows" = "Popular TV Shows";
+"topRatedShows" = "Top rated TV Shows";
+
+"cancel" = "Cancel";
+
+
+//Cadenas relacionadas con la carga de recursos
+"loading" = "Loading...";
+"notAvailable" = "Information not available";
+
+
+//Cadenas relacionadas con el API del que se obtiene la información
+"apiUrl" = "https://api.themoviedb.org/3/";
+"apiKey" = "592d2665d929bc693a5ef6ece254bf2a";
+"posterUrl" = "https://image.tmdb.org/t/p/w500";
+"backdropUrl" = "https://image.tmdb.org/t/p/w1280";
+"trailerUrl" = "https://www.youtube.com/watch?v=";
+
+"total_pages" = "total_pages";

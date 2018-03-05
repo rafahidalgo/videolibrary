@@ -50,7 +50,7 @@ class TrailerViewController: UIViewController {
 
                     let videoKey = response["results"].arrayValue[0]["key"]
                     
-                    let videoUrl = "https://www.youtube.com/watch?v=\(videoKey)"
+                    let videoUrl = NSLocalizedString("trailerUrl", comment: "URL base de un trailer")+videoKey.string!
                     
                     if let url = URL(string: videoUrl) {
                         self.webView.load(URLRequest(url: url))

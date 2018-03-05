@@ -9,17 +9,17 @@
 import Foundation
 
 enum FilterMovies: String {
-    case discover
-    case popular
-    case top_rated
+    case discoverMovie
+    case popularMovie
+    case topRatedMovie
     case release_date
     case searchMovie
 }
 
 enum FilterShows: String {
-    case discover
-    case popular
-    case top_rated
+    case discoverTVShow
+    case popularTVShow
+    case topRatedTVShow
     case on_air
     case searchTVShow
 }

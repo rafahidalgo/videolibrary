@@ -30,7 +30,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         collectionCast.delegate = self
         collectionCast.dataSource = self
         
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: ""), view: view)
         
         //Hay que hacer dos peticiones, una para obtener los detalles de una película y otra para el cast de actores.
         //Con el siguiente código se busca que primero se obtengan los detalles de la película y cuando esten almacenados y listos para usar
@@ -99,7 +99,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                 }
                 else {
                     self.overview.textAlignment = .center
-                    self.overview.text = "Information not available"
+                    self.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
 
                 if movieDetail.genres.count != 0 {
@@ -112,7 +112,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                     self.genres.text = nombres
                 }
                 else {
-                    self.genres.text = "Information not available"
+                    self.genres.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
                 
                 completionHandler()

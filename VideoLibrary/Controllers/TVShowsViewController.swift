@@ -13,8 +13,8 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
     var tvShows: [TVShow] = []
     var page = 1
     var total_pages = 1
-    var filterShows = FilterShows.discover
-    var state = FilterShows.discover// para poder volver al estado anterior al realizar búsquedas
+    var filterShows = FilterShows.discoverTVShow
+    var state = FilterShows.discoverTVShow// para poder volver al estado anterior al realizar búsquedas
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,7 +92,9 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if searchBar.text == "" {
-            utils.showToast(message: "The search bar is empty", view: view)
+            utils.showToast(message: NSLocalizedString("emptySearchBar",
+                                                       comment: "Mensaje que se muestra cuando se le da a buscar una película con la barra vacía"),
+                                                       view: view)
         }
         else {
             resetContent()
@@ -107,12 +109,12 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
         
-        let options = UIAlertController(title: nil, message: "Choose an option", preferredStyle: .actionSheet)
+        let options = UIAlertController(title: nil, message: NSLocalizedString("sheetTitle", comment: ""), preferredStyle: .actionSheet)
         
-        let discover = UIAlertAction(title: "Discover TV Shows", style: .default, handler: { (UIAlertAction) in
+        let discover = UIAlertAction(title: NSLocalizedString("discoverTVShows", comment: ""), style: .default, handler: { (UIAlertAction) in
             
             self.resetContent()
-            self.filterShows = .discover
+            self.filterShows = .discoverTVShow
             self.state = self.filterShows
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
@@ -120,10 +122,10 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             }
         })
         
-        let popular = UIAlertAction(title: "Popular TV Shows", style: .default, handler: { (UIAlertAction) in
+        let popular = UIAlertAction(title: NSLocalizedString("popularTVShows", comment: ""), style: .default, handler: { (UIAlertAction) in
             
             self.resetContent()
-            self.filterShows = .popular
+            self.filterShows = .popularTVShow
             self.state = self.filterShows
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
@@ -131,10 +133,10 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             }
         })
         
-        let top = UIAlertAction(title: "Top rated", style: .default) { (alert: UIAlertAction) in
+        let top = UIAlertAction(title: NSLocalizedString("topRatedShows", comment: ""), style: .default) { (alert: UIAlertAction) in
 
             self.resetContent()
-            self.filterShows = .top_rated
+            self.filterShows = .topRatedTVShow
             self.state = self.filterShows
             self.getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
@@ -142,7 +144,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             }
         }
         
-        let on_air = UIAlertAction(title: "On air", style: .default) { (alert: UIAlertAction) in
+        let on_air = UIAlertAction(title: NSLocalizedString("onAir", comment: ""), style: .default) { (alert: UIAlertAction) in
             
             self.resetContent()
             self.filterShows = .on_air
@@ -153,7 +155,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             }
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alert: UIAlertAction) in
+        let cancel = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { (alert: UIAlertAction) in
             
         }
         
@@ -194,23 +196,23 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         //hay que saber si los datos estan almacenados y listos para presentarse en pantalla para evitar problemas en la reutilización de celdas. Para esto se utiliza una
         //closure que informa de la disponibilidad de los datos en el modelo.
         
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         switch filterShows {
-        case .discover:
+        case .discoverTVShow:
             repository.discoverTVShows(page: page){ responseObject, error in
                 
                 self.saveDataToModel(data: responseObject, error: error)
                 self.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
-        case .popular:
+        case .popularTVShow:
             repository.getPopularTVShows(page: page){ responseObject, error in
                 
                 self.saveDataToModel(data: responseObject, error: error)
                 self.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
-        case .top_rated:
+        case .topRatedTVShow:
             repository.getTopRatedTVShows(page: page) { responseObject, error in
                 
                 self.saveDataToModel(data: responseObject, error: error)
