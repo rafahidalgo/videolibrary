@@ -21,7 +21,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         
         addSlideMenuButton()
-        
+
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
@@ -246,7 +246,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
 
         if let response = data {
             
-            total_pages = response[NSLocalizedString("total_pages", comment: "")].int!
+            total_pages = response["total_pages"].int!
             for item in response["results"] {
                 let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
                                   vote: item.1["vote_average"].float!, release: item.1["release_date"].string!)

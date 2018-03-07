@@ -38,5 +38,3 @@
 "posterUrl" = "https://image.tmdb.org/t/p/w500";
 "backdropUrl" = "https://image.tmdb.org/t/p/w1280";
 "trailerUrl" = "https://www.youtube.com/watch?v=";
-
-"total_pages" = "total_pages";
