@@ -20,26 +20,34 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
         super.viewDidLoad()
         
         addSlideMenuButton()
-
         
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
-        
+
         //Se encarga de refrescar el contenido cuando el usuario desliza el dedo hacia abajo
         collectionView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) {[weak self] in
-            
             self?.resetContent()
             self?.searchPopularPeople(page: (self?.page)!)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                
                 self?.collectionView.cr.endHeaderRefresh()
             })
         }
         
         searchPopularPeople(page: page)
+        sizePeopleCell(widthScreen: view.bounds.width)
 
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isPortrait{
+            sizePeopleCell(widthScreen: size.width)
+        } else {
+            sizePeopleCell(widthScreen: size.width)
+        }
+    }
+    
+    
 
     
     //CollectionView
@@ -210,6 +218,26 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
         detailViewController.id = people[(indexPath?.row)!].id
     }
     
-    
-    
 }
+
+extension PeopleViewController {
+
+    func sizePeopleCell(widthScreen: CGFloat) {
+        //Horizontal -> 4 columns   Vertical -> 3 columns
+        let itemsPerRow: CGFloat = UIDevice.current.orientation.isLandscape ? 4 : 2
+        let padding: CGFloat = 10
+        let utilWidth = widthScreen - padding * (itemsPerRow * 2)
+        let itemWidth = utilWidth / itemsPerRow
+        let itemHeight = itemWidth * (4/3)
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        collectionView.collectionViewLayout = layout
+    }
+
+}
+
+
+
+
+
