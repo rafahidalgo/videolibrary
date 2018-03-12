@@ -2,7 +2,7 @@
 import UIKit
 import CRRefresh
 
-class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+class PeopleViewController: BaseViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -13,8 +13,6 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
     var searching = false
     var nameSearched = ""
     var totalPages = 1
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +34,6 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
         
         searchPopularPeople(page: page)
         sizePeopleCell(widthScreen: view.bounds.width)
-
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -47,10 +44,20 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
         }
     }
     
+    //Pasar id al controlador de detalle
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! PeopleViewCell
+        let indexPath = collectionView.indexPath(for: cell)
+        let detailViewController = segue.destination as! PeopleDetailViewController
+        detailViewController.id = people[(indexPath?.row)!].id
+    }
     
+}
 
-    
-    //CollectionView
+
+
+//CollectionView
+extension PeopleViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return people.count
@@ -81,36 +88,34 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
         return cell
         
     }
-    
-    //Funcionalidad botón search
-    
-    @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
-        
-        let view = (navigationItem.titleView == searchBar) ? nil : searchBar
-        navigationItem.titleView = view
-        searchBar.text = nil
-        
+}
+
+
+
+//Formato de las celdas
+extension PeopleViewController {
+
+    func sizePeopleCell(widthScreen: CGFloat) {
+        //Horizontal -> 4 columnas   Vertical -> 3 columnas
+        let itemsPerRow: CGFloat = UIDevice.current.orientation.isLandscape ? 4 : 2
+        let padding: CGFloat = 10
+        let utilWidth = widthScreen - padding * (itemsPerRow * 2)
+        let itemWidth = utilWidth / itemsPerRow
+        let itemHeight = itemWidth * (4/3)
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        collectionView.collectionViewLayout = layout
     }
-    
-    //Funcionalidad barra search
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        if searchBar.text == "" {
-            self.searching = false
-            resetContent()
-            searchPopularPeople(page: page)
-        } else {
-            self.searching = true
-            resetContent()            
-            self.nameSearched = searchBar.text!
-            searchPerson(name: self.nameSearched, page: page)
-        }
-        
-    }
+
+}
+
+
+
+//Obtención de datos
+extension PeopleViewController {
     
     //Búsqueda de actores populares
-    
     func searchPopularPeople(page: Int) {
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
@@ -148,7 +153,6 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
     
     
     //Búsqueda de actores por nombre completo
-    
     func searchPerson(name: String, page: Int) {
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
@@ -182,25 +186,32 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
             }
         }
     }
+}
+
+
+
+//Barra search
+extension PeopleViewController: UISearchBarDelegate {
     
-    //Scroll infinito
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        if self.totalPages == 1 || self.page == self.totalPages {
-            return
+    //Funcionalidad botón search
+    @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
+        let view = (navigationItem.titleView == searchBar) ? nil : searchBar
+        navigationItem.titleView = view
+        searchBar.text = nil
+    }
+    
+    //Funcionalidad barra search
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text == "" {
+            self.searching = false
+            resetContent()
+            searchPopularPeople(page: page)
+        } else {
+            self.searching = true
+            resetContent()
+            self.nameSearched = searchBar.text!
+            searchPerson(name: self.nameSearched, page: page)
         }
-        
-        
-        if indexPath.row == people.count - 1 {
-            page += 1
-            if self.searching {
-                self.searchPerson(name: self.nameSearched, page: page)
-            } else {
-                self.searchPopularPeople(page: page)
-            }
-        }
-        
-        
     }
     
     //Resetear el contenido
@@ -210,31 +221,26 @@ class PeopleViewController: BaseViewController, UICollectionViewDataSource, UICo
         self.collectionView.setContentOffset(CGPoint.zero, animated: false)
     }
     
-    //Pasar id al controlador de detalle
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! PeopleViewCell
-        let indexPath = collectionView.indexPath(for: cell)
-        let detailViewController = segue.destination as! PeopleDetailViewController
-        detailViewController.id = people[(indexPath?.row)!].id
-    }
-    
 }
 
+
+
+//Scroll infinito
 extension PeopleViewController {
-
-    func sizePeopleCell(widthScreen: CGFloat) {
-        //Horizontal -> 4 columns   Vertical -> 3 columns
-        let itemsPerRow: CGFloat = UIDevice.current.orientation.isLandscape ? 4 : 2
-        let padding: CGFloat = 10
-        let utilWidth = widthScreen - padding * (itemsPerRow * 2)
-        let itemWidth = utilWidth / itemsPerRow
-        let itemHeight = itemWidth * (4/3)
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
-        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        collectionView.collectionViewLayout = layout
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if self.totalPages == 1 || self.page == self.totalPages {
+            return
+        }
+        if indexPath.row == people.count - 1 {
+            page += 1
+            if self.searching {
+                self.searchPerson(name: self.nameSearched, page: page)
+            } else {
+                self.searchPopularPeople(page: page)
+            }
+        }
     }
-
 }
 
 
