@@ -13,19 +13,11 @@ import SwiftyJSON
 
 struct MovieDatabaseRepository: MovieRepository {
     
-    let apiUrl: String  
-    let apiKey: String
-    let posterUrl: String
-    let backDropUrl: String
+    let apiUrl = "https://api.themoviedb.org/3/"
+    let apiKey = "592d2665d929bc693a5ef6ece254bf2a"
+    let posterUrl = "https://image.tmdb.org/t/p/w500"
+    let backDropUrl = "https://image.tmdb.org/t/p/w1280"
     
-    init() {
-        
-        self.apiUrl = NSLocalizedString("apiUrl", comment: "URL base")
-        self.apiKey = NSLocalizedString("apiKey", comment: "")
-        self.posterUrl = NSLocalizedString("posterUrl", comment: "")
-        self.backDropUrl = NSLocalizedString("backdropUrl", comment: "")
-
-    }
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// RUTAS DE PELÍCULAS ////////////////////////////////////////////////////

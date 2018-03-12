@@ -177,10 +177,6 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         self.present(options, animated: true, completion: nil)
     }
     
-    @IBAction func addFavoriteMovie(_ sender: UIButton) {
-        
-    }
-    
     //Scroll infinito
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
@@ -264,6 +260,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
 
     }
     
+    //Reset del contenido
     func resetContent() {
         page = 1
         total_pages = 1
@@ -276,6 +273,29 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         let indexPath = collectionView.indexPath(for: cell)
         let detailViewController = segue.destination as! MovieDetailViewController
         detailViewController.id = movies[(indexPath?.row)!].id
+    }
+    
+}
+
+extension MoviesViewController {
+    
+    @IBAction func addFavoriteMovie(_ sender: UIButton) {
+       
+        guard let cell = sender.superview?.superview as? MovieViewCell else {
+            utils.showAlertWithCustomMessage(title: "Error", message: NSLocalizedString("favoriteError", comment: ""), view: self)
+            return
+        }
+        
+        let indexPath = collectionView.indexPath(for: cell)
+        let movieId = movies[(indexPath?.row)!].id
+        let movieTitle = movies[(indexPath?.row)!].title
+        let movieImage = movies[(indexPath?.row)!].posterUrl
+        let favorite = Favorites()
+        
+        if favorite.addFavoriteMovie(id: movieId, title: movieTitle, image: movieImage) {
+            
+            utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
+        }
     }
     
 }

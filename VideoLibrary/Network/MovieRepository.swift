@@ -17,7 +17,6 @@ protocol MovieRepository {
     var posterUrl: String {get}
     var backDropUrl: String {get}
     
-    init()
     
     //Movies
     func discoverMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())

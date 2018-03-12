@@ -31,10 +31,8 @@
 "loading" = "Loading...";
 "notAvailable" = "Information not available";
 
-
-//Cadenas relacionadas con el API del que se obtiene la información
-"apiUrl" = "https://api.themoviedb.org/3/";
-"apiKey" = "592d2665d929bc693a5ef6ece254bf2a";
-"posterUrl" = "https://image.tmdb.org/t/p/w500";
-"backdropUrl" = "https://image.tmdb.org/t/p/w1280";
-"trailerUrl" = "https://www.youtube.com/watch?v=";
+//Cadenas relacionadas con errores
+"favoriteError" = "Could not save to favorites";
+"lostConnection" = "The device has lost connection to the server. Please, check the internet connection";
+"movieAdded" = "Movie added";
+"showAdded" = "TV Show added";

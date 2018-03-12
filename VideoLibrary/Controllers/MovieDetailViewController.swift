@@ -22,6 +22,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var id: Int?
+    var movieDetail: MovieDetails?
     var cast: [Actor] = []
     
     override func viewDidLoad() {
@@ -73,15 +74,15 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             
             if let response = responseObject {
                 
-                let movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
+                self.movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
                                                 vote: response["vote_average"].float!, release: response["release_date"].string!,
                                                 backdrop: response["backdrop_path"].string, overview: response["overview"].string!, genres: response["genres"].array!,
                                                 countries: response["production_countries"].array)
                 
-                self.movieTitle.text = movieDetail.title
+                self.movieTitle.text = self.movieDetail?.title
                 self.background.layer.cornerRadius = 10.0
                 
-                if let backdropImage =  movieDetail.backdropPath {
+                if let backdropImage =  self.movieDetail?.backdropPath {
                     
                     let image = self.repository.getBackdropImage(backdrop: backdropImage)
                     self.background.image = image
@@ -91,22 +92,22 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                     self.background.image = UIImage(named: "No Image")
                 }
                 
-                self.puntuation.setProgress(value: CGFloat(movieDetail.vote), animationDuration: 2.0)
+                self.puntuation.setProgress(value: CGFloat((self.movieDetail?.vote)!), animationDuration: 2.0)
                 
-                if movieDetail.overview.count != 0 {
+                if self.movieDetail?.overview.count != 0 {
                     
-                    self.overview.text = movieDetail.overview
+                    self.overview.text = self.movieDetail?.overview
                 }
                 else {
                     self.overview.textAlignment = .center
                     self.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
 
-                if movieDetail.genres.count != 0 {
+                if self.movieDetail?.genres.count != 0 {
                     
                     var nombres = ""
                     
-                    for item in movieDetail.genres {
+                    for item in (self.movieDetail?.genres)! {
                         nombres += " \(item["name"].string!)"
                     }
                     self.genres.text = nombres
@@ -152,11 +153,6 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             }
         }
     }
-
-    @IBAction func addMovie(_ sender: UIButton) {
-        
-        
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -181,4 +177,16 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         super.didReceiveMemoryWarning()
     }
 
+}
+
+extension MovieDetailViewController {
+    
+    @IBAction func addMovie(_ sender: UIButton) {
+        
+        let favorite = Favorites()
+        if favorite.addFavoriteMovie(id: (movieDetail?.id)!, title: (movieDetail?.title)!, image: movieDetail?.backdropPath) {
+            
+            utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
+        }
+    }
 }

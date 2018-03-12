@@ -174,11 +174,6 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         self.present(options, animated: true, completion: nil)
     }
     
-    @IBAction func addFavoriteShow(_ sender: UIButton) {
-        
-        
-    }
-    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         if indexPath.row == tvShows.count - 1 && page < total_pages{
@@ -259,6 +254,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         
     }
     
+    //Reset del contenido
     func resetContent() {
         page = 1
         total_pages = 1
@@ -271,6 +267,29 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         let indexPath = collectionView.indexPath(for: cell)
         let detailViewController = segue.destination as! TVShowDetailViewController
         detailViewController.id = tvShows[(indexPath?.row)!].id
+    }
+    
+}
+
+extension TVShowsViewController {
+    
+    @IBAction func addFavoriteShow(_ sender: UIButton) {
+        
+        guard let cell = sender.superview?.superview as? TVShowViewCell else {
+            utils.showAlertWithCustomMessage(title: "Error", message: NSLocalizedString("favoriteError", comment: ""), view: self)
+            return
+        }
+        
+        let indexPath = collectionView.indexPath(for: cell)
+        let showId = tvShows[(indexPath?.row)!].id
+        let showName = tvShows[(indexPath?.row)!].name
+        let showImage = tvShows[(indexPath?.row)!].posterUrl
+        let favorite = Favorites()
+        
+        if favorite.addFavoriteShow(id: showId, name: showName, image: showImage) {
+            
+            utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
+        }
     }
     
 }
