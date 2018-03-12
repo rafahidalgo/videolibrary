@@ -589,24 +589,27 @@
                                 <color key="backgroundColor" name="SecondaryColor"/>
                                 <color key="tintColor" name="PrimaryColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9oE-Cm-dYW">
-                                    <size key="itemSize" width="150" height="180"/>
+                                    <size key="itemSize" width="150" height="218"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="MiR-jO-PVB" customClass="PeopleViewCell" customModule="VideoLibrary" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="0.0" width="150" height="180"/>
+                                        <rect key="frame" x="20" y="0.0" width="150" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="180"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B7F-SC-MDC">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="162"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="170"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="B7F-SC-MDC" secondAttribute="height" multiplier="15:17" id="BYo-VZ-rV2"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y1R-hp-BJy">
-                                                    <rect key="frame" x="0.0" y="162" width="150" height="18"/>
+                                                    <rect key="frame" x="0.0" y="170" width="150" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="PrimaryColor"/>
                                                     <nil key="highlightedColor"/>
@@ -614,16 +617,16 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="B7F-SC-MDC" secondAttribute="trailing" id="16P-SW-V1Q"/>
-                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="leading" secondItem="MiR-jO-PVB" secondAttribute="leading" id="2HG-6q-Ogy"/>
-                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="top" secondItem="B7F-SC-MDC" secondAttribute="bottom" id="30x-ZL-RH8"/>
-                                            <constraint firstItem="B7F-SC-MDC" firstAttribute="leading" secondItem="MiR-jO-PVB" secondAttribute="leading" id="6LE-lT-F9u"/>
-                                            <constraint firstAttribute="bottom" secondItem="y1R-hp-BJy" secondAttribute="bottom" id="itb-oQ-98F"/>
-                                            <constraint firstItem="B7F-SC-MDC" firstAttribute="top" secondItem="MiR-jO-PVB" secondAttribute="top" id="vmM-BJ-s5D"/>
-                                            <constraint firstAttribute="trailing" secondItem="y1R-hp-BJy" secondAttribute="trailing" id="y1W-D7-YVv"/>
-                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="top" secondItem="B7F-SC-MDC" secondAttribute="bottom" id="yFr-Y9-Qbg"/>
+                                            <constraint firstAttribute="trailing" secondItem="B7F-SC-MDC" secondAttribute="trailing" id="FGi-iV-yE1"/>
+                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="top" secondItem="B7F-SC-MDC" secondAttribute="bottom" id="L8r-zO-oGp"/>
+                                            <constraint firstAttribute="trailing" secondItem="y1R-hp-BJy" secondAttribute="trailing" id="W5g-X0-2dJ"/>
+                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="leading" secondItem="MiR-jO-PVB" secondAttribute="leading" id="asH-Kq-Mz4"/>
+                                            <constraint firstAttribute="bottom" secondItem="y1R-hp-BJy" secondAttribute="bottom" id="pET-cL-eXM"/>
+                                            <constraint firstItem="B7F-SC-MDC" firstAttribute="leading" secondItem="MiR-jO-PVB" secondAttribute="leading" id="tG3-V1-SlX"/>
+                                            <constraint firstItem="y1R-hp-BJy" firstAttribute="top" secondItem="B7F-SC-MDC" secondAttribute="bottom" id="vPJ-BU-lCW"/>
+                                            <constraint firstItem="B7F-SC-MDC" firstAttribute="top" secondItem="MiR-jO-PVB" secondAttribute="top" id="z9R-Pt-Ryl"/>
                                         </constraints>
-                                        <size key="customSize" width="150" height="180"/>
+                                        <size key="customSize" width="150" height="200"/>
                                         <connections>
                                             <outlet property="actorImage" destination="B7F-SC-MDC" id="uhi-4A-CcK"/>
                                             <outlet property="actorName" destination="y1R-hp-BJy" id="gAm-DT-2xm"/>

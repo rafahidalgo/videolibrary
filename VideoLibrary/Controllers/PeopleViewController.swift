@@ -37,11 +37,7 @@ class PeopleViewController: BaseViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        if UIDevice.current.orientation.isPortrait{
-            sizePeopleCell(widthScreen: size.width)
-        } else {
-            sizePeopleCell(widthScreen: size.width)
-        }
+        sizePeopleCell(widthScreen: size.width)       
     }
     
     //Pasar id al controlador de detalle
