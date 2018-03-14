@@ -8,7 +8,6 @@ class PeopleDetailViewController: UIViewController {
     @IBOutlet weak var birthdayLabel: UILabel!
     @IBOutlet weak var deathdayLabel: UILabel!
     @IBOutlet weak var placeOfBirthLabel: UILabel!
-    @IBOutlet weak var popularityLabel: UILabel!
     @IBOutlet weak var biographyLabel: UILabel!
     
     
@@ -52,8 +51,7 @@ class PeopleDetailViewController: UIViewController {
                 let birthday = response["birthday"].string ?? "-"
                 let deathday = response["deathday"].string ?? "-"
                 let placeOfBirth = response["place_of_birth"].string ?? "-"
-                let popularity = response["popularity"].int ?? nil
-                let person = ActorDetails(id: id, name: name!, photoURL: photo, biography: biography, birthday: birthday, deathday: deathday, placeOfBirth: placeOfBirth, popularity: popularity, movie: self.movie, tvShow: self.tvShow)
+                let person = ActorDetails(id: id, name: name!, photoURL: photo, biography: biography, birthday: birthday, deathday: deathday, placeOfBirth: placeOfBirth, movie: self.movie, tvShow: self.tvShow)
                 
                 if let imageURL = person.photoURL {
                     let photoImage = self.repository.getPosterImage(poster: imageURL)
@@ -65,7 +63,6 @@ class PeopleDetailViewController: UIViewController {
                 self.nameLabel.text = person.name
                 self.birthdayLabel.text = person.birthday
                 self.deathdayLabel.text = person.deathday
-                self.popularityLabel.text = "\(person.popularity!)"
                 self.biographyLabel.text = person.biography
                 self.biographyLabel.sizeToFit()
                 self.placeOfBirthLabel.text = person.placeOfBirth
