@@ -28,7 +28,7 @@ class Favorites {
         return true
     }
     
-    func checkFavoritesMovies() {
+    func checkFavoritesMovies() -> [FavoriteMovies]? {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteMovies")
         
@@ -36,10 +36,9 @@ class Favorites {
             
             let fetchedMovies = try CoreDataStack.sharedInstance.context.fetch(fetchRequest)
             let results = fetchedMovies as! [FavoriteMovies]
+            let movies = (results.count > 0) ? results : nil
             
-            for movie in results {
-                print(movie.movieName)
-            }
+            return movies
             
         }catch let err as NSError{
             fatalError("Failed to fetch FavoriteMovies: \(err)")
@@ -64,10 +63,10 @@ class Favorites {
         }
     }
     
-    func deleteFavoriteMovie(id: Int) {
+    func deleteFavoriteMovie(id: Int) -> Bool {
         
         guard let movie = searchMovie(id: id) else {
-            return
+            return false
         }
         
         for item in movie {
@@ -75,6 +74,7 @@ class Favorites {
         }
         
         CoreDataStack.sharedInstance.saveContext()
+        return true
     }
     
     func addFavoriteShow(id: Int, name: String, image: String?) -> Bool{
@@ -94,7 +94,7 @@ class Favorites {
         return true
     }
     
-    func checkFavoritesShows() {
+    func checkFavoritesShows() -> [FavoriteTVShows]? {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteTVShows")
         
@@ -102,10 +102,9 @@ class Favorites {
             
             let fetchedShows = try CoreDataStack.sharedInstance.context.fetch(fetchRequest)
             let results = fetchedShows as! [FavoriteTVShows]
+            let shows = (results.count > 0) ? results : nil
             
-            for show in results {
-                print(show.tvShowName)
-            }
+            return shows
             
         }catch let err as NSError{
             fatalError("Failed to fetch FavoriteMovies: \(err)")
@@ -130,10 +129,10 @@ class Favorites {
         }
     }
     
-    func deleteFavoriteShow(id: Int) {
+    func deleteFavoriteShow(id: Int) -> Bool{
         
         guard let show = searchTVShow(id: id) else {
-            return
+            return false
         }
         
         for item in show {
@@ -141,5 +140,6 @@ class Favorites {
         }
         
         CoreDataStack.sharedInstance.saveContext()
+        return true
     }
 }

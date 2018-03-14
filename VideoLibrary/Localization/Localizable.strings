@@ -10,9 +10,8 @@
 //Cadenas relacionadas con la barra de búsqueda de las vistas principales
 "emptySearchBar" = "The search bar is empty";
 
-//Cadenas relacionadas con los action sheet de series y películas
+//Cadenas relacionadas con los action sheet de series, películas y favoritos
 //Películas
-"sheetTitle" = "Choose an option";
 "discoverMovies" = "Discover movies";
 "popularMovies" = "Popular movies";
 "topRatedMovies" = "Top rated movies";
@@ -24,7 +23,10 @@
 "popularTVShows" = "Popular TV Shows";
 "topRatedShows" = "Top rated TV Shows";
 
-"cancel" = "Cancel";
+
+//Favoritos
+"viewDetails" = "View details";
+"deleteFavorite" = "Delete from favorites";
 
 
 //Cadenas relacionadas con la carga de recursos
@@ -36,3 +38,5 @@
 "lostConnection" = "The device has lost connection to the server. Please, check the internet connection";
 "movieAdded" = "Movie added";
 "showAdded" = "TV Show added";
+"noFavoriteMovies" = "There are no favorite movies";
+"noFavoriteShows" = "There are no favorite tv shows";

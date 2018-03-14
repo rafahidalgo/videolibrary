@@ -15,6 +15,7 @@
 		3A1D69532050105A004FD96D /* CinemaPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D69522050105A004FD96D /* CinemaPin.swift */; };
 		3A1D695520501061004FD96D /* CinemaLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D695420501061004FD96D /* CinemaLocations.swift */; };
 		3A1D695720501068004FD96D /* NearbyCinemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D695620501068004FD96D /* NearbyCinemas.swift */; };
+		3A20243B205709FA00EAA625 /* FavoriteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20243A205709FA00EAA625 /* FavoriteViewCell.swift */; };
 		3A21BB63204B1A07005BF434 /* TrailerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21BB62204B1A07005BF434 /* TrailerViewController.swift */; };
 		3A2E7DCE20546BC60039D272 /* FavoriteMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E7DCD20546BC60039D272 /* FavoriteMovies.swift */; };
 		3A2E7DD020546C730039D272 /* FavoriteMovies+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E7DCF20546C730039D272 /* FavoriteMovies+CoreDataProperties.swift */; };
@@ -62,6 +63,7 @@
 		3A1D69522050105A004FD96D /* CinemaPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CinemaPin.swift; sourceTree = "<group>"; };
 		3A1D695420501061004FD96D /* CinemaLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CinemaLocations.swift; sourceTree = "<group>"; };
 		3A1D695620501068004FD96D /* NearbyCinemas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyCinemas.swift; sourceTree = "<group>"; };
+		3A20243A205709FA00EAA625 /* FavoriteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewCell.swift; sourceTree = "<group>"; };
 		3A21BB62204B1A07005BF434 /* TrailerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewController.swift; sourceTree = "<group>"; };
 		3A2E7DCD20546BC60039D272 /* FavoriteMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovies.swift; sourceTree = "<group>"; };
 		3A2E7DCF20546C730039D272 /* FavoriteMovies+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovies+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -114,6 +116,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A2024392057098300EAA625 /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				3A6F9C932035EE3300FDC421 /* MovieViewCell.swift */,
+				3A0310CC2045FA1200514F86 /* CastViewCell.swift */,
+				3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */,
+				3A8A1396203444A800D022FE /* PeopleViewCell.swift */,
+				3A20243A205709FA00EAA625 /* FavoriteViewCell.swift */,
+			);
+			path = ViewCells;
+			sourceTree = "<group>";
+		};
 		3A58CDBD2051C60C00909F7F /* Persistance */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +197,7 @@
 		3AB67B6D202F863600040206 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A2024392057098300EAA625 /* ViewCells */,
 				3A1D69502050104F004FD96D /* MapViewController.swift */,
 				3AC673672046BCE900D26B9F /* BaseViewController.swift */,
 				3A80B63F202F679400DD731E /* ViewController.swift */,
@@ -190,13 +205,9 @@
 				3A38AECD20305E3500E753DF /* TVShowsViewController.swift */,
 				3A38AECF20305E5500E753DF /* PeopleViewController.swift */,
 				3AF9E950203CC064003B9011 /* PeopleDetailViewController.swift */,
-				3A8A1396203444A800D022FE /* PeopleViewCell.swift */,
-				3A6F9C932035EE3300FDC421 /* MovieViewCell.swift */,
-				3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */,
 				3A856B77203CFF77006F47A3 /* Filters.swift */,
 				3AB4C3CC203E04BA00C9E992 /* MovieDetailViewController.swift */,
 				3A443BA5204041F900BEC2D7 /* TVShowDetailViewController.swift */,
-				3A0310CC2045FA1200514F86 /* CastViewCell.swift */,
 				3AC6736D2046C11D00D26B9F /* MenuViewController.swift */,
 				3A21BB62204B1A07005BF434 /* TrailerViewController.swift */,
 				3AB3ED9420560FAF004E2893 /* FavoritesViewController.swift */,
@@ -360,6 +371,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/CRRefresh/CRRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/FloatingActionSheetController/FloatingActionSheetController.framework",
 				"${BUILT_PRODUCTS_DIR}/RAMAnimatedTabBarController/RAMAnimatedTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
@@ -369,6 +381,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CRRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FloatingActionSheetController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAMAnimatedTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
@@ -412,6 +425,7 @@
 				3AF9E951203CC064003B9011 /* PeopleDetailViewController.swift in Sources */,
 				3A2E7DD020546C730039D272 /* FavoriteMovies+CoreDataProperties.swift in Sources */,
 				3AC673682046BCE900D26B9F /* BaseViewController.swift in Sources */,
+				3A20243B205709FA00EAA625 /* FavoriteViewCell.swift in Sources */,
 				3A80B640202F679400DD731E /* ViewController.swift in Sources */,
 				3AB3ED9520560FAF004E2893 /* FavoritesViewController.swift in Sources */,
 				3A80B63E202F679400DD731E /* AppDelegate.swift in Sources */,

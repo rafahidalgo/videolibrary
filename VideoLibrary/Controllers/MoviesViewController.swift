@@ -2,6 +2,7 @@
 import UIKit
 import SwiftyJSON
 import CRRefresh
+import FloatingActionSheetController
 
 class MoviesViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
     
@@ -107,10 +108,8 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     }
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
-
-        let options = UIAlertController(title: nil, message: NSLocalizedString("sheetTitle", comment: "Título del Action Sheet"), preferredStyle: .actionSheet)
         
-        let discover = UIAlertAction(title: NSLocalizedString("discoverMovies", comment: ""), style: .default, handler: { (UIAlertAction) in
+        let discover = FloatingAction(title: NSLocalizedString("discoverMovies", comment: "")) { action in
             
             self.resetContent()
             self.filterMovies = .discoverMovie
@@ -120,9 +119,9 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
                 self.collectionView.reloadData()
             }
             
-        })
+        }
         
-        let popular = UIAlertAction(title: NSLocalizedString("popularMovies", comment: ""), style: .default, handler: { (UIAlertAction) in
+        let popular = FloatingAction(title: NSLocalizedString("popularMovies", comment: "")) { action in
             
             self.resetContent()
             self.filterMovies = .popularMovie
@@ -132,9 +131,9 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
                 self.collectionView.reloadData()
             }
 
-        })
+        }
         
-        let top = UIAlertAction(title: NSLocalizedString("topRatedMovies", comment: ""), style: .default) { (alert: UIAlertAction) in
+        let top = FloatingAction(title: NSLocalizedString("topRatedMovies", comment: "")) { action in
             
             self.resetContent()
             self.filterMovies = .topRatedMovie
@@ -146,7 +145,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
 
         }
         
-        let release = UIAlertAction(title: NSLocalizedString("releaseDate", comment: ""), style: .default) { (alert: UIAlertAction) in
+        let release = FloatingAction(title: NSLocalizedString("releaseDate", comment: "")) { action in
             
             self.resetContent()
             self.filterMovies = .release_date
@@ -158,23 +157,9 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             
         }
         
-        let cancel = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { (alert: UIAlertAction) in
-            
-        }
-        
-        options.addAction(discover)
-        options.addAction(popular)
-        options.addAction(top)
-        options.addAction(release)
-        options.addAction(cancel)
-        
-        //Crash del action sheet en tablets https://stackoverflow.com/questions/31577140/uialertcontroller-is-crashed-ipad/31577494
-        if let popover = options.popoverPresentationController {
-            popover.sourceView = view
-            popover.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.maxY, width: 1.0, height: 1.0)
-        }
-        
-        self.present(options, animated: true, completion: nil)
+        let group = FloatingActionGroup(action: discover, popular, top, release)
+        let actionSheet = FloatingActionSheetController(actionGroup: group).present(in: self)
+        actionSheet.animationStyle = .slideUp
     }
     
     //Scroll infinito

@@ -10,6 +10,7 @@ target 'VideoLibrary' do
   pod 'UICircularProgressRing'
   pod 'RAMAnimatedTabBarController'
   pod 'CRRefresh'
+  pod 'FloatingActionSheetController'
   # Pods for VideoLibrary
 
 end

@@ -2,6 +2,7 @@
 import UIKit
 import SwiftyJSON
 import CRRefresh
+import FloatingActionSheetController
 
 class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
 
@@ -109,9 +110,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
         
-        let options = UIAlertController(title: nil, message: NSLocalizedString("sheetTitle", comment: ""), preferredStyle: .actionSheet)
-        
-        let discover = UIAlertAction(title: NSLocalizedString("discoverTVShows", comment: ""), style: .default, handler: { (UIAlertAction) in
+        let discover = FloatingAction(title: NSLocalizedString("discoverTVShows", comment: "")) { action in
             
             self.resetContent()
             self.filterShows = .discoverTVShow
@@ -120,9 +119,9 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
             }
-        })
+        }
         
-        let popular = UIAlertAction(title: NSLocalizedString("popularTVShows", comment: ""), style: .default, handler: { (UIAlertAction) in
+        let popular = FloatingAction(title: NSLocalizedString("popularTVShows", comment: "")) { action in
             
             self.resetContent()
             self.filterShows = .popularTVShow
@@ -131,9 +130,9 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
             }
-        })
+        }
         
-        let top = UIAlertAction(title: NSLocalizedString("topRatedShows", comment: ""), style: .default) { (alert: UIAlertAction) in
+        let top = FloatingAction(title: NSLocalizedString("topRatedShows", comment: "")) { action in
 
             self.resetContent()
             self.filterShows = .topRatedTVShow
@@ -144,7 +143,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             }
         }
         
-        let on_air = UIAlertAction(title: NSLocalizedString("onAir", comment: ""), style: .default) { (alert: UIAlertAction) in
+        let on_air = FloatingAction(title: NSLocalizedString("onAir", comment: "")) { action in
             
             self.resetContent()
             self.filterShows = .on_air
@@ -155,23 +154,9 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             }
         }
         
-        let cancel = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { (alert: UIAlertAction) in
-            
-        }
-        
-        options.addAction(discover)
-        options.addAction(popular)
-        options.addAction(top)
-        options.addAction(on_air)
-        options.addAction(cancel)
-        
-        //Crash del action sheet en tablets https://stackoverflow.com/questions/31577140/uialertcontroller-is-crashed-ipad/31577494
-        if let popover = options.popoverPresentationController {
-            popover.sourceView = view
-            popover.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.maxY, width: 1.0, height: 1.0)
-        }
-        
-        self.present(options, animated: true, completion: nil)
+        let group = FloatingActionGroup(action: discover, popular, top, on_air)
+        let actionSheet = FloatingActionSheetController(actionGroup: group).present(in: self)
+        actionSheet.animationStyle = .pop
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
