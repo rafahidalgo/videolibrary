@@ -70,20 +70,10 @@ extension PeopleViewController: UICollectionViewDataSource, UICollectionViewDele
         } else {
             cell.actorImage.image = UIImage(named: "No Image")
         }
+        cell.actorImage.layer.cornerRadius = 10.0
+        let customCell = utils.customCardPersons(cell: cell)
         
-        cell.contentView.layer.cornerRadius = 10.0
-        cell.actorImage.layer.cornerRadius = 10.0 //TODO Quitar radio de la parte inferior
-        cell.contentView.layer.borderWidth = 1.0
-        cell.contentView.layer.borderColor = UIColor.clear.cgColor
-        cell.contentView.layer.masksToBounds = false
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        cell.layer.shadowRadius = 4.0
-        cell.layer.shadowOpacity = 1.0
-        cell.layer.masksToBounds = false
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
-        
-        return cell
+        return customCell
         
     }
 }

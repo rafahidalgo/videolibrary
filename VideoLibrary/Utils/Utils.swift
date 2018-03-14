@@ -134,6 +134,23 @@ struct Utils {
         return cell
     }
     
+    //Estilo de tarjeta de actores
     
+    func customCardPersons(cell: UICollectionViewCell) -> UICollectionViewCell {
+        
+        cell.contentView.layer.cornerRadius = 10.0        
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = false
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: 10.0, height: 10.0)
+        cell.layer.shadowRadius = 4.0
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.masksToBounds = false
+        
+        return cell
+        
+    }
+
     
 }

@@ -62,7 +62,7 @@ extension PeopleDetailViewController {
                 } else {
                     self.image.image = UIImage(named: "No Image")
                 }
-                
+                self.image.layer.cornerRadius = 10
                 self.nameLabel.text = person.name
                 self.birthdayLabel.text = person.birthday
                 self.deathdayLabel.text = person.deathday
@@ -160,6 +160,7 @@ extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionVi
             } else {
                 cell.moviePoster.image = UIImage(named: "No Image narrow")
             }
+            cell.moviePoster.layer.cornerRadius = 10
             customCell = utils.customCardMoviesAndTVShows(cell: cell)
         }
 //        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tvShowIdentifier, for: indexPath) as? TVShowCreditsViewCell {
@@ -169,6 +170,7 @@ extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionVi
 //            } else {
 //                cell.tvShowPoster.image = UIImage(named: "No Image narrow")
 //            }
+//            cell.tvShowPoster.layer.cornerRadius = 10
 //            customCell = utils.customCardMoviesAndTVShows(cell: cell)
 //        }
         
