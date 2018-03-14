@@ -750,38 +750,34 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vSd-4h-A6a">
-                                        <rect key="frame" x="8" y="448.5" width="359" height="93"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="8" y="449" width="359" height="101"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="93" id="amq-30-fkk"/>
+                                            <constraint firstAttribute="height" constant="101" id="amq-30-fkk"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GgZ-8c-yRo">
-                                            <size key="itemSize" width="76" height="93"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GgZ-8c-yRo">
+                                            <size key="itemSize" width="76" height="99"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieCreditsCollectionViewCell" id="qKq-3V-Q8F" customClass="MovieCreditsCollectionViewCell" customModule="VideoLibrary" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="76" height="93"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieCreditsCell" id="qKq-3V-Q8F" customClass="MovieCreditsViewCell" customModule="VideoLibrary" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="1" width="76" height="99"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="76" height="93"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="76" height="99"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TW0-Q3-Mra">
-                                                            <rect key="frame" x="0.0" y="0.0" width="76" height="93"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="26N-i7-MPh">
+                                                            <rect key="frame" x="0.0" y="0.0" width="76" height="99"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                     </subviews>
                                                 </view>
-                                                <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="TW0-Q3-Mra" secondAttribute="bottom" id="Me4-DM-u66"/>
-                                                    <constraint firstAttribute="trailing" secondItem="TW0-Q3-Mra" secondAttribute="trailing" id="PQg-Oz-so9"/>
-                                                    <constraint firstItem="TW0-Q3-Mra" firstAttribute="top" secondItem="qKq-3V-Q8F" secondAttribute="top" id="QVc-21-2uQ"/>
-                                                    <constraint firstItem="TW0-Q3-Mra" firstAttribute="leading" secondItem="qKq-3V-Q8F" secondAttribute="leading" id="j4W-iS-rfh"/>
-                                                </constraints>
                                                 <connections>
-                                                    <outlet property="moviePoster" destination="TW0-Q3-Mra" id="bGF-aM-287"/>
+                                                    <outlet property="moviePoster" destination="26N-i7-MPh" id="r1B-gH-hre"/>
+                                                    <segue destination="KYD-PA-GW4" kind="show" id="mt0-Eg-6fo"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -830,7 +826,7 @@
                                     <constraint firstItem="miU-qf-FgR" firstAttribute="top" secondItem="GRl-eD-Qsf" secondAttribute="top" id="fdl-v1-k6h"/>
                                     <constraint firstItem="yI9-EP-auS" firstAttribute="top" secondItem="wac-dI-0cB" secondAttribute="bottom" constant="0.5" id="fpd-Rq-n33"/>
                                     <constraint firstItem="6nO-9v-iOJ" firstAttribute="top" secondItem="OqB-mA-Kz4" secondAttribute="bottom" constant="-0.5" id="gag-co-Uo2"/>
-                                    <constraint firstAttribute="bottom" secondItem="vSd-4h-A6a" secondAttribute="bottom" constant="8" id="hD1-2s-wYt"/>
+                                    <constraint firstAttribute="bottom" secondItem="vSd-4h-A6a" secondAttribute="bottom" constant="4" id="hD1-2s-wYt"/>
                                     <constraint firstAttribute="trailing" secondItem="miU-qf-FgR" secondAttribute="trailing" constant="88" id="hDR-Ho-zru"/>
                                     <constraint firstItem="Aup-Nb-ze5" firstAttribute="top" secondItem="miU-qf-FgR" secondAttribute="bottom" constant="8" id="hhV-He-2o1"/>
                                     <constraint firstItem="ITG-mU-GdL" firstAttribute="top" secondItem="yI9-EP-auS" secondAttribute="bottom" constant="-0.5" id="i25-zd-LDc"/>
@@ -860,6 +856,7 @@
                     <connections>
                         <outlet property="biographyLabel" destination="6nO-9v-iOJ" id="1VL-sx-Ngf"/>
                         <outlet property="birthdayLabel" destination="XIt-NP-ZBv" id="WKo-3i-WrB"/>
+                        <outlet property="collectionView" destination="vSd-4h-A6a" id="5Wj-oj-Mhn"/>
                         <outlet property="deathdayLabel" destination="Sc6-Je-ubP" id="Jtd-mA-esi"/>
                         <outlet property="image" destination="miU-qf-FgR" id="tya-wC-vcX"/>
                         <outlet property="nameLabel" destination="wac-dI-0cB" id="Swo-NB-jHG"/>
@@ -2151,23 +2148,12 @@
         <namedColor name="PrimaryColor">
             <color red="0.0040000001900000002" green="0.82400000100000004" blue="0.46700000759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="PrimaryColor">
-            <color red="0.0040000001899898052" green="0.82400000095367432" blue="0.46700000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="PrimaryColor">
-            <color red="0.0040000001900000002" green="0.82400000100000004" blue="0.46700000759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="PrimaryColor">
-            <color red="0.0040000001900000002" green="0.82400000100000004" blue="0.46700000759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="SecondaryColor">
             <color red="0.030999999489999999" green="0.10999999940000001" blue="0.14100000260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="SecondaryColor">
-            <color red="0.030999999493360519" green="0.10999999940395355" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="mt0-Eg-6fo"/>
         <segue reference="aHR-u9-KDl"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="PrimaryColor"/>

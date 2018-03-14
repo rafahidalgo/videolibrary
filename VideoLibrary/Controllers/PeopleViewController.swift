@@ -22,6 +22,7 @@ class PeopleViewController: BaseViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
+    
 
         //Se encarga de refrescar el contenido cuando el usuario desliza el dedo hacia abajo
         collectionView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) {[weak self] in
@@ -84,6 +85,7 @@ extension PeopleViewController: UICollectionViewDataSource, UICollectionViewDele
         return cell
         
     }
+    
 }
 
 
@@ -101,7 +103,7 @@ extension PeopleViewController {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        collectionView.collectionViewLayout = layout
+        collectionView.setCollectionViewLayout(layout, animated: true)
     }
 
 }
