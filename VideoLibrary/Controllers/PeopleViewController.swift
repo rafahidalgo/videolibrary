@@ -198,6 +198,7 @@ extension PeopleViewController: UISearchBarDelegate {
     
     //Funcionalidad barra search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
         if searchBar.text == "" {
             self.searching = false
             resetContent()
@@ -208,6 +209,11 @@ extension PeopleViewController: UISearchBarDelegate {
             self.nameSearched = searchBar.text!
             searchPerson(name: self.nameSearched, page: page)
         }
+    }
+    
+    //Al hacer scroll se oculta el teclado
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBar.endEditing(true)
     }
     
     //Resetear el contenido
