@@ -13,7 +13,7 @@ class PeopleDetailViewController: UIViewController {
     
     let utils = Utils()
     let repository = MovieDatabaseRepository()
-    var id: Int?
+    var id: Int!
     var photo: String?
     var movies: [Movie] = []
     var tvShows: [TVShow] = []
@@ -25,15 +25,14 @@ class PeopleDetailViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        getDetails(id: id!)
-        getMovies(id: id!)
+        getDetails(id: id)
+        getMovies(id: id)
+        getTVShows(id: id)
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        
     }
 }
     
@@ -92,18 +91,15 @@ extension PeopleDetailViewController {
 extension PeopleDetailViewController {
     
     func getMovies(id: Int) {
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         repository.getMovieCredits(id: id) { (responseObject, error) in
             if let response = responseObject {
                 for movie in response["cast"] {
-                    let id = movie.1["id"].int ?? nil
-                    let title = movie.1["title"].string ?? nil
+                    let id = movie.1["id"].int!
+                    let title = movie.1["title"].string!
                     let posterUrl = movie.1["poster_path"].string ?? nil
-                    let movie = Movie(id: id!, title: title!, posterUrl: posterUrl, vote: 0, release: "")
+                    let movie = Movie(id: id, title: title, posterUrl: posterUrl, vote: 0, release: "")
                     self.movies.append(movie)
                 }
-                self.utils.stopLoadingIndicator(indicator: indicator)
-                print("Numero de películas: \(self.movies.count)")
                 self.collectionView.reloadData()
                 return
             }
@@ -117,27 +113,66 @@ extension PeopleDetailViewController {
         }
     }
     
+    func getTVShows(id: Int) {
+        repository.getTVShow(id: id) { (responseObject, error) in
+            if let response = responseObject {
+                for show in response["cast"] {
+                    let id = show.1["id"].int!
+                    let title = show.1["title"].string!
+                    let posterUrl = show.1["poster_path"].string ?? nil
+                    let show = TVShow(id: id, name: title, posterUrl: posterUrl, vote: 0, first_air: "")
+                    self.tvShows.append(show)
+                }                
+                self.collectionView.reloadData()
+                return
+            }
+            if (error?.code)! < 0 {
+                self.utils.showAlertConnectionLost(view: self)
+            }
+            else {
+                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+            }
+        }
+    }
+    
+    
+    
 }
 
 //Collection View
 extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //return movies.count + tvShows.count
         return movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = "MovieCreditsCell"
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! MovieCreditsViewCell
-        if let posterUrl = self.movies[indexPath.row].posterUrl {
-            let posterImage = repository.getPosterImage(poster: posterUrl)
-            cell.moviePoster.image = posterImage
-        } else {
-            cell.moviePoster.image = UIImage(named: "No Image narrow")
-        }
         
-        let customCell = utils.customCardMoviesAndTVShows(cell: cell)
-        return customCell
+        let movieIdentifier = "MovieCreditsCell"
+        let tvShowIdentifier = "TVShowCreditsCell"
+        var customCell: UICollectionViewCell?
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieIdentifier, for: indexPath) as? MovieCreditsViewCell {
+            if let posterUrl = self.movies[indexPath.row].posterUrl {
+                let posterImage = repository.getPosterImage(poster: posterUrl)
+                cell.moviePoster.image = posterImage
+            } else {
+                cell.moviePoster.image = UIImage(named: "No Image narrow")
+            }
+            customCell = utils.customCardMoviesAndTVShows(cell: cell)
+        }
+//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tvShowIdentifier, for: indexPath) as? TVShowCreditsViewCell {
+//            if let posterUrl = self.tvShows[indexPath.row].posterUrl {
+//                let posterImage = repository.getPosterImage(poster: posterUrl)
+//                cell.tvShowPoster.image = posterImage
+//            } else {
+//                cell.tvShowPoster.image = UIImage(named: "No Image narrow")
+//            }
+//            customCell = utils.customCardMoviesAndTVShows(cell: cell)
+//        }
+        
+        return customCell!
     }
     
     

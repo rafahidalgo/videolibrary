@@ -355,6 +355,19 @@ struct MovieDatabaseRepository: MovieRepository {
         }
     }
     
+    func getTVShowCredits(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+        Alamofire.request("\(self.apiUrl)person/\(id)/tv_credits",
+            method: .get,
+            parameters: ["api_key": self.apiKey,
+                         "language": "es-ES"])
+            .responseJSON { response in
+                let result = self.checkResponseCode(response: response)
+                completionHandler(result.0, result.1)
+        }
+    }
+    
+    
+    
     func checkResponseCode(response: DataResponse<Any>) -> (JSON? , NSError?){
         
         switch response.result {
@@ -362,6 +375,7 @@ struct MovieDatabaseRepository: MovieRepository {
             case .success(let data):
                 let json = JSON(data)
                 let code = (response.response?.statusCode)! as Int
+                print(code)
                 
                 switch code {
                     case 200:
@@ -370,7 +384,7 @@ struct MovieDatabaseRepository: MovieRepository {
                         let error = NSError(domain: json["status_message"].string!, code: code, userInfo: nil)
                         return (nil, error)
                 }
-            
+        
             case .failure(let error as NSError)://internet lost
                 return (nil, error)
         }

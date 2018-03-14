@@ -96,10 +96,13 @@ extension PeopleViewController {
     func sizePeopleCell(widthScreen: CGFloat) {
         //Horizontal -> 4 columnas   Vertical -> 3 columnas
         let itemsPerRow: CGFloat = UIDevice.current.orientation.isLandscape ? 4 : 2
+        print(itemsPerRow)
         let padding: CGFloat = 10
         let utilWidth = widthScreen - padding * (itemsPerRow * 2)
         let itemWidth = utilWidth / itemsPerRow
+        print(itemWidth)
         let itemHeight = itemWidth * (4/3)
+        print(itemHeight)
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
