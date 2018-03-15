@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A0310CD2045FA1200514F86 /* CastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0310CC2045FA1200514F86 /* CastViewCell.swift */; };
+		3A09FED1205991770020259A /* OMMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A09FED0205991770020259A /* OMMovie.m */; };
 		3A0AA62C2055C3CB00427E2E /* FavoriteTVShows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0AA62B2055C3CB00427E2E /* FavoriteTVShows.swift */; };
 		3A0AA62E2055C44A00427E2E /* FavoriteTVShows+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0AA62D2055C44A00427E2E /* FavoriteTVShows+CoreDataProperties.swift */; };
 		3A1BAAE6203CAEF1008E7B1D /* TVShowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */; };
@@ -15,8 +16,11 @@
 		3A1D69532050105A004FD96D /* CinemaPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D69522050105A004FD96D /* CinemaPin.swift */; };
 		3A1D695520501061004FD96D /* CinemaLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D695420501061004FD96D /* CinemaLocations.swift */; };
 		3A1D695720501068004FD96D /* NearbyCinemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D695620501068004FD96D /* NearbyCinemas.swift */; };
+		3A1DE6AD2059A93B00375D43 /* OMTVShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1DE6AC2059A93B00375D43 /* OMTVShow.m */; };
+		3A1DE6B02059AB9E00375D43 /* OMMovieDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1DE6AF2059AB9E00375D43 /* OMMovieDetails.m */; };
 		3A20243B205709FA00EAA625 /* FavoriteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20243A205709FA00EAA625 /* FavoriteViewCell.swift */; };
 		3A21BB63204B1A07005BF434 /* TrailerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21BB62204B1A07005BF434 /* TrailerViewController.swift */; };
+		3A2220FD2059F48300EC7A49 /* OMTVShowDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2220FC2059F48300EC7A49 /* OMTVShowDetails.m */; };
 		3A2E7DCE20546BC60039D272 /* FavoriteMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E7DCD20546BC60039D272 /* FavoriteMovies.swift */; };
 		3A2E7DD020546C730039D272 /* FavoriteMovies+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E7DCF20546C730039D272 /* FavoriteMovies+CoreDataProperties.swift */; };
 		3A2E7DD220546D5A0039D272 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E7DD120546D5A0039D272 /* CoreDataStack.swift */; };
@@ -56,6 +60,9 @@
 /* Begin PBXFileReference section */
 		007DCA01D19A3FD5BAA4E23E /* Pods_VideoLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A0310CC2045FA1200514F86 /* CastViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastViewCell.swift; sourceTree = "<group>"; };
+		3A09FECE205991770020259A /* VideoLibrary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoLibrary-Bridging-Header.h"; sourceTree = "<group>"; };
+		3A09FECF205991770020259A /* OMMovie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OMMovie.h; sourceTree = "<group>"; };
+		3A09FED0205991770020259A /* OMMovie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OMMovie.m; sourceTree = "<group>"; };
 		3A0AA62B2055C3CB00427E2E /* FavoriteTVShows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTVShows.swift; sourceTree = "<group>"; };
 		3A0AA62D2055C44A00427E2E /* FavoriteTVShows+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteTVShows+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowViewCell.swift; sourceTree = "<group>"; };
@@ -63,8 +70,14 @@
 		3A1D69522050105A004FD96D /* CinemaPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CinemaPin.swift; sourceTree = "<group>"; };
 		3A1D695420501061004FD96D /* CinemaLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CinemaLocations.swift; sourceTree = "<group>"; };
 		3A1D695620501068004FD96D /* NearbyCinemas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyCinemas.swift; sourceTree = "<group>"; };
+		3A1DE6AB2059A93B00375D43 /* OMTVShow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OMTVShow.h; sourceTree = "<group>"; };
+		3A1DE6AC2059A93B00375D43 /* OMTVShow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OMTVShow.m; sourceTree = "<group>"; };
+		3A1DE6AE2059AB9E00375D43 /* OMMovieDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OMMovieDetails.h; sourceTree = "<group>"; };
+		3A1DE6AF2059AB9E00375D43 /* OMMovieDetails.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OMMovieDetails.m; sourceTree = "<group>"; };
 		3A20243A205709FA00EAA625 /* FavoriteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewCell.swift; sourceTree = "<group>"; };
 		3A21BB62204B1A07005BF434 /* TrailerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewController.swift; sourceTree = "<group>"; };
+		3A2220FB2059F48300EC7A49 /* OMTVShowDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OMTVShowDetails.h; sourceTree = "<group>"; };
+		3A2220FC2059F48300EC7A49 /* OMTVShowDetails.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OMTVShowDetails.m; sourceTree = "<group>"; };
 		3A2E7DCD20546BC60039D272 /* FavoriteMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovies.swift; sourceTree = "<group>"; };
 		3A2E7DCF20546C730039D272 /* FavoriteMovies+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovies+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3A2E7DD120546D5A0039D272 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -225,6 +238,15 @@
 				3A59DF872030BFE10097E327 /* MovieDetails.swift */,
 				3A59DF892030C00D0097E327 /* TVShow.swift */,
 				3A59DF8B2030C0350097E327 /* TVShowDetails.swift */,
+				3A09FECF205991770020259A /* OMMovie.h */,
+				3A09FED0205991770020259A /* OMMovie.m */,
+				3A1DE6AB2059A93B00375D43 /* OMTVShow.h */,
+				3A1DE6AC2059A93B00375D43 /* OMTVShow.m */,
+				3A1DE6AE2059AB9E00375D43 /* OMMovieDetails.h */,
+				3A1DE6AF2059AB9E00375D43 /* OMMovieDetails.m */,
+				3A2220FB2059F48300EC7A49 /* OMTVShowDetails.h */,
+				3A2220FC2059F48300EC7A49 /* OMTVShowDetails.m */,
+				3A09FECE205991770020259A /* VideoLibrary-Bridging-Header.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -309,6 +331,7 @@
 				TargetAttributes = {
 					3A80B639202F679400DD731E = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -417,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2E7DD220546D5A0039D272 /* CoreDataStack.swift in Sources */,
+				3A2220FD2059F48300EC7A49 /* OMTVShowDetails.m in Sources */,
 				3A7723192030DA7E007CB714 /* MovieRepository.swift in Sources */,
 				3A2E7DCE20546BC60039D272 /* FavoriteMovies.swift in Sources */,
 				3A1BAAE6203CAEF1008E7B1D /* TVShowViewCell.swift in Sources */,
@@ -424,6 +448,7 @@
 				3A59DF842030BF680097E327 /* ActorDetails.swift in Sources */,
 				3AF9E951203CC064003B9011 /* PeopleDetailViewController.swift in Sources */,
 				3A2E7DD020546C730039D272 /* FavoriteMovies+CoreDataProperties.swift in Sources */,
+				3A1DE6AD2059A93B00375D43 /* OMTVShow.m in Sources */,
 				3AC673682046BCE900D26B9F /* BaseViewController.swift in Sources */,
 				3A20243B205709FA00EAA625 /* FavoriteViewCell.swift in Sources */,
 				3A80B640202F679400DD731E /* ViewController.swift in Sources */,
@@ -448,6 +473,8 @@
 				3A1D69532050105A004FD96D /* CinemaPin.swift in Sources */,
 				3AE30DD12045C27B006C3E04 /* RAMBounceAnimation.swift in Sources */,
 				3AB4C3CD203E04BA00C9E992 /* MovieDetailViewController.swift in Sources */,
+				3A1DE6B02059AB9E00375D43 /* OMMovieDetails.m in Sources */,
+				3A09FED1205991770020259A /* OMMovie.m in Sources */,
 				3A59DF882030BFE10097E327 /* MovieDetails.swift in Sources */,
 				3A1D695520501061004FD96D /* CinemaLocations.swift in Sources */,
 				3A59DF8C2030C0350097E327 /* TVShowDetails.swift in Sources */,
@@ -594,6 +621,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5UCFNWB8C;
 				INFOPLIST_FILE = VideoLibrary/Info.plist;
@@ -601,6 +629,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = es.upsa.mimo.VideoLibrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VideoLibrary/Models/VideoLibrary-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -612,6 +642,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5UCFNWB8C;
 				INFOPLIST_FILE = VideoLibrary/Info.plist;
@@ -619,6 +650,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = es.upsa.mimo.VideoLibrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VideoLibrary/Models/VideoLibrary-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

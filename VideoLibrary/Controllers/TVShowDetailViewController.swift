@@ -22,7 +22,7 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var id: Int?
-    var showDetail: TVShowDetails?
+    var showDetail = OMTVShowDetails()
     var cast: [Actor] = []
     
     override func viewDidLoad() {
@@ -72,16 +72,13 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
         repository.getTVShow(id: id) {responseObject, error in
             
             if let response = responseObject {
-
-                self.showDetail = TVShowDetails(id: response["id"].int!, name: response["name"].string!, posterUrl: response["poster_path"].string,
-                                                vote: response["vote_average"].float!, first_air: response["first_air_date"].string!,
-                                                backdropPath: response["backdrop_path"].string!, overview: response["overview"].string!, genres: response["genres"].array!,
-                                                numberOfSeasons: response["number_of_seasons"].int!, episodes: response["number_of_episodes"].int!, seasons: response["seasons"].array)
                 
-                self.name.text = self.showDetail?.name
+                self.showDetail = OMTVShowDetails(id: response["id"].intValue, name: response["name"].stringValue, posterUrl: response["poster_path"].string, vote: response["vote_average"].floatValue, firstAir: response["first_air_date"].stringValue, backDropPath: response["backdrop_path"].stringValue, overview: response["overview"].stringValue, genres: response["genres"].arrayValue.map{$0["name"].stringValue}, seasons: response["number_of_seasons"].intValue)
+                
+                self.name.text = self.showDetail.name
                 self.background.layer.cornerRadius = 10.0
                 
-                if let backdropImage =  self.showDetail?.backdropPath {
+                if let backdropImage =  self.showDetail.backdropPath {
                     
                     let image = self.repository.getBackdropImage(backdrop: backdropImage)
                     self.background.image = image
@@ -91,24 +88,24 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
                     self.background.image = UIImage(named: "No Image")
                 }
                 
-                self.puntuation.setProgress(value: CGFloat((self.showDetail?.vote)!), animationDuration: 2.0)
-                self.numberSeasons.text = "Seasons: \(self.showDetail?.numberOfSeasons ?? 1)"
+                self.puntuation.setProgress(value: CGFloat(self.showDetail.vote), animationDuration: 2.0)
+                self.numberSeasons.text = "Seasons: \(self.showDetail.numberOfSeasons)"
                 
-                if self.showDetail?.overview.count != 0 {
+                if self.showDetail.overview.count != 0 {
                     
-                    self.overview.text = self.showDetail?.overview
+                    self.overview.text = self.showDetail.overview
                 }
                 else {
                     self.overview.textAlignment = .center
                     self.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
                 
-                if self.showDetail?.genres.count != 0 {
+                if self.showDetail.genres?.count != 0 {
                     
                     var nombres = ""
                     
-                    for item in (self.showDetail?.genres)! {
-                        nombres += " \(item["name"].string!)"
+                    for item in (self.showDetail.genres)! {
+                        nombres += item as! String + " "
                     }
                     self.genres.text = nombres
                 }
@@ -173,7 +170,7 @@ extension TVShowDetailViewController {
         
         let favorite = Favorites()
         
-        if favorite.addFavoriteShow(id: (showDetail?.id)!, name: (showDetail?.name)!, image: showDetail?.backdropPath) {
+        if favorite.addFavoriteShow(id: showDetail.id, name: showDetail.name, image: showDetail.backdropPath) {
             
             utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
         }

@@ -7,26 +7,21 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 class TVShowDetails: TVShow {
     
     let backdropPath: String?
     let overview: String
-    let genres: [JSON]
+    let genres: [String]
     let numberOfSeasons: Int
-    let episodes: Int
-    let seasons: [JSON]?
     
     init(id: Int, name: String, posterUrl: String?, vote: Float, first_air: String, backdropPath: String?, overview: String,
-                                                    genres: [JSON], numberOfSeasons: Int, episodes: Int, seasons: [JSON]?) {
+                                                    genres: [String], numberOfSeasons: Int) {
         
         self.backdropPath = backdropPath
         self.overview = overview
         self.genres = genres
         self.numberOfSeasons = numberOfSeasons
-        self.episodes = episodes
-        self.seasons = seasons
         super.init(id: id, name: name, posterUrl: posterUrl, vote: vote, first_air: first_air)
     }
 }

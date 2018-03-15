@@ -22,7 +22,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var id: Int?
-    var movieDetail: MovieDetails?
+    var movieDetail = OMMovieDetails()
     var cast: [Actor] = []
     
     override func viewDidLoad() {
@@ -68,21 +68,20 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         return utils.customCardMoviesAndTVShows(cell: cell)
     }
     
-    func getMovieDetails(id: Int, completionHandler:@escaping (() -> ())) {
+    func getMovieDetails(id: Int, completionHandler:@escaping (() -> ())) { //https://stackoverflow.com/questions/27102666/how-to-parse-string-array-with-swiftyjson
     
         repository.getMovie(id: id) {responseObject, error in
             
             if let response = responseObject {
+
+                self.movieDetail = OMMovieDetails(id: response["id"].intValue, title: response["title"].stringValue, posterUrl: response["poster_path"].stringValue,
+                                                  vote: response["vote_average"].floatValue, releaseDate: response["release_date"].stringValue, backDropPath: response["backdrop_path"].string,
+                                                  overview: response["overview"].stringValue, genres: response["genres"].arrayValue.map{$0["name"].stringValue})
                 
-                self.movieDetail = MovieDetails(id: response["id"].int!, title: response["title"].string!, posterUrl: response["poster_path"].string,
-                                                vote: response["vote_average"].float!, release: response["release_date"].string!,
-                                                backdrop: response["backdrop_path"].string, overview: response["overview"].string!, genres: response["genres"].array!,
-                                                countries: response["production_countries"].array)
-                
-                self.movieTitle.text = self.movieDetail?.title
+                self.movieTitle.text = self.movieDetail.title
                 self.background.layer.cornerRadius = 10.0
                 
-                if let backdropImage =  self.movieDetail?.backdropPath {
+                if let backdropImage =  self.movieDetail.backDropPath {
                     
                     let image = self.repository.getBackdropImage(backdrop: backdropImage)
                     self.background.image = image
@@ -92,23 +91,23 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                     self.background.image = UIImage(named: "No Image")
                 }
                 
-                self.puntuation.setProgress(value: CGFloat((self.movieDetail?.vote)!), animationDuration: 2.0)
+                self.puntuation.setProgress(value: CGFloat((self.movieDetail.vote)), animationDuration: 2.0)
                 
-                if self.movieDetail?.overview.count != 0 {
+                if self.movieDetail.overview.count != 0 {
                     
-                    self.overview.text = self.movieDetail?.overview
+                    self.overview.text = self.movieDetail.overview
                 }
                 else {
                     self.overview.textAlignment = .center
                     self.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
 
-                if self.movieDetail?.genres.count != 0 {
+                if self.movieDetail.genres?.count != 0 {
                     
                     var nombres = ""
                     
-                    for item in (self.movieDetail?.genres)! {
-                        nombres += " \(item["name"].string!)"
+                    for item in (self.movieDetail.genres)! {
+                        nombres += item as! String + " "
                     }
                     self.genres.text = nombres
                 }
@@ -184,7 +183,7 @@ extension MovieDetailViewController {
     @IBAction func addMovie(_ sender: UIButton) {
         
         let favorite = Favorites()
-        if favorite.addFavoriteMovie(id: (movieDetail?.id)!, title: (movieDetail?.title)!, image: movieDetail?.backdropPath) {
+        if favorite.addFavoriteMovie(id: movieDetail.id, title: movieDetail.title, image: movieDetail.backDropPath) {
             
             utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
         }

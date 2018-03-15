@@ -11,7 +11,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
     
     let repository = MovieDatabaseRepository()
     let utils = Utils()
-    var tvShows: [TVShow] = []
+    var tvShows: [OMTVShow] = []
     var page = 1
     var total_pages = 1
     var filterShows = FilterShows.discoverTVShow
@@ -104,6 +104,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
+                searchBar.endEditing(true)
             }
         }
     }
@@ -222,9 +223,12 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         if let response = data {
             
             total_pages = response["total_pages"].int!
+            
             for item in response["results"] {
-                let show = TVShow(id: item.1["id"].int!, name: item.1["name"].string!, posterUrl: item.1["poster_path"].string,
-                                  vote: item.1["vote_average"].float!, first_air: item.1["first_air_date"].string!)
+                
+                let show = OMTVShow(id: item.1["id"].intValue, name: item.1["name"].stringValue, posterUrl: item.1["poster_path"].string,
+                                    vote: item.1["vote_average"].floatValue, firstAir: item.1["first_air_date"].stringValue)
+                
                 self.tvShows.append(show)
             }
             return
@@ -276,5 +280,12 @@ extension TVShowsViewController {
             utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
         }
     }
+}
+
+extension TVShowsViewController {
     
+    //Al hacer scroll se oculta el teclado
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBar.endEditing(true)
+    }
 }

@@ -164,6 +164,7 @@ extension FavoritesViewController {
             self.collectionView.reloadData()
         }
         
+        delete.textColor = UIColor.red
         let group = FloatingActionGroup(action: view, delete)
         let actionSheet = FloatingActionSheetController(actionGroup: group).present(in: self)
         actionSheet.animationStyle = .pop

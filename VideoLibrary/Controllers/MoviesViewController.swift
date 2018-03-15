@@ -11,7 +11,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     
     let repository = MovieDatabaseRepository()
     let utils = Utils()
-    var movies: [Movie] = []
+    var movies: [OMMovie] = []
     var page = 1
     var total_pages = 1
     var filterMovies = FilterMovies.discoverMovie
@@ -57,7 +57,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         
         cell.movieTitle.text = movies[indexPath.row].title
         cell.voteAverage.setProgress(value: CGFloat(movies[indexPath.row].vote), animationDuration: 0)
-        cell.movieRelease.text = movies[indexPath.row].release
+        cell.movieRelease.text = movies[indexPath.row].releaseDate
         cell.moviePoster.layer.cornerRadius = 10.0
         if let poster = movies[indexPath.row].posterUrl {
             let posterImage = repository.getPosterImage(poster: poster)
@@ -103,6 +103,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             getData {() -> () in
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
+                searchBar.endEditing(true)
             }
         }
     }
@@ -228,9 +229,12 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         if let response = data {
             
             total_pages = response["total_pages"].int!
+            
             for item in response["results"] {
-                let movie = Movie(id: item.1["id"].int!, title: item.1["title"].string!, posterUrl: item.1["poster_path"].string,
-                                  vote: item.1["vote_average"].float!, release: item.1["release_date"].string!)
+
+                let movie = OMMovie(id: item.1["id"].intValue, title: item.1["title"].stringValue, posterUrl: item.1["poster_path"].string,
+                                    vote: item.1["vote_average"].floatValue, releaseDate: item.1["release_date"].stringValue)
+
                 self.movies.append(movie)
             }
             return
@@ -282,5 +286,12 @@ extension MoviesViewController {
             utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
         }
     }
+}
+
+extension MoviesViewController {
     
+    //Al hacer scroll se oculta el teclado
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBar.endEditing(true)
+    }
 }
