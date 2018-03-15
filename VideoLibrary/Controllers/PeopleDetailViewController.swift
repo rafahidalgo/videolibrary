@@ -8,41 +8,43 @@ class PeopleDetailViewController: UIViewController {
     @IBOutlet weak var birthdayLabel: UILabel!
     @IBOutlet weak var deathdayLabel: UILabel!
     @IBOutlet weak var placeOfBirthLabel: UILabel!
-    @IBOutlet weak var popularityLabel: UILabel!
     @IBOutlet weak var biographyLabel: UILabel!
-    
-    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     let utils = Utils()
     let repository = MovieDatabaseRepository()
-    var id: Int?
-    var movie: [Movie]?
-    var tvShow: [TVShow]?
+    var id: Int!
     var photo: String?
+    var movies: [Movie] = []
+    var tvShows: [TVShow] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getDetails(id: id!)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        getDetails(id: id)
+        getMovies(id: id)
+        getTVShows(id: id)
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        
     }
+}
     
     
-    //Obtención de datos por id
-    
+//Obtención de datos del actor por id
+extension PeopleDetailViewController {
     func getDetails(id: Int) {
         
         let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
         
-        repository.getPersonDetail(id: id) { (responseObject, error) in            
+        repository.getPersonDetail(id: id) { (responseObject, error) in
             if let response = responseObject {
-                print(response)
                 let name = response["name"].string ?? nil
                 let photo = response["profile_path"].string ?? nil
                 var biography = response["biography"].string ?? nil
@@ -52,8 +54,7 @@ class PeopleDetailViewController: UIViewController {
                 let birthday = response["birthday"].string ?? "-"
                 let deathday = response["deathday"].string ?? "-"
                 let placeOfBirth = response["place_of_birth"].string ?? "-"
-                let popularity = response["popularity"].int ?? nil
-                let person = ActorDetails(id: id, name: name!, photoURL: photo, biography: biography, birthday: birthday, deathday: deathday, placeOfBirth: placeOfBirth, popularity: popularity, movie: self.movie, tvShow: self.tvShow)
+                let person = ActorDetails(id: id, name: name!, photoURL: photo, biography: biography, birthday: birthday, deathday: deathday, placeOfBirth: placeOfBirth)
                 
                 if let imageURL = person.photoURL {
                     let photoImage = self.repository.getPosterImage(poster: imageURL)
@@ -61,11 +62,10 @@ class PeopleDetailViewController: UIViewController {
                 } else {
                     self.image.image = UIImage(named: "No Image")
                 }
-                
+                self.image.layer.cornerRadius = 10
                 self.nameLabel.text = person.name
                 self.birthdayLabel.text = person.birthday
                 self.deathdayLabel.text = person.deathday
-                self.popularityLabel.text = "\(person.popularity!)"
                 self.biographyLabel.text = person.biography
                 self.biographyLabel.sizeToFit()
                 self.placeOfBirthLabel.text = person.placeOfBirth
@@ -83,11 +83,110 @@ class PeopleDetailViewController: UIViewController {
             }
             
         }
-        
     }
-    
-    //TODO Obtener películas y series
-    
-    //TODO asignar al storyboard
 
 }
+
+//Obtención de películas y series del actor indicado
+extension PeopleDetailViewController {
+    
+    func getMovies(id: Int) {
+        repository.getMovieCredits(id: id) { (responseObject, error) in
+            if let response = responseObject {
+                for movie in response["cast"] {
+                    let id = movie.1["id"].int!
+                    let title = movie.1["title"].string!
+                    let posterUrl = movie.1["poster_path"].string ?? nil
+                    let movie = Movie(id: id, title: title, posterUrl: posterUrl, vote: 0, release: "")
+                    self.movies.append(movie)
+                }
+                self.collectionView.reloadData()
+                return
+            }
+            
+            if (error?.code)! < 0 {
+                self.utils.showAlertConnectionLost(view: self)
+            }
+            else {
+                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+            }
+        }
+    }
+    
+    func getTVShows(id: Int) {
+        repository.getTVShow(id: id) { (responseObject, error) in
+            if let response = responseObject {
+                for show in response["cast"] {
+                    let id = show.1["id"].int!
+                    let title = show.1["title"].string!
+                    let posterUrl = show.1["poster_path"].string ?? nil
+                    let show = TVShow(id: id, name: title, posterUrl: posterUrl, vote: 0, first_air: "")
+                    self.tvShows.append(show)
+                }                
+                self.collectionView.reloadData()
+                return
+            }
+            if (error?.code)! < 0 {
+                self.utils.showAlertConnectionLost(view: self)
+            }
+            else {
+                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+            }
+        }
+    }
+    
+    
+    
+}
+
+//Collection View
+extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //return movies.count + tvShows.count
+        return movies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let movieIdentifier = "MovieCreditsCell"
+        let tvShowIdentifier = "TVShowCreditsCell"
+        var customCell: UICollectionViewCell?
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieIdentifier, for: indexPath) as? MovieCreditsViewCell {
+            if let posterUrl = self.movies[indexPath.row].posterUrl {
+                let posterImage = repository.getPosterImage(poster: posterUrl)
+                cell.moviePoster.image = posterImage
+            } else {
+                cell.moviePoster.image = UIImage(named: "No Image narrow")
+            }
+            cell.moviePoster.layer.cornerRadius = 10
+            customCell = utils.customCardMoviesAndTVShows(cell: cell)
+        }
+//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tvShowIdentifier, for: indexPath) as? TVShowCreditsViewCell {
+//            if let posterUrl = self.tvShows[indexPath.row].posterUrl {
+//                let posterImage = repository.getPosterImage(poster: posterUrl)
+//                cell.tvShowPoster.image = posterImage
+//            } else {
+//                cell.tvShowPoster.image = UIImage(named: "No Image narrow")
+//            }
+//            cell.tvShowPoster.layer.cornerRadius = 10
+//            customCell = utils.customCardMoviesAndTVShows(cell: cell)
+//        }
+        
+        return customCell!
+    }
+    
+    
+}
+
+//Detalles de la película seleccionada
+extension PeopleDetailViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! MovieCreditsViewCell
+        let indexPath = collectionView.indexPath(for: cell)
+        let detailViewController = segue.destination as! MovieDetailViewController
+        detailViewController.id = movies[(indexPath?.row)!].id
+    }
+}
+

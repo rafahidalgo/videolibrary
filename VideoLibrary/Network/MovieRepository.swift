@@ -42,6 +42,7 @@ protocol MovieRepository {
     func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getPersonDetail(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     func getMovieCredits(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getTVShowCredits(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     
     //Resources
     func getPosterImage(poster: String) -> UIImage?
