@@ -10,6 +10,7 @@ class PeopleDetailViewController: UIViewController {
     @IBOutlet weak var placeOfBirthLabel: UILabel!
     @IBOutlet weak var biographyLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionHeigthConstraint: NSLayoutConstraint!
     
     let utils = Utils()
     let repository = MovieDatabaseRepository()
@@ -26,6 +27,16 @@ class PeopleDetailViewController: UIViewController {
         getDetails(id: id)
         getMovies(id: id)
         getTVShows(id: id)
+        
+        collectionHeigthConstraint.constant = view.bounds.height / 3
+        let padding: CGFloat = 10
+        let itemHeight = collectionHeigthConstraint.constant - padding * 2
+        let itemWidth = itemHeight * (3/4)
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(padding, padding, padding, padding)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.scrollDirection = .horizontal
+        collectionView.collectionViewLayout = layout
         
     }
 

@@ -889,6 +889,7 @@
                     <connections>
                         <outlet property="biographyLabel" destination="6nO-9v-iOJ" id="1VL-sx-Ngf"/>
                         <outlet property="birthdayLabel" destination="XIt-NP-ZBv" id="WKo-3i-WrB"/>
+                        <outlet property="collectionHeigthConstraint" destination="amq-30-fkk" id="6rE-Qj-RFI"/>
                         <outlet property="collectionView" destination="vSd-4h-A6a" id="5Wj-oj-Mhn"/>
                         <outlet property="deathdayLabel" destination="Sc6-Je-ubP" id="Jtd-mA-esi"/>
                         <outlet property="image" destination="miU-qf-FgR" id="tya-wC-vcX"/>
