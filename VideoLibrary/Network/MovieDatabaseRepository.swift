@@ -367,7 +367,6 @@ struct MovieDatabaseRepository: MovieRepository {
             case .success(let data):
                 let json = JSON(data)
                 let code = (response.response?.statusCode)! as Int
-                print(code)
                 
                 switch code {
                     case 200:

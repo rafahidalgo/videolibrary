@@ -609,7 +609,7 @@
                                                         <constraint firstAttribute="width" secondItem="B7F-SC-MDC" secondAttribute="height" multiplier="15:17" id="BYo-VZ-rV2"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y1R-hp-BJy">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="y1R-hp-BJy">
                                                     <rect key="frame" x="0.0" y="170" width="150" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -817,15 +817,21 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="130"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4BQ-Yl-FnZ">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4BQ-Yl-FnZ">
                                                             <rect key="frame" x="0.0" y="0.0" width="110" height="130"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                     </subviews>
                                                 </view>
+                                                <constraints>
+                                                    <constraint firstItem="4BQ-Yl-FnZ" firstAttribute="leading" secondItem="D1w-qU-SX9" secondAttribute="leading" id="Ht3-8c-kp6"/>
+                                                    <constraint firstItem="4BQ-Yl-FnZ" firstAttribute="top" secondItem="D1w-qU-SX9" secondAttribute="top" id="LAc-Wd-yDe"/>
+                                                    <constraint firstAttribute="bottom" secondItem="4BQ-Yl-FnZ" secondAttribute="bottom" id="aBQ-8d-ieg"/>
+                                                    <constraint firstAttribute="trailing" secondItem="4BQ-Yl-FnZ" secondAttribute="trailing" id="kbv-S6-fcp"/>
+                                                </constraints>
                                                 <size key="customSize" width="110" height="130"/>
                                                 <connections>
                                                     <outlet property="tvShowPoster" destination="4BQ-Yl-FnZ" id="zc1-50-VK6"/>
+                                                    <segue destination="Rlj-LG-mIw" kind="show" id="Fhe-EN-yWf"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -2301,6 +2307,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="mt0-Eg-6fo"/>
         <segue reference="aHR-u9-KDl"/>
+        <segue reference="Fhe-EN-yWf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="PrimaryColor"/>
 </document>
