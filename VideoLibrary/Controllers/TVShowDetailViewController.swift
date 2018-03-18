@@ -73,7 +73,7 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
             
             if let response = responseObject {
                 
-                self.showDetail = OMTVShowDetails(id: response["id"].intValue, name: response["name"].stringValue, posterUrl: response["poster_path"].string, vote: response["vote_average"].floatValue, firstAir: response["first_air_date"].stringValue, backDropPath: response["backdrop_path"].stringValue, overview: response["overview"].stringValue, genres: response["genres"].arrayValue.map{$0["name"].stringValue}, seasons: response["number_of_seasons"].intValue)
+                self.showDetail = response
                 
                 self.name.text = self.showDetail.name
                 self.background.layer.cornerRadius = 10.0

@@ -17,13 +17,14 @@ struct MovieDatabaseRepository: MovieRepository {
     let apiKey = "592d2665d929bc693a5ef6ece254bf2a"
     let posterUrl = "https://image.tmdb.org/t/p/w500"
     let backDropUrl = "https://image.tmdb.org/t/p/w1280"
+    let trailerUrl = "https://www.youtube.com/watch?v="
     
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// RUTAS DE PELÍCULAS ////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    func discoverMovies(page:Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func discoverMovies(page:Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ()) {
 
         Alamofire.request("\(self.apiUrl)\("discover/movie")",
             method: .get,
@@ -36,13 +37,31 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var movies: [OMMovie] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let movie = OMMovie(id: item.1["id"].intValue, title: item.1["title"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, releaseDate: item.1["release_date"].stringValue)
+                        
+                        movies.append(movie)
+                    }
+                    completionHandler(movies,result.1,total_pages)
+                }
+                else {
+
+                    completionHandler(nil, result.1, nil)
+                }
             }
         )
         
     }
     
-    func getPopularMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getPopularMovies(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)movie/popular",
             method: .get,
@@ -50,11 +69,28 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON { (response) in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var movies: [OMMovie] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let movie = OMMovie(id: item.1["id"].intValue, title: item.1["title"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, releaseDate: item.1["release_date"].stringValue)
+                        
+                        movies.append(movie)
+                    }
+                    completionHandler(movies,nil, total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1, nil)
+                }
         }
     }
     
-    func getTopRatedMovies(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getTopRatedMovies(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)movie/top_rated",
             method: .get,
@@ -62,11 +98,28 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON { (response) in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var movies: [OMMovie] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let movie = OMMovie(id: item.1["id"].intValue, title: item.1["title"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, releaseDate: item.1["release_date"].stringValue)
+                        
+                        movies.append(movie)
+                    }
+                    completionHandler(movies,nil,total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1,nil)
+                }
         }
     }
     
-    func moviesReleaseDateAsc(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func moviesReleaseDateAsc(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)discover/movie",
             method: .get,
@@ -79,12 +132,29 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var movies: [OMMovie] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let movie = OMMovie(id: item.1["id"].intValue, title: item.1["title"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, releaseDate: item.1["release_date"].stringValue)
+                        
+                        movies.append(movie)
+                    }
+                    completionHandler(movies,nil,total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1,nil)
+                }
             }
         )
     }
     
-    func searchMovie(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func searchMovie(page: Int, query: String, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ()) {
 
         Alamofire.request("\(self.apiUrl)search/movie",
             method: .get,
@@ -96,12 +166,29 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var movies: [OMMovie] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let movie = OMMovie(id: item.1["id"].intValue, title: item.1["title"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, releaseDate: item.1["release_date"].stringValue)
+                        
+                        movies.append(movie)
+                    }
+                    completionHandler(movies,nil,total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1,nil)
+                }
             }
         )
     }
     
-    func getMovie(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getMovie(id: Int, completionHandler: @escaping (OMMovieDetails?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)movie/\(id)",
             method: .get,
@@ -110,12 +197,24 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    let movieDetail = OMMovieDetails(id: datos["id"].intValue, title: datos["title"].stringValue, posterUrl: datos["poster_path"].stringValue,
+                                                     vote: datos["vote_average"].floatValue, releaseDate: datos["release_date"].stringValue, backDropPath: datos["backdrop_path"].string,
+                                                     overview: datos["overview"].stringValue, genres: datos["genres"].arrayValue.map{$0["name"].stringValue})
+                    
+                    completionHandler(movieDetail, result.1) //en este caso result.1 es nulo ya que no hay error
+                }
+                else {
+                    
+                    completionHandler(nil, result.1)
+                }
             }
         )
     }
     
-    func getMovieCast(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getMovieCast(id: Int, completionHandler: @escaping ([Actor]?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)movie/\(id)/credits",
             method: .get,
@@ -123,12 +222,28 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var cast: [Actor] = []
+                    
+                    for item in datos["cast"] {
+                        
+                        let actor = Actor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)
+                        cast.append(actor)
+                    }
+                    
+                    completionHandler(cast, result.1)
+                }
+                else {
+                    
+                    completionHandler(nil, result.1)
+                }
             }
         )
     }
     
-    func getMovieTrailer(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getMovieTrailer(id: Int, completionHandler: @escaping (String?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)movie/\(id)/videos",
             method: .get,
@@ -137,7 +252,26 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    //Puede haber trailer o no, lo comprobamos
+                    if datos["results"].count == 0 {
+
+                        completionHandler("", nil)// si no hay trailer el API devuelve un array vacio
+                    }
+                    
+                    else {
+                        let videoKey = datos["results"].arrayValue[0]["key"]
+                        
+                        let videoUrl = "\(self.trailerUrl)\(videoKey)"
+                        
+                        completionHandler(videoUrl, result.1)
+                    }
+                }
+                else {
+                    completionHandler(nil, result.1)
+                }
             }
         )
     }
@@ -224,7 +358,7 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
-    func getTVShow(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getTVShow(id: Int, completionHandler: @escaping (OMTVShowDetails?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)tv/\(id)",
             method: .get,
@@ -233,7 +367,19 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    let showDetail = OMTVShowDetails(id: datos["id"].intValue, name: datos["name"].stringValue, posterUrl: datos["poster_path"].string,
+                                                     vote: datos["vote_average"].floatValue, firstAir: datos["first_air_date"].stringValue, backDropPath: datos["backdrop_path"].stringValue,
+                                                     overview: datos["overview"].stringValue, genres: datos["genres"].arrayValue.map{$0["name"].stringValue}, seasons: datos["number_of_seasons"].intValue)
+                    
+                    completionHandler(showDetail, result.1)
+                }
+                else {
+                    
+                    completionHandler(nil, result.1)
+                }
             }
         )
     }

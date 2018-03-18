@@ -231,7 +231,7 @@
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 </variation>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ami-hv-yvS" userLabel="Background">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ami-hv-yvS" userLabel="Background">
                                 <rect key="frame" x="0.0" y="40" width="320" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="285" id="Ms2-DW-pzh"/>
@@ -251,7 +251,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iFw-ad-1Ve">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFw-ad-1Ve">
                                 <rect key="frame" x="-20" y="200" width="360" height="255"/>
                                 <subviews>
                                     <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zb-Fl-hPz" userLabel="Info">
@@ -1050,7 +1050,7 @@
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 </variation>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qxf-si-Y3W" userLabel="Background">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qxf-si-Y3W" userLabel="Background">
                                 <rect key="frame" x="0.0" y="40" width="320" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="285" id="CsS-Tg-WEb"/>
@@ -1070,7 +1070,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CD2-aG-eCl">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CD2-aG-eCl">
                                 <rect key="frame" x="-20" y="200" width="360" height="255"/>
                                 <subviews>
                                     <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xok-Jd-RY6" userLabel="Info">
@@ -2243,7 +2243,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aHR-u9-KDl"/>
+        <segue reference="jy8-0h-otR"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="PrimaryColor"/>
 </document>

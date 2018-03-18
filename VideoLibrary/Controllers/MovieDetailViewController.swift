@@ -74,9 +74,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             
             if let response = responseObject {
 
-                self.movieDetail = OMMovieDetails(id: response["id"].intValue, title: response["title"].stringValue, posterUrl: response["poster_path"].stringValue,
-                                                  vote: response["vote_average"].floatValue, releaseDate: response["release_date"].stringValue, backDropPath: response["backdrop_path"].string,
-                                                  overview: response["overview"].stringValue, genres: response["genres"].arrayValue.map{$0["name"].stringValue})
+                self.movieDetail = response //asignamos los detalles de la película al objeto OMMovieDetails de esta clase
                 
                 self.movieTitle.text = self.movieDetail.title
                 self.background.layer.cornerRadius = 10.0
@@ -134,11 +132,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             
             if let response = responseObject {
                 
-                for item in response["cast"] {
-                    
-                    let actor = Actor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)
-                    self.cast.append(actor)
-                }
+                self.cast = response //asignamos el cast de la película
                 
                 completionHandler()
                 return
