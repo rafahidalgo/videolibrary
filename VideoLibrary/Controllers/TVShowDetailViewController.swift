@@ -46,26 +46,16 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cast.count
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShowCell", for: indexPath) as! CastViewCell
-        
-        if let imageURL = cast[indexPath.row].photoURL {
-            let posterImage = repository.getPosterImage(poster: imageURL)
-            cell.castImage.image = posterImage
-        } else {
-            cell.castImage.image = UIImage(named: "No Image")
-        }
-        
-        cell.castImage.layer.cornerRadius = 10.0
-        cell.actorName.text = cast[indexPath.row].name
-        
-        return utils.customCardMoviesAndTVShows(cell: cell)
-    }
+
+}
+
+
+
+//Obtención de los detalles de la serie y el cast
+extension TVShowDetailViewController {
     
     func getTVShowDetails(id: Int, completionHandler:@escaping (() -> ())) {
         
@@ -127,7 +117,7 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
     }
     
     func getTVShowCredits(id: Int, completionHandler:@escaping (() -> ())) {
-        
+        //TODO cambiar cuando la clase actor este en objetive c
         repository.getTVShowCast(id: id) { responseObject, error in
             
             if let response = responseObject {
@@ -150,20 +140,38 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
             }
         }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! CastViewCell
-        let indexPath = collectionCast.indexPath(for: cell)
-        let detailViewController = segue.destination as! PeopleDetailViewController
-        detailViewController.id = cast[(indexPath?.row)!].id
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
 }
 
+
+
+//CollectionView que muestra el cast de la serie
+extension TVShowDetailViewController {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cast.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShowCell", for: indexPath) as! CastViewCell
+        
+        if let imageURL = cast[indexPath.row].photoURL {
+            let posterImage = repository.getPosterImage(poster: imageURL)
+            cell.castImage.image = posterImage
+        } else {
+            cell.castImage.image = UIImage(named: "No Image")
+        }
+        
+        cell.castImage.layer.cornerRadius = 10.0
+        cell.actorName.text = cast[indexPath.row].name
+        
+        return utils.customCardMoviesAndTVShows(cell: cell)
+    }
+}
+
+
+
+//Añadir serie a favoritos
 extension TVShowDetailViewController {
     
     @IBAction func addTVShow(_ sender: UIButton) {
@@ -174,5 +182,18 @@ extension TVShowDetailViewController {
             
             utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
         }
+    }
+}
+
+
+
+//Ver los detalles de un actor del cast
+extension TVShowDetailViewController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! CastViewCell
+        let indexPath = collectionCast.indexPath(for: cell)
+        let detailViewController = segue.destination as! PeopleDetailViewController
+        detailViewController.id = cast[(indexPath?.row)!].id
     }
 }

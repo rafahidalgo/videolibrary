@@ -29,11 +29,11 @@ protocol MovieRepository {
     func getMovieTrailer(id: Int, completionHandler: @escaping (String?, NSError?) -> ())
     
     //TV Shows
-    func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-    func getPopularTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-    func getTopRatedTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-    func getOnAirTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-    func searchTVShow(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func discoverTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
+    func getPopularTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
+    func getTopRatedTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
+    func getOnAirTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
+    func searchTVShow(page: Int, query: String, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
     func getTVShow(id: Int, completionHandler: @escaping (OMTVShowDetails?, NSError?) -> ())
     func getTVShowCast(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
     

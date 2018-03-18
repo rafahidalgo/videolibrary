@@ -47,33 +47,22 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cast.count
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+}
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActorCell", for: indexPath) as! CastViewCell
-    
-        if let imageURL = cast[indexPath.row].photoURL {
-            let posterImage = repository.getPosterImage(poster: imageURL)
-            cell.castImage.image = posterImage
-        } else {
-            cell.castImage.image = UIImage(named: "No Image")
-        }
-        
-        cell.castImage.layer.cornerRadius = 10.0
-        cell.actorName.text = cast[indexPath.row].name
-        
-        return utils.customCardMoviesAndTVShows(cell: cell)
-    }
+
+
+//Obtención de los datos de una película y del cast
+extension MovieDetailViewController {
     
     func getMovieDetails(id: Int, completionHandler:@escaping (() -> ())) { //https://stackoverflow.com/questions/27102666/how-to-parse-string-array-with-swiftyjson
-    
+        
         repository.getMovie(id: id) {responseObject, error in
             
             if let response = responseObject {
-
+                
                 self.movieDetail = response //asignamos los detalles de la película al objeto OMMovieDetails de esta clase
                 
                 self.movieTitle.text = self.movieDetail.title
@@ -85,7 +74,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                     self.background.image = image
                 }
                 else {
-
+                    
                     self.background.image = UIImage(named: "No Image")
                 }
                 
@@ -99,7 +88,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                     self.overview.textAlignment = .center
                     self.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
-
+                
                 if self.movieDetail.genres?.count != 0 {
                     
                     var nombres = ""
@@ -146,6 +135,54 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             }
         }
     }
+}
+
+
+
+//CollectionView que muestra el cast de una película
+extension MovieDetailViewController {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cast.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActorCell", for: indexPath) as! CastViewCell
+        
+        if let imageURL = cast[indexPath.row].photoURL {
+            let posterImage = repository.getPosterImage(poster: imageURL)
+            cell.castImage.image = posterImage
+        } else {
+            cell.castImage.image = UIImage(named: "No Image")
+        }
+        
+        cell.castImage.layer.cornerRadius = 10.0
+        cell.actorName.text = cast[indexPath.row].name
+        
+        return utils.customCardMoviesAndTVShows(cell: cell)
+    }
+}
+
+
+
+//Añadir película a favoritos
+extension MovieDetailViewController {
+    
+    @IBAction func addMovie(_ sender: UIButton) {
+        
+        let favorite = Favorites()
+        if favorite.addFavoriteMovie(id: movieDetail.id, title: movieDetail.title, image: movieDetail.backDropPath) {
+            
+            utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
+        }
+    }
+}
+
+
+
+//Trailer de una película
+extension MovieDetailViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -162,24 +199,6 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             let indexPath = collectionCast.indexPath(for: cell)
             let detailViewController = segue.destination as! PeopleDetailViewController
             detailViewController.id = cast[(indexPath?.row)!].id
-        }
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-}
-
-extension MovieDetailViewController {
-    
-    @IBAction func addMovie(_ sender: UIButton) {
-        
-        let favorite = Favorites()
-        if favorite.addFavoriteMovie(id: movieDetail.id, title: movieDetail.title, image: movieDetail.backDropPath) {
-            
-            utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
         }
     }
 }

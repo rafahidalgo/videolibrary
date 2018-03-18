@@ -50,7 +50,7 @@ struct MovieDatabaseRepository: MovieRepository {
                         
                         movies.append(movie)
                     }
-                    completionHandler(movies,result.1,total_pages)
+                    completionHandler(movies, result.1, total_pages)
                 }
                 else {
 
@@ -82,7 +82,7 @@ struct MovieDatabaseRepository: MovieRepository {
                         
                         movies.append(movie)
                     }
-                    completionHandler(movies,nil, total_pages)
+                    completionHandler(movies, nil, total_pages)
                 }
                 else {
                     completionHandler(nil, result.1, nil)
@@ -111,10 +111,10 @@ struct MovieDatabaseRepository: MovieRepository {
                         
                         movies.append(movie)
                     }
-                    completionHandler(movies,nil,total_pages)
+                    completionHandler(movies, nil, total_pages)
                 }
                 else {
-                    completionHandler(nil, result.1,nil)
+                    completionHandler(nil, result.1, nil)
                 }
         }
     }
@@ -145,10 +145,10 @@ struct MovieDatabaseRepository: MovieRepository {
                         
                         movies.append(movie)
                     }
-                    completionHandler(movies,nil,total_pages)
+                    completionHandler(movies, nil, total_pages)
                 }
                 else {
-                    completionHandler(nil, result.1,nil)
+                    completionHandler(nil, result.1, nil)
                 }
             }
         )
@@ -179,10 +179,10 @@ struct MovieDatabaseRepository: MovieRepository {
                         
                         movies.append(movie)
                     }
-                    completionHandler(movies,nil,total_pages)
+                    completionHandler(movies, nil, total_pages)
                 }
                 else {
-                    completionHandler(nil, result.1,nil)
+                    completionHandler(nil, result.1, nil)
                 }
             }
         )
@@ -214,7 +214,7 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
-    func getMovieCast(id: Int, completionHandler: @escaping ([Actor]?, NSError?) -> ()) {
+    func getMovieCast(id: Int, completionHandler: @escaping ([Actor]?, NSError?) -> ()) {//TODO cambiar cuando este la clase Actor en objetive c
         
         Alamofire.request("\(self.apiUrl)movie/\(id)/credits",
             method: .get,
@@ -280,7 +280,7 @@ struct MovieDatabaseRepository: MovieRepository {
 /////////////////////////////////// RUTAS DE SERIES //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    func discoverTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func discoverTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)discover/tv",
             method: .get,
@@ -293,12 +293,29 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var shows: [OMTVShow] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let show = OMTVShow(id: item.1["id"].intValue, name: item.1["name"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, firstAir: item.1["first_air_date"].stringValue)
+                        
+                        shows.append(show)
+                    }
+                    completionHandler(shows, nil, total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1, nil)
+                }
             }
         )
     }
     
-    func getPopularTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getPopularTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)tv/popular",
             method: .get,
@@ -308,12 +325,29 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var shows: [OMTVShow] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let show = OMTVShow(id: item.1["id"].intValue, name: item.1["name"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, firstAir: item.1["first_air_date"].stringValue)
+                        
+                        shows.append(show)
+                    }
+                    completionHandler(shows, nil, total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1, nil)
+                }
             }
         )
     }
     
-    func getTopRatedTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getTopRatedTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)tv/top_rated",
             method: .get,
@@ -323,12 +357,29 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var shows: [OMTVShow] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let show = OMTVShow(id: item.1["id"].intValue, name: item.1["name"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, firstAir: item.1["first_air_date"].stringValue)
+                        
+                        shows.append(show)
+                    }
+                    completionHandler(shows, nil, total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1, nil)
+                }
             }
         )
     }
     
-    func getOnAirTVShows(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func getOnAirTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)tv/on_the_air",
             method: .get,
@@ -337,12 +388,29 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var shows: [OMTVShow] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let show = OMTVShow(id: item.1["id"].intValue, name: item.1["name"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, firstAir: item.1["first_air_date"].stringValue)
+                        
+                        shows.append(show)
+                    }
+                    completionHandler(shows, nil, total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1, nil)
+                }
             }
         )
     }
     
-    func searchTVShow(page: Int, query: String, completionHandler: @escaping (JSON?, NSError?) -> ()) {
+    func searchTVShow(page: Int, query: String, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)search/tv",
             method: .get,
@@ -353,7 +421,24 @@ struct MovieDatabaseRepository: MovieRepository {
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
-                completionHandler(result.0, result.1)
+                
+                if let datos = result.0 {
+                    
+                    var shows: [OMTVShow] = []
+                    let total_pages = datos["total_pages"].intValue
+                    
+                    for item in datos["results"] {
+                        
+                        let show = OMTVShow(id: item.1["id"].intValue, name: item.1["name"].stringValue, posterUrl: item.1["poster_path"].string,
+                                            vote: item.1["vote_average"].floatValue, firstAir: item.1["first_air_date"].stringValue)
+                        
+                        shows.append(show)
+                    }
+                    completionHandler(shows, nil, total_pages)
+                }
+                else {
+                    completionHandler(nil, result.1, nil)
+                }
             }
         )
     }

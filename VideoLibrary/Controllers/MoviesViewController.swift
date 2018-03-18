@@ -47,12 +47,34 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         super.didReceiveMemoryWarning()
     }
     
+    //Reset del contenido
+    func resetContent() {
+        page = 1
+        total_pages = 1
+        movies.removeAll()
+    }
+    
+    //Abrir detalle película
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! MovieViewCell
+        let indexPath = collectionView.indexPath(for: cell)
+        let detailViewController = segue.destination as! MovieDetailViewController
+        detailViewController.id = movies[(indexPath?.row)!].id
+    }
+    
+}
+
+
+
+//CollectionView
+extension MoviesViewController {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieViewCell
         
         cell.movieTitle.text = movies[indexPath.row].title
@@ -69,6 +91,111 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         
         return utils.customCardMoviesAndTVShows(cell: cell)
     }
+}
+
+
+
+//Obtención de datos
+extension MoviesViewController {
+    
+    func getData(completionHandler:@escaping (() -> ())) {
+        
+        //La vista de películas puede mostrar los datos filtrados por diversos criterios (películas populares, mejor valoradas,...) por lo que cuando un usuario
+        //realiza scroll en la pantalla debe conocerse qué criterio está fijado para cargar los datos de la página correspondiente
+        //de una dirección u otra. Una manera de hacer esto es mediante una variable, en este caso content, que almacena la opción seleccionada y
+        //en función de su valor se obtienen los datos correspondientes. Además cuando se cambia de criterio de visualización (de películas populares a mejor valoradas p.e.)
+        //debe hacerse scroll a la parte superior automáticamente para que se visualice el primer elemento del array de películas pero teniendo en cuenta la reutilización de
+        //celdas. Para ello se ha usado una closure que informa de la disponibilidad de los datos en el modelo.
+        
+        let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
+        switch filterMovies {
+        case .discoverMovie:
+            repository.discoverMovies(page: page){ responseObject, error, pages in
+                
+                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+                completionHandler()
+            }
+        case .popularMovie:
+            repository.getPopularMovies(page: page){ responseObject, error, pages  in
+                
+                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+                completionHandler()
+            }
+        case .topRatedMovie:
+            repository.getTopRatedMovies(page: page) { responseObject, error, pages in
+                
+                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+                completionHandler()
+            }
+        case .release_date:
+            repository.moviesReleaseDateAsc(page: page) { responseObject, error, pages  in
+                
+                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+                completionHandler()
+            }
+        default:
+            repository.searchMovie(page: page, query: searchBar.text!) {responseObject, error, pages in
+                
+                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self.utils.stopLoadingIndicator(indicator: indicator)
+                completionHandler()
+            }
+        }
+    }
+    
+    //Esta función coge la información de las películas y almacena estos datos en el modelo
+    func saveDataToModel(data: [OMMovie]?, error: NSError?, pages: Int) {
+        
+        if let response = data {
+            
+            total_pages = pages
+            
+            self.movies.append(contentsOf: response)
+            return
+        }
+        
+        if (error?.code)! < 0 {
+            utils.showAlertConnectionLost(view: self)
+        }
+        else {
+            utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+        }
+    }
+}
+
+
+
+//Añadir película a favoritos
+extension MoviesViewController {
+    
+    @IBAction func addFavoriteMovie(_ sender: UIButton) {
+       
+        guard let cell = sender.superview?.superview as? MovieViewCell else {
+            utils.showAlertWithCustomMessage(title: "Error", message: NSLocalizedString("favoriteError", comment: ""), view: self)
+            return
+        }
+        
+        let indexPath = collectionView.indexPath(for: cell)
+        let movieId = movies[(indexPath?.row)!].id
+        let movieTitle = movies[(indexPath?.row)!].title
+        let movieImage = movies[(indexPath?.row)!].posterUrl
+        let favorite = Favorites()
+        
+        if favorite.addFavoriteMovie(id: movieId, title: movieTitle, image: movieImage) {
+            
+            utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
+        }
+    }
+}
+
+
+
+//Barra de búsqueda
+extension MoviesViewController {
     
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
         
@@ -90,11 +217,11 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
+        
         if searchBar.text == "" {
             utils.showToast(message: NSLocalizedString("emptySearchBar",
                                                        comment: "Mensaje que se muestra cuando se le da a buscar una película con la barra vacía"),
-                                                       view: view)
+                            view: view)
         }
         else {
             resetContent()
@@ -107,6 +234,12 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             }
         }
     }
+}
+
+
+
+//Action sheet para filtrar el contenido
+extension MoviesViewController {
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
         
@@ -131,7 +264,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
             }
-
+            
         }
         
         let top = FloatingAction(title: NSLocalizedString("topRatedMovies", comment: "")) { action in
@@ -143,7 +276,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
                 self.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self.collectionView.reloadData()
             }
-
+            
         }
         
         let release = FloatingAction(title: NSLocalizedString("releaseDate", comment: "")) { action in
@@ -162,6 +295,12 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         let actionSheet = FloatingActionSheetController(actionGroup: group).present(in: self)
         actionSheet.animationStyle = .slideUp
     }
+}
+
+
+
+//Scroll
+extension MoviesViewController {
     
     //Scroll infinito
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -173,115 +312,6 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             }
         }
     }
-    
-    func getData(completionHandler:@escaping (() -> ())) {
-        
-        //La vista de películas puede mostrar los datos filtrados por diversos criterios (películas populares, mejor valoradas,...) por lo que cuando un usuario
-        //realiza scroll en la pantalla debe conocerse qué criterio está fijado para cargar los datos de la página correspondiente
-        //de una dirección u otra. Una manera de hacer esto es mediante una variable, en este caso content, que almacena la opción seleccionada y
-        //en función de su valor se obtienen los datos correspondientes. Además cuando se cambia de criterio de visualización (de películas populares a mejor valoradas p.e.)
-        //debe hacerse scroll a la parte superior automáticamente para que se visualice el primer elemento del array de películas pero teniendo en cuenta la reutilización de
-        //celdas. Para ello se ha usado una closure que informa de la disponibilidad de los datos en el modelo.
-        
-        let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
-        switch filterMovies {
-            case .discoverMovie:
-                repository.discoverMovies(page: page){ responseObject, error, pages in
-                    
-                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                    self.utils.stopLoadingIndicator(indicator: indicator)
-                    completionHandler()
-            }
-            case .popularMovie:
-                repository.getPopularMovies(page: page){ responseObject, error, pages  in
-                    
-                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                    self.utils.stopLoadingIndicator(indicator: indicator)
-                    completionHandler()
-            }
-            case .topRatedMovie:
-                repository.getTopRatedMovies(page: page) { responseObject, error, pages in
-                    
-                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                    self.utils.stopLoadingIndicator(indicator: indicator)
-                    completionHandler()
-            }
-            case .release_date:
-                repository.moviesReleaseDateAsc(page: page) { responseObject, error, pages  in
-                    
-                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                    self.utils.stopLoadingIndicator(indicator: indicator)
-                    completionHandler()
-            }
-            default:
-                repository.searchMovie(page: page, query: searchBar.text!) {responseObject, error, pages in
-
-                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                    self.utils.stopLoadingIndicator(indicator: indicator)
-                    completionHandler()
-            }
-        }
-    }
-    
-    //Esta función coge la información de las películas y almacena estos datos en el modelo
-    func saveDataToModel(data: [OMMovie]?, error: NSError?, pages: Int) {
-
-        if let response = data {
-            
-            total_pages = pages
-            
-            self.movies.append(contentsOf: response)
-            return
-        }
-        
-        if (error?.code)! < 0 {
-            utils.showAlertConnectionLost(view: self)
-        }
-        else {
-            utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
-        }
-    }
-    
-    //Reset del contenido
-    func resetContent() {
-        page = 1
-        total_pages = 1
-        movies.removeAll()
-    }
-    
-    //Abrir detalle película
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! MovieViewCell
-        let indexPath = collectionView.indexPath(for: cell)
-        let detailViewController = segue.destination as! MovieDetailViewController
-        detailViewController.id = movies[(indexPath?.row)!].id
-    }
-    
-}
-
-extension MoviesViewController {
-    
-    @IBAction func addFavoriteMovie(_ sender: UIButton) {
-       
-        guard let cell = sender.superview?.superview as? MovieViewCell else {
-            utils.showAlertWithCustomMessage(title: "Error", message: NSLocalizedString("favoriteError", comment: ""), view: self)
-            return
-        }
-        
-        let indexPath = collectionView.indexPath(for: cell)
-        let movieId = movies[(indexPath?.row)!].id
-        let movieTitle = movies[(indexPath?.row)!].title
-        let movieImage = movies[(indexPath?.row)!].posterUrl
-        let favorite = Favorites()
-        
-        if favorite.addFavoriteMovie(id: movieId, title: movieTitle, image: movieImage) {
-            
-            utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
-        }
-    }
-}
-
-extension MoviesViewController {
     
     //Al hacer scroll se oculta el teclado
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
