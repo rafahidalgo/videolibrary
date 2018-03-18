@@ -35,14 +35,14 @@ protocol MovieRepository {
     func getOnAirTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
     func searchTVShow(page: Int, query: String, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
     func getTVShow(id: Int, completionHandler: @escaping (OMTVShowDetails?, NSError?) -> ())
-    func getTVShowCast(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func getTVShowCast(id: Int, completionHandler: @escaping ([RHActor]?, NSError?) -> ())
     
     //People
-    func discoverPeople(page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-    func getPerson(name: String, page: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-    func getPersonDetail(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-    func getMovieCredits(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
-    func getTVShowCredits(id: Int, completionHandler: @escaping (JSON?, NSError?) -> ())
+    func discoverPeople(page: Int, completionHandler: @escaping ([RHActor]?, NSError?, Int?) -> ())
+    func getPerson(name: String, page: Int, completionHandler: @escaping ([RHActor]?, NSError?, Int?) -> ())
+    func getPersonDetail(id: Int, completionHandler: @escaping (RHActorDetails?, NSError?) -> ())
+    func getMovieCredits(id: Int, completionHandler: @escaping ([OMMovie]?, NSError?) -> ())
+    func getTVShowCredits(id: Int, completionHandler: @escaping ([OMTVShow]?, NSError?) -> ())
     
     //Resources
     func getPosterImage(poster: String) -> UIImage?

@@ -50,20 +50,12 @@ class PeopleDetailViewController: UIViewController {
 extension PeopleDetailViewController {
     func getDetails(id: Int) {
         
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
         repository.getPersonDetail(id: id) { (responseObject, error) in
             if let response = responseObject {
-                let name = response["name"].string ?? nil
-                let photo = response["profile_path"].string ?? nil
-                var biography = response["biography"].string ?? nil
-                if biography == "" {
-                    biography = "The biography is not available in the requested language"
-                }
-                let birthday = response["birthday"].string ?? "-"
-                let deathday = response["deathday"].string ?? "-"
-                let placeOfBirth = response["place_of_birth"].string ?? "-"
-                let person = RHActorDetails(id: id, name: name!, photoURL: photo, biography: biography, birthday: birthday, deathday: deathday, placeOfBirth: placeOfBirth)
+                
+                let person = response
                 
                 if let imageURL = person.photoURL {
                     let photoImage = self.repository.getPosterImage(poster: imageURL)
@@ -71,6 +63,7 @@ extension PeopleDetailViewController {
                 } else {
                     self.image.image = UIImage(named: "No Image")
                 }
+                
                 self.image.layer.cornerRadius = 10
                 self.nameLabel.text = person.name
                 self.birthdayLabel.text = person.birthday
@@ -102,13 +95,12 @@ extension PeopleDetailViewController {
     func getMovies(id: Int) {
         repository.getMovieCredits(id: id) { (responseObject, error) in
             if let response = responseObject {
-                for movie in response["cast"] {
-                    let id = movie.1["id"].int!
-                    let title = movie.1["title"].string!
-                    let posterUrl = movie.1["poster_path"].string ?? nil
-                    let movie = OMMovie(id: id, title: title, posterUrl: posterUrl, vote: 0, releaseDate: "")
+                
+                for movie in response {
+                    
                     self.credits.append(movie)
                 }
+                
                 self.collectionView.reloadData()
                 return
             }
@@ -125,13 +117,12 @@ extension PeopleDetailViewController {
     func getTVShows(id: Int) {
         repository.getTVShowCredits(id: id) { (responseObject, error) in
             if let response = responseObject {
-                for show in response["cast"] {
-                    let id = show.1["id"].int!
-                    let name = show.1["name"].string!
-                    let posterUrl = show.1["poster_path"].string ?? nil
-                    let show = OMTVShow(id: id, name: name, posterUrl: posterUrl, vote: 0, firstAir: "")
+               
+                for show in response {
+                    
                     self.credits.append(show)
                 }
+                
                 self.collectionView.reloadData()
                 return
             }

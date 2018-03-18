@@ -117,16 +117,12 @@ extension TVShowDetailViewController {
     }
     
     func getTVShowCredits(id: Int, completionHandler:@escaping (() -> ())) {
-        //TODO cambiar cuando la clase actor este en objetive c
+
         repository.getTVShowCast(id: id) { responseObject, error in
             
             if let response = responseObject {
-                
-                for item in response["cast"] {
-                    
-                    let actor = RHActor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)
-                    self.cast.append(actor)
-                }
+
+                self.cast = response //asignamos el cast de la serie
                 
                 completionHandler()
                 return

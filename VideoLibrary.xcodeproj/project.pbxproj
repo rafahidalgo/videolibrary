@@ -33,12 +33,6 @@
 		3A443BA6204041F900BEC2D7 /* TVShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A443BA5204041F900BEC2D7 /* TVShowDetailViewController.swift */; };
 		3A58CDBA2051BF5600909F7F /* Favorites.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A58CDB82051BF5600909F7F /* Favorites.xcdatamodeld */; };
 		3A58CDBC2051C16200909F7F /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A58CDBB2051C16200909F7F /* Favorites.swift */; };
-		3A59DF822030BEF90097E327 /* RHActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF812030BEF90097E327 /* RHActor.swift */; };
-		3A59DF842030BF680097E327 /* ActorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF832030BF680097E327 /* ActorDetails.swift */; };
-		3A59DF862030BFB80097E327 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF852030BFB80097E327 /* Movie.swift */; };
-		3A59DF882030BFE10097E327 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF872030BFE10097E327 /* MovieDetails.swift */; };
-		3A59DF8A2030C00D0097E327 /* TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF892030C00D0097E327 /* TVShow.swift */; };
-		3A59DF8C2030C0350097E327 /* TVShowDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A59DF8B2030C0350097E327 /* TVShowDetails.swift */; };
 		3A6F9C942035EE3300FDC421 /* MovieViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6F9C932035EE3300FDC421 /* MovieViewCell.swift */; };
 		3A7723192030DA7E007CB714 /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7723182030DA7E007CB714 /* MovieRepository.swift */; };
 		3A7EE732203222620005BEC8 /* MovieDatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EE731203222620005BEC8 /* MovieDatabaseRepository.swift */; };
@@ -96,12 +90,6 @@
 		3A443BA5204041F900BEC2D7 /* TVShowDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowDetailViewController.swift; sourceTree = "<group>"; };
 		3A58CDB92051BF5600909F7F /* Favorites.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Favorites.xcdatamodel; sourceTree = "<group>"; };
 		3A58CDBB2051C16200909F7F /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Favorites.swift; path = VideoLibrary/Persistance/Favorites.swift; sourceTree = SOURCE_ROOT; };
-		3A59DF812030BEF90097E327 /* RHActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RHActor.swift; sourceTree = "<group>"; };
-		3A59DF832030BF680097E327 /* ActorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorDetails.swift; sourceTree = "<group>"; };
-		3A59DF852030BFB80097E327 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
-		3A59DF872030BFE10097E327 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
-		3A59DF892030C00D0097E327 /* TVShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShow.swift; sourceTree = "<group>"; };
-		3A59DF8B2030C0350097E327 /* TVShowDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowDetails.swift; sourceTree = "<group>"; };
 		3A6F9C932035EE3300FDC421 /* MovieViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewCell.swift; sourceTree = "<group>"; };
 		3A7723182030DA7E007CB714 /* MovieRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
 		3A7EE731203222620005BEC8 /* MovieDatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDatabaseRepository.swift; sourceTree = "<group>"; };
@@ -244,12 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				3A1D69522050105A004FD96D /* CinemaPin.swift */,
-				3A59DF812030BEF90097E327 /* RHActor.swift */,
-				3A59DF832030BF680097E327 /* ActorDetails.swift */,
-				3A59DF852030BFB80097E327 /* Movie.swift */,
-				3A59DF872030BFE10097E327 /* MovieDetails.swift */,
-				3A59DF892030C00D0097E327 /* TVShow.swift */,
-				3A59DF8B2030C0350097E327 /* TVShowDetails.swift */,
 				3A09FECE205991770020259A /* VideoLibrary-Bridging-Header.h */,
 				3A09FECF205991770020259A /* OMMovie.h */,
 				3A09FED0205991770020259A /* OMMovie.m */,
@@ -461,7 +443,6 @@
 				3A2E7DCE20546BC60039D272 /* FavoriteMovies.swift in Sources */,
 				3A1BAAE6203CAEF1008E7B1D /* TVShowViewCell.swift in Sources */,
 				3A38AED020305E5500E753DF /* PeopleViewController.swift in Sources */,
-				3A59DF842030BF680097E327 /* ActorDetails.swift in Sources */,
 				3AF9E951203CC064003B9011 /* PeopleDetailViewController.swift in Sources */,
 				3A2E7DD020546C730039D272 /* FavoriteMovies+CoreDataProperties.swift in Sources */,
 				3A1DE6AD2059A93B00375D43 /* OMTVShow.m in Sources */,
@@ -472,12 +453,10 @@
 				3AB3ED9520560FAF004E2893 /* FavoritesViewController.swift in Sources */,
 				3A80B63E202F679400DD731E /* AppDelegate.swift in Sources */,
 				3A3AC574205EE2AA00D592D1 /* RHActor.m in Sources */,
-				3A59DF822030BEF90097E327 /* RHActor.swift in Sources */,
 				3A38AECA20305D8300E753DF /* MoviesViewController.swift in Sources */,
 				3AB2923B2059795E00A6508E /* TVShowCreditsViewCell.swift in Sources */,
 				3A856B78203CFF77006F47A3 /* Filters.swift in Sources */,
 				3A0AA62C2055C3CB00427E2E /* FavoriteTVShows.swift in Sources */,
-				3A59DF862030BFB80097E327 /* Movie.swift in Sources */,
 				3A7EE732203222620005BEC8 /* MovieDatabaseRepository.swift in Sources */,
 				3A6F9C942035EE3300FDC421 /* MovieViewCell.swift in Sources */,
 				3A38AECE20305E3500E753DF /* TVShowsViewController.swift in Sources */,
@@ -487,7 +466,6 @@
 				3A58CDBA2051BF5600909F7F /* Favorites.xcdatamodeld in Sources */,
 				3A443BA6204041F900BEC2D7 /* TVShowDetailViewController.swift in Sources */,
 				3A1D69512050104F004FD96D /* MapViewController.swift in Sources */,
-				3A59DF8A2030C00D0097E327 /* TVShow.swift in Sources */,
 				3A21BB63204B1A07005BF434 /* TrailerViewController.swift in Sources */,
 				3A188CAA205944C90090CC4C /* MovieCreditsViewCell.swift in Sources */,
 				3A1D69532050105A004FD96D /* CinemaPin.swift in Sources */,
@@ -495,9 +473,7 @@
 				3AB4C3CD203E04BA00C9E992 /* MovieDetailViewController.swift in Sources */,
 				3A1DE6B02059AB9E00375D43 /* OMMovieDetails.m in Sources */,
 				3A09FED1205991770020259A /* OMMovie.m in Sources */,
-				3A59DF882030BFE10097E327 /* MovieDetails.swift in Sources */,
 				3A1D695520501061004FD96D /* CinemaLocations.swift in Sources */,
-				3A59DF8C2030C0350097E327 /* TVShowDetails.swift in Sources */,
 				3A58CDBC2051C16200909F7F /* Favorites.swift in Sources */,
 				3A8A1397203444A800D022FE /* PeopleViewCell.swift in Sources */,
 				3A1D695720501068004FD96D /* NearbyCinemas.swift in Sources */,

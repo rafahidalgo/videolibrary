@@ -106,25 +106,15 @@ extension PeopleViewController {
     //Búsqueda de actores populares
     func searchPopularPeople(page: Int) {
         
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
-        repository.discoverPeople(page: page) { (responseObject, error) in
+        repository.discoverPeople(page: page) { (responseObject, error, pages) in
             if let response = responseObject {
-                self.totalPages = response["total_pages"].int!
-                for item in response["results"] {
-                    if let name = item.1["name"].string {
-                        let id = item.1["id"].int!
-                        if let photo = item.1["profile_path"].string {
-                            let actor = RHActor(id: id, name: name, photoURL: photo)
-                            self.people.append(actor)
-                        }
-                        else {
-                            let actor = RHActor(id: id, name: name, photoURL: nil)
-                            self.people.append(actor)
-                        }
-                    }
-                    
-                }
+                
+                self.totalPages = (pages == nil) ? 0: pages!
+                
+                self.people.append(contentsOf: response)
+                
                 self.collectionView.reloadData()
                 self.utils.stopLoadingIndicator(indicator: indicator)
                 return
@@ -143,24 +133,15 @@ extension PeopleViewController {
     //Búsqueda de actores por nombre completo
     func searchPerson(name: String, page: Int) {
         
-        let indicator = utils.showLoadingIndicator(title: "Loading...", view: view)
+        let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
-        repository.getPerson(name: name, page: page) { (responseObject, error) in
+        repository.getPerson(name: name, page: page) { (responseObject, error, pages) in
             if let response = responseObject {
-                self.totalPages = response["total_pages"].int!
-                for item in response["results"] {
-                    if let name = item.1["name"].string {
-                        let id = item.1["id"].int!
-                        if let photo = item.1["profile_path"].string {
-                            let actor = RHActor(id: id, name: name, photoURL: photo)
-                            self.people.append(actor)
-                        }
-                        else {
-                            let actor = RHActor(id: id, name: name, photoURL: nil)
-                            self.people.append(actor)
-                        }
-                    }
-                }
+                
+                self.totalPages = (pages == nil) ? 0: pages!
+                
+                self.people.append(contentsOf: response)
+                
                 self.collectionView.reloadData()
                 self.utils.stopLoadingIndicator(indicator: indicator)
                 return
