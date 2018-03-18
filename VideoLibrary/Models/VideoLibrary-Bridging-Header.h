@@ -4,5 +4,8 @@
 
 #import "OMMovie.h"
 #import "OMTVShow.h"
+#import "RHActor.h"
 #import "OMMovieDetails.h"
 #import "OMTVShowDetails.h"
+#import "RHActorDetails.h"
+

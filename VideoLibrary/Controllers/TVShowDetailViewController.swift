@@ -23,7 +23,7 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
     let utils = Utils()
     var id: Int?
     var showDetail = OMTVShowDetails()
-    var cast: [Actor] = []
+    var cast: [RHActor] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +124,7 @@ extension TVShowDetailViewController {
                 
                 for item in response["cast"] {
                     
-                    let actor = Actor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)
+                    let actor = RHActor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)
                     self.cast.append(actor)
                 }
                 

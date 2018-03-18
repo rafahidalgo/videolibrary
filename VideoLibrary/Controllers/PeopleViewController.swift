@@ -6,7 +6,7 @@ class PeopleViewController: BaseViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
-    var people: [Actor] = []
+    var people: [RHActor] = []
     let utils = Utils()
     var page = 1
     let repository = MovieDatabaseRepository()
@@ -115,11 +115,11 @@ extension PeopleViewController {
                     if let name = item.1["name"].string {
                         let id = item.1["id"].int!
                         if let photo = item.1["profile_path"].string {
-                            let actor = Actor(id: id, name: name, photoURL: photo)
+                            let actor = RHActor(id: id, name: name, photoURL: photo)
                             self.people.append(actor)
                         }
                         else {
-                            let actor = Actor(id: id, name: name, photoURL: nil)
+                            let actor = RHActor(id: id, name: name, photoURL: nil)
                             self.people.append(actor)
                         }
                     }
@@ -152,11 +152,11 @@ extension PeopleViewController {
                     if let name = item.1["name"].string {
                         let id = item.1["id"].int!
                         if let photo = item.1["profile_path"].string {
-                            let actor = Actor(id: id, name: name, photoURL: photo)
+                            let actor = RHActor(id: id, name: name, photoURL: photo)
                             self.people.append(actor)
                         }
                         else {
-                            let actor = Actor(id: id, name: name, photoURL: nil)
+                            let actor = RHActor(id: id, name: name, photoURL: nil)
                             self.people.append(actor)
                         }
                     }

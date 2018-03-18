@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ActorDetails: Actor {
+class ActorDetails: RHActor {
     
     let biography: String?
     let birthday: String?

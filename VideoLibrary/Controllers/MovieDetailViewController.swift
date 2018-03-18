@@ -23,7 +23,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     let utils = Utils()
     var id: Int?
     var movieDetail = OMMovieDetails()
-    var cast: [Actor] = []
+    var cast: [RHActor] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

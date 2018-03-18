@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Actor {
+class RHActor {
     
     let id: Int
     let name: String

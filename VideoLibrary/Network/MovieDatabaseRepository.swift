@@ -214,7 +214,7 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
-    func getMovieCast(id: Int, completionHandler: @escaping ([Actor]?, NSError?) -> ()) {//TODO cambiar cuando este la clase Actor en objetive c
+    func getMovieCast(id: Int, completionHandler: @escaping ([RHActor]?, NSError?) -> ()) {
         
         Alamofire.request("\(self.apiUrl)movie/\(id)/credits",
             method: .get,
@@ -225,11 +225,11 @@ struct MovieDatabaseRepository: MovieRepository {
                 
                 if let datos = result.0 {
                     
-                    var cast: [Actor] = []
+                    var cast: [RHActor] = []
                     
                     for item in datos["cast"] {
                         
-                        let actor = Actor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)
+                        let actor = RHActor(id: item.1["id"].int!, name: item.1["name"].string!, photoURL: item.1["profile_path"].string)
                         cast.append(actor)
                     }
                     
