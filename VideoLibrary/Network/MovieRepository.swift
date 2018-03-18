@@ -25,7 +25,7 @@ protocol MovieRepository {
     func moviesReleaseDateAsc(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ())
     func searchMovie(page: Int, query: String, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ())
     func getMovie(id: Int, completionHandler: @escaping (OMMovieDetails?, NSError?) -> ())
-    func getMovieCast(id: Int, completionHandler: @escaping ([Actor]?, NSError?) -> ())
+    func getMovieCast(id: Int, completionHandler: @escaping ([RHActor]?, NSError?) -> ())
     func getMovieTrailer(id: Int, completionHandler: @escaping (String?, NSError?) -> ())
     
     //TV Shows

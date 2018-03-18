@@ -63,7 +63,7 @@ extension PeopleDetailViewController {
                 let birthday = response["birthday"].string ?? "-"
                 let deathday = response["deathday"].string ?? "-"
                 let placeOfBirth = response["place_of_birth"].string ?? "-"
-                let person = ActorDetails(id: id, name: name!, photoURL: photo, biography: biography, birthday: birthday, deathday: deathday, placeOfBirth: placeOfBirth)
+                let person = RHActorDetails(id: id, name: name!, photoURL: photo, biography: biography, birthday: birthday, deathday: deathday, placeOfBirth: placeOfBirth)
                 
                 if let imageURL = person.photoURL {
                     let photoImage = self.repository.getPosterImage(poster: imageURL)
@@ -106,7 +106,7 @@ extension PeopleDetailViewController {
                     let id = movie.1["id"].int!
                     let title = movie.1["title"].string!
                     let posterUrl = movie.1["poster_path"].string ?? nil
-                    let movie = Movie(id: id, title: title, posterUrl: posterUrl, vote: 0, release: "")
+                    let movie = OMMovie(id: id, title: title, posterUrl: posterUrl, vote: 0, releaseDate: "")
                     self.credits.append(movie)
                 }
                 self.collectionView.reloadData()
@@ -129,7 +129,7 @@ extension PeopleDetailViewController {
                     let id = show.1["id"].int!
                     let name = show.1["name"].string!
                     let posterUrl = show.1["poster_path"].string ?? nil
-                    let show = TVShow(id: id, name: name, posterUrl: posterUrl, vote: 0, first_air: "")
+                    let show = OMTVShow(id: id, name: name, posterUrl: posterUrl, vote: 0, firstAir: "")
                     self.credits.append(show)
                 }
                 self.collectionView.reloadData()
@@ -153,7 +153,6 @@ extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return credits.count
-        //return movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -162,7 +161,7 @@ extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionVi
         let tvShowIdentifier = "TVShowCreditsCell"
         var customCell: UICollectionViewCell?
         
-        if let item = credits[indexPath.row] as? Movie {
+        if let item = credits[indexPath.row] as? OMMovie {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieIdentifier, for: indexPath) as! MovieCreditsViewCell
             if let posterUrl = item.posterUrl {
                 let posterImage = repository.getPosterImage(poster: posterUrl)
@@ -172,7 +171,7 @@ extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionVi
             }
             cell.moviePoster.layer.cornerRadius = 10
             customCell = utils.customCardMoviesAndTVShows(cell: cell)
-        } else if let item = credits[indexPath.row] as? TVShow {
+        } else if let item = credits[indexPath.row] as? OMTVShow {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tvShowIdentifier, for: indexPath) as! TVShowCreditsViewCell
             if let posterUrl = item.posterUrl {
                 let posterImage = repository.getPosterImage(poster: posterUrl)
@@ -197,14 +196,14 @@ extension PeopleDetailViewController {
         {
             let indexPath = collectionView.indexPath(for: cell)
             let detailViewController = segue.destination as! MovieDetailViewController
-            let item = credits[(indexPath?.row)!] as! Movie
+            let item = credits[(indexPath?.row)!] as! OMMovie
             detailViewController.id = item.id
         }
         else if let cell = sender as? TVShowCreditsViewCell
         {
             let indexPath = collectionView.indexPath(for: cell)
             let detailViewController = segue.destination as! TVShowDetailViewController
-            let item = credits[(indexPath?.row)!] as! TVShow
+            let item = credits[(indexPath?.row)!] as! OMTVShow
             detailViewController.id = item.id
         }
     }
