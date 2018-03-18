@@ -217,7 +217,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         }
     }
     
-    //Esta función recorre el objeto JSON que tiene la información de las series y almacena estos datos en el modelo
+    //Esta función coge la información de las series y almacena estos datos en el modelo
     func saveDataToModel(data: JSON?, error: NSError?) {
 
         if let response = data {

@@ -37,20 +37,16 @@ class TrailerViewController: UIViewController {
         
         repository.getMovieTrailer(id: id!) { responseObject, error in
             
-            if let response = responseObject {
+            if let videoUrl = responseObject {
                 
                 //Puede haber trailer o no, lo comprobamos
-                if response["results"].count == 0 {
+                if videoUrl == "" {
                     
                     self.utils.showAlertWithCustomMessage(title: "Not trailer available", message: "This film does not currently have a trailer", view: self)
                     self.dismiss(animated: true, completion: nil)
                     
                 }
                 else {
-
-                    let videoKey = response["results"].arrayValue[0]["key"]
-                    
-                    let videoUrl = "https://www.youtube.com/watch?v=\(videoKey)"
                     
                     if let url = URL(string: videoUrl) {
                         self.webView.load(URLRequest(url: url))

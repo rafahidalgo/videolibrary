@@ -186,57 +186,51 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         switch filterMovies {
             case .discoverMovie:
-                repository.discoverMovies(page: page){ responseObject, error in
+                repository.discoverMovies(page: page){ responseObject, error, pages in
                     
-                    self.saveDataToModel(data: responseObject, error: error)
+                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
             }
             case .popularMovie:
-                repository.getPopularMovies(page: page){ responseObject, error in
+                repository.getPopularMovies(page: page){ responseObject, error, pages  in
                     
-                    self.saveDataToModel(data: responseObject, error: error)
+                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
             }
             case .topRatedMovie:
-                repository.getTopRatedMovies(page: page) { responseObject, error in
+                repository.getTopRatedMovies(page: page) { responseObject, error, pages in
                     
-                    self.saveDataToModel(data: responseObject, error: error)
+                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
             }
             case .release_date:
-                repository.moviesReleaseDateAsc(page: page) { responseObject, error in
+                repository.moviesReleaseDateAsc(page: page) { responseObject, error, pages  in
                     
-                    self.saveDataToModel(data: responseObject, error: error)
+                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
             }
             default:
-                repository.searchMovie(page: page, query: searchBar.text!) {responseObject,error in
+                repository.searchMovie(page: page, query: searchBar.text!) {responseObject, error, pages in
 
-                    self.saveDataToModel(data: responseObject, error: error)
+                    self.saveDataToModel(data: responseObject, error: error, pages: pages!)
                     self.utils.stopLoadingIndicator(indicator: indicator)
                     completionHandler()
             }
         }
     }
     
-    //Esta función recorre el objeto JSON que tiene la información de las películas y almacena estos datos en el modelo
-    func saveDataToModel(data: JSON?, error: NSError?) {
+    //Esta función coge la información de las películas y almacena estos datos en el modelo
+    func saveDataToModel(data: [OMMovie]?, error: NSError?, pages: Int) {
 
         if let response = data {
             
-            total_pages = response["total_pages"].int!
+            total_pages = pages
             
-            for item in response["results"] {
-
-                let movie = OMMovie(id: item.1["id"].intValue, title: item.1["title"].stringValue, posterUrl: item.1["poster_path"].string,
-                                    vote: item.1["vote_average"].floatValue, releaseDate: item.1["release_date"].stringValue)
-
-                self.movies.append(movie)
-            }
+            self.movies.append(contentsOf: response)
             return
         }
         
@@ -246,7 +240,6 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         else {
             utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
         }
-
     }
     
     //Reset del contenido
