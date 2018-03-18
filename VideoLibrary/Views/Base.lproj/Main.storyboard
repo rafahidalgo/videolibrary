@@ -2002,7 +2002,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="175" height="647"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No Image" translatesAutoresizingMaskIntoConstraints="NO" id="BY3-vr-cIV">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Film reel" translatesAutoresizingMaskIntoConstraints="NO" id="BY3-vr-cIV">
                                                     <rect key="frame" x="8" y="8" width="159" height="149"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="BY3-vr-cIV" secondAttribute="height" multiplier="198:185" id="pia-Py-Ehv"/>
@@ -2292,9 +2292,9 @@
         <image name="Back icon" width="29" height="29"/>
         <image name="Calendar" width="20" height="20"/>
         <image name="Favorite" width="40" height="40"/>
+        <image name="Film reel" width="512" height="512"/>
         <image name="More Toolbar Icon" width="20" height="20"/>
         <image name="Movies Tab Icon" width="30" height="30"/>
-        <image name="No Image" width="150" height="150"/>
         <image name="People Tab Icon" width="30" height="30"/>
         <image name="TV Shows Tab Icon" width="30" height="30"/>
         <image name="Video" width="40" height="40"/>
