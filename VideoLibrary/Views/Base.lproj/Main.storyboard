@@ -2036,7 +2036,7 @@
                                                         <color key="titleColor" name="PrimaryColor"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="l7f-SF-64D" kind="presentation" modalPresentationStyle="pageSheet" modalTransitionStyle="flipHorizontal" id="CGA-nr-9yE"/>
+                                                        <segue destination="l7f-SF-64D" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="CGA-nr-9yE"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ep4-Li-Pyv">
