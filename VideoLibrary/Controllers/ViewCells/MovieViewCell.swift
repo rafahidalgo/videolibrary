@@ -15,5 +15,6 @@ class MovieViewCell: UICollectionViewCell {
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieRelease: UILabel!
     @IBOutlet weak var voteAverage: UICircularProgressRingView!
+    @IBOutlet weak var favoriteButton: UIButton!
     
 }

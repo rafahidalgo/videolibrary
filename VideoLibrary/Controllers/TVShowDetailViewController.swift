@@ -18,11 +18,13 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var overview: UILabel!
     @IBOutlet weak var genres: UILabel!
     @IBOutlet weak var collectionCast: UICollectionView!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     let repository = MovieDatabaseRepository()
     let utils = Utils()
     var id: Int?
     var showDetail = OMTVShowDetails()
+    let favorite = Favorites()
     var cast: [RHActor] = []
     
     override func viewDidLoad() {
@@ -103,6 +105,16 @@ extension TVShowDetailViewController {
                     self.genres.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
                 
+                //Comprobamos si la serie está en favoritos
+                if self.favorite.searchTVShow(id: id) != nil {
+                    
+                    self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                }
+                else {
+                    
+                    self.favoriteButton.setImage(UIImage(named: "No favorite green"), for: .normal)
+                }
+                
                 completionHandler()
                 return
             }
@@ -172,11 +184,19 @@ extension TVShowDetailViewController {
     
     @IBAction func addTVShow(_ sender: UIButton) {
         
-        let favorite = Favorites()
-        
-        if favorite.addFavoriteShow(id: showDetail.id, name: showDetail.name, image: showDetail.backdropPath) {
+        if favorite.searchTVShow(id: showDetail.id) != nil && favorite.deleteFavoriteShow(id: showDetail.id) {
             
-            utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
+            favoriteButton.setImage(UIImage(named: "No favorite green"), for: .normal)
+            utils.showToast(message: NSLocalizedString("showDeleted", comment: ""), view: view)
+            
+        }
+        else {
+            
+            if favorite.addFavoriteShow(id: showDetail.id, name: showDetail.name, image: showDetail.posterUrl) {
+                
+                favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
+            }
         }
     }
 }

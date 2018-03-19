@@ -18,11 +18,13 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var overview: UILabel!
     @IBOutlet weak var genres: UILabel!
     @IBOutlet weak var collectionCast: UICollectionView!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     let repository = MovieDatabaseRepository()
     let utils = Utils()
-    var id: Int?
+    var id: Int? //Identificador de la película pasado por parámetro al segue
     var movieDetail = OMMovieDetails()
+    let favorite = Favorites()
     var cast: [RHActor] = []
     
     override func viewDidLoad() {
@@ -102,6 +104,16 @@ extension MovieDetailViewController {
                     self.genres.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
                 
+                //Comprobamos si la película está en favoritos
+                if self.favorite.searchMovie(id: id) != nil {
+                    
+                    self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                }
+                else {
+                    
+                    self.favoriteButton.setImage(UIImage(named: "No favorite green"), for: .normal)
+                }
+                
                 completionHandler()
                 return
             }
@@ -171,10 +183,19 @@ extension MovieDetailViewController {
     
     @IBAction func addMovie(_ sender: UIButton) {
         
-        let favorite = Favorites()
-        if favorite.addFavoriteMovie(id: movieDetail.id, title: movieDetail.title, image: movieDetail.backDropPath) {
+        if favorite.searchMovie(id: movieDetail.id) != nil && favorite.deleteFavoriteMovie(id: movieDetail.id) {
             
-            utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
+            favoriteButton.setImage(UIImage(named: "No favorite green"), for: .normal)
+            utils.showToast(message: NSLocalizedString("movieDeleted", comment: ""), view: view)
+            
+        }
+        else {
+            
+            if favorite.addFavoriteMovie(id: movieDetail.id, title: movieDetail.title, image: movieDetail.posterUrl) {
+                
+                favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
+            }
         }
     }
 }

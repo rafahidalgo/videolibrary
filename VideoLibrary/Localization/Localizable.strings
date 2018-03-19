@@ -37,6 +37,8 @@
 "favoriteError" = "Could not save to favorites";
 "lostConnection" = "The device has lost connection to the server. Please, check the internet connection";
 "movieAdded" = "Movie added";
+"movieDeleted" = "Movie deleted";
 "showAdded" = "TV Show added";
+"showDeleted" = "TV Show deleted";
 "noFavoriteMovies" = "There are no favorite movies";
 "noFavoriteShows" = "There are no favorite tv shows";

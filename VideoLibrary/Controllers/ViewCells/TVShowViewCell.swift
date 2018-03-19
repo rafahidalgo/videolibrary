@@ -15,4 +15,5 @@ class TVShowViewCell: UICollectionViewCell {
     @IBOutlet weak var showName: UILabel!
     @IBOutlet weak var showAirDate: UILabel!
     @IBOutlet weak var voteAverage: UICircularProgressRingView!
+    @IBOutlet weak var favoriteButton: UIButton!
 }

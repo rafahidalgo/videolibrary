@@ -11,6 +11,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
     
     let repository = MovieDatabaseRepository()
     let utils = Utils()
+    let favorite = Favorites()
     var tvShows: [OMTVShow] = []
     var page = 1
     var total_pages = 1
@@ -90,6 +91,15 @@ extension TVShowsViewController {
             cell.tvPoster.image = UIImage(named: "No Image")
         }
         
+        //Comprobamos si la serie está en favoritos
+        if favorite.searchTVShow(id: tvShows[indexPath.row].id) != nil {
+            
+            cell.favoriteButton.setImage(UIImage(named: "Favorite small"), for: .normal)
+        }
+        else {
+            
+            cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
+        }
         return utils.customCardMoviesAndTVShows(cell: cell)
     }
 }
@@ -183,11 +193,21 @@ extension TVShowsViewController {
         let showId = tvShows[(indexPath?.row)!].id
         let showName = tvShows[(indexPath?.row)!].name
         let showImage = tvShows[(indexPath?.row)!].posterUrl
-        let favorite = Favorites()
         
-        if favorite.addFavoriteShow(id: showId, name: showName, image: showImage) {
+        //Hay que mirar si debemos borrar o agregar una serie a favoritos.
+        if favorite.searchTVShow(id: tvShows[(indexPath?.row)!].id) != nil && favorite.deleteFavoriteShow(id: showId) {
             
-            utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
+            cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
+            utils.showToast(message: NSLocalizedString("showDeleted", comment: ""), view: view)
+            
+        }
+        else {
+            
+            if favorite.addFavoriteShow(id: showId, name: showName, image: showImage) {
+                
+                cell.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
+            }
         }
     }
 }

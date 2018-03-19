@@ -12,4 +12,5 @@ class FavoriteViewCell: UICollectionViewCell {
     
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var favorite: UIButton!
 }

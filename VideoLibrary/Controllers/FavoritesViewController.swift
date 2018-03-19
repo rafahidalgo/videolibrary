@@ -35,15 +35,43 @@ class FavoritesViewController: ViewController, UICollectionViewDelegate, UIColle
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+
+    @IBAction func changeContent(_ sender: UISegmentedControl) {
+        
+        switch segment.selectedSegmentIndex {
+            case 0:
+                if userMovies.count == 0 {
+                    getFavoriteMovies()
+                }
+            default:
+                if userShows.count == 0 {
+                    getFavoriteShows()
+                }
+            }
+        
+        collectionView.reloadData()
+    }
+    
+    @IBAction func closeFavorites(_ sender: UIBarButtonItem) {
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+
+
+//CollectionView
+extension FavoritesViewController {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch segment.selectedSegmentIndex {
-            case 0:
-                return userMovies.count
-            default:
-                return userShows.count
-            }
+        case 0:
+            return userMovies.count
+        default:
+            return userShows.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -77,6 +105,13 @@ class FavoritesViewController: ViewController, UICollectionViewDelegate, UIColle
         
         return utils.customCardMoviesAndTVShows(cell: cell)
     }
+
+}
+
+
+
+//Obtención de datos
+extension FavoritesViewController {
     
     func getFavoriteMovies() {
         
@@ -97,29 +132,9 @@ class FavoritesViewController: ViewController, UICollectionViewDelegate, UIColle
         
         userShows = favoriteShows
     }
-
-    @IBAction func changeContent(_ sender: UISegmentedControl) {
-        
-        switch segment.selectedSegmentIndex {
-            case 0:
-                if userMovies.count == 0 {
-                    getFavoriteMovies()
-                }
-            default:
-                if userShows.count == 0 {
-                    getFavoriteShows()
-                }
-            }
-        
-        collectionView.reloadData()
-    }
-    
-    @IBAction func closeFavorites(_ sender: UIBarButtonItem) {
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
 }
+
+
 
 extension FavoritesViewController {
     

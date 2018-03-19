@@ -11,6 +11,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     
     let repository = MovieDatabaseRepository()
     let utils = Utils()
+    let favorite = Favorites()
     var movies: [OMMovie] = []
     var page = 1
     var total_pages = 1
@@ -87,6 +88,16 @@ extension MoviesViewController {
         }
         else {
             cell.moviePoster.image = UIImage(named: "No Image")
+        }
+        
+        //Comprobamos si la película está en favoritos
+        if favorite.searchMovie(id: movies[indexPath.row].id) != nil {
+            
+            cell.favoriteButton.setImage(UIImage(named: "Favorite small"), for: .normal)
+        }
+        else {
+            
+            cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
         }
         
         return utils.customCardMoviesAndTVShows(cell: cell)
@@ -183,11 +194,21 @@ extension MoviesViewController {
         let movieId = movies[(indexPath?.row)!].id
         let movieTitle = movies[(indexPath?.row)!].title
         let movieImage = movies[(indexPath?.row)!].posterUrl
-        let favorite = Favorites()
         
-        if favorite.addFavoriteMovie(id: movieId, title: movieTitle, image: movieImage) {
+        //Hay que mirar si debemos borrar o agregar una película a favoritos.
+        if favorite.searchMovie(id: movies[(indexPath?.row)!].id) != nil && favorite.deleteFavoriteMovie(id: movieId) {
+                
+            cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
+            utils.showToast(message: NSLocalizedString("movieDeleted", comment: ""), view: view)
             
-            utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
+        }
+        else {
+            
+            if favorite.addFavoriteMovie(id: movieId, title: movieTitle, image: movieImage) {
+                
+                cell.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
+            }
         }
     }
 }
@@ -220,7 +241,7 @@ extension MoviesViewController {
         
         if searchBar.text == "" {
             utils.showToast(message: NSLocalizedString("emptySearchBar",
-                                                       comment: "Mensaje que se muestra cuando se le da a buscar una película con la barra vacía"),
+                            comment: "Mensaje que se muestra cuando se le da a buscar una película con la barra vacía"),
                             view: view)
         }
         else {
