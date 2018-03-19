@@ -48,10 +48,7 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate  {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            //Detener hilo
-            fallthrough
+        switch status {        
         case .authorizedWhenInUse:
             if let lat = locationManager.location?.coordinate.latitude,
                 let long = locationManager.location?.coordinate.longitude {
@@ -60,8 +57,6 @@ extension MapViewController: CLLocationManagerDelegate  {
                 mapView.setRegion(region, animated: true)
                 getCinemas(region: region)
                 manager.startUpdatingLocation()
-            } else {
-                utils.showAlertWithCustomMessage(title: "Location error", message: "It was not possible to obtain the location", view: self)
             }
         case .denied:
             utils.showAlertWithCustomMessage(title: "Authorization error", message: "The device can not get the location without authorization", view: self)            
