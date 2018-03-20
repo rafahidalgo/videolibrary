@@ -1,0 +1,6 @@
+framework module Licensy {
+  umbrella header "Licensy-umbrella.h"
+
+  export *
+  module * { export * }
+}

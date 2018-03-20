@@ -11,6 +11,8 @@ target 'VideoLibrary' do
   pod 'RAMAnimatedTabBarController'
   pod 'CRRefresh'
   pod 'FloatingActionSheetController'
+  pod 'Licensy'
+
   # Pods for VideoLibrary
 
 end
