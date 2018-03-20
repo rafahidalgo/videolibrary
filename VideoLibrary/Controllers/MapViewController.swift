@@ -13,6 +13,7 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var buttonHeight: NSLayoutConstraint!    
     @IBOutlet weak var buttonWidth: NSLayoutConstraint!
+    @IBOutlet weak var backButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,9 +50,6 @@ extension MapViewController: CLLocationManagerDelegate  {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
-        case .notDetermined:
-            //Detener hilo
-            fallthrough
         case .authorizedWhenInUse:
             if let lat = locationManager.location?.coordinate.latitude,
                 let long = locationManager.location?.coordinate.longitude {
@@ -60,8 +58,6 @@ extension MapViewController: CLLocationManagerDelegate  {
                 mapView.setRegion(region, animated: true)
                 getCinemas(region: region)
                 manager.startUpdatingLocation()
-            } else {
-                utils.showAlertWithCustomMessage(title: "Location error", message: "It was not possible to obtain the location", view: self)
             }
         case .denied:
             utils.showAlertWithCustomMessage(title: "Authorization error", message: "The device can not get the location without authorization", view: self)            
@@ -133,10 +129,16 @@ extension MapViewController {
 extension MapViewController {
     
     func resizeButton() {
-        let widthConstraint = UIDevice.current.orientation.isPortrait ? 0.1 : 0.075
-        let heightConstraint = UIDevice.current.orientation.isPortrait ? 0.05 : 0.1
+        let widthScreen = view.bounds.width
+        let heightScreen = view.bounds.height
+        let widthConstraint = widthScreen < heightScreen ? 0.12 : 0.075
+        let heightConstraint = widthScreen < heightScreen ? 0.06 : 0.1
         buttonWidth.constant = self.view.frame.width * CGFloat(widthConstraint)
         buttonHeight.constant = self.view.frame.height * CGFloat(heightConstraint)
+        backButton.layer.cornerRadius = 5
+        backButton.layer.borderColor = UIColor.gray.cgColor
+        backButton.layer.borderWidth = 1
+        
     }
     
 }
