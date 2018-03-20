@@ -2130,24 +2130,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logoMIMO" translatesAutoresizingMaskIntoConstraints="NO" id="DyB-vm-ovB">
-                                <rect key="frame" x="16" y="20" width="161" height="108"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoMIMO" translatesAutoresizingMaskIntoConstraints="NO" id="DyB-vm-ovB">
+                                <rect key="frame" x="16" y="20" width="161" height="124"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="logoMoviedb" translatesAutoresizingMaskIntoConstraints="NO" id="T3R-yL-SOp">
-                                <rect key="frame" x="185" y="20" width="119" height="108"/>
-                            </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5oW-6D-Ern">
-                                <rect key="frame" x="16" y="136" width="288" height="412"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5oW-6D-Ern">
+                                <rect key="frame" x="16" y="152" width="288" height="396"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoMoviedb" translatesAutoresizingMaskIntoConstraints="NO" id="T3R-yL-SOp">
+                                <rect key="frame" x="185" y="28" width="119" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="SecondaryColor"/>
-                        <constraints>
-                            <constraint firstItem="DyB-vm-ovB" firstAttribute="top" secondItem="27Z-Cx-R6w" secondAttribute="top" id="Fxt-W2-MQf"/>
-                            <constraint firstItem="5oW-6D-Ern" firstAttribute="top" secondItem="DyB-vm-ovB" secondAttribute="bottom" constant="8" id="TtI-z2-Jqm"/>
-                            <constraint firstItem="DyB-vm-ovB" firstAttribute="leading" secondItem="27Z-Cx-R6w" secondAttribute="leading" constant="16" id="jzu-vj-Jr0"/>
-                            <constraint firstItem="T3R-yL-SOp" firstAttribute="leading" secondItem="DyB-vm-ovB" secondAttribute="trailing" constant="8" id="xdE-BY-sGL"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="27Z-Cx-R6w"/>
                     </view>
                 </viewController>
