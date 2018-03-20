@@ -259,7 +259,7 @@
                                         <rect key="frame" x="20" y="0.0" width="320" height="87"/>
                                         <subviews>
                                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-OJ-m19" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                <rect key="frame" x="20" y="8" width="68.5" height="79"/>
+                                                <rect key="frame" x="20" y="8" width="69" height="79"/>
                                                 <color key="backgroundColor" name="SecondaryColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="minValue">
@@ -297,7 +297,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seasons: 1" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fR4-uK-LZV">
-                                                <rect key="frame" x="118.5" y="36" width="83.5" height="23.5"/>
+                                                <rect key="frame" x="119" y="36" width="83.5" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="18"/>
                                                 <color key="textColor" name="PrimaryColor"/>
                                                 <nil key="highlightedColor"/>
@@ -309,7 +309,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nT2-Xp-wjN">
-                                                <rect key="frame" x="222" y="22" width="78" height="50"/>
+                                                <rect key="frame" x="222.5" y="22" width="77.5" height="50"/>
                                                 <color key="backgroundColor" name="SecondaryColor"/>
                                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
                                                 <state key="normal" image="No favorite green">
@@ -1935,30 +1935,87 @@
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khc-NS-4Jp">
-                                                    <rect key="frame" x="230" y="62" width="60" height="60"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <state key="normal" image="Favorite">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khc-NS-4Jp">
+                                                    <rect key="frame" x="230" y="72" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="GhR-YQ-AVs"/>
+                                                        <constraint firstAttribute="width" constant="50" id="Mb1-ku-qqi"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal" image="Favorite small">
                                                         <color key="titleColor" name="PrimaryColor"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="removeFromFavorites:" destination="Pqe-Jp-0b9" eventType="touchUpInside" id="SWe-OV-B6m"/>
+                                                    </connections>
                                                 </button>
+                                                <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-z2-mAN" userLabel="Votes" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                                    <rect key="frame" x="125" y="72" width="50" height="50"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="De1-dX-aBt"/>
+                                                        <constraint firstAttribute="height" constant="50" id="dGy-t7-OdW"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="ibRingStyle">
+                                                            <integer key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
+                                                            <color key="value" name="PrimaryColor"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
+                                                            <integer key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value=" "/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="shouldShowValueText" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
+                                                            <color key="value" name="PrimaryColor"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
+                                                            <color key="value" name="SecondaryColor"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="outerRingCapStyle">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
+                                                            <real key="value" value="6"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
+                                                            <real key="value" value="6"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="khc-NS-4Jp" secondAttribute="bottom" constant="10" id="7wk-fY-zjE"/>
                                             <constraint firstItem="t9F-G8-lpy" firstAttribute="leading" secondItem="OYP-m1-K7d" secondAttribute="leading" id="SSf-yl-xls"/>
+                                            <constraint firstAttribute="bottom" secondItem="TmK-z2-mAN" secondAttribute="bottom" constant="10" id="Vsi-i8-pDp"/>
                                             <constraint firstItem="mX3-DZ-YtN" firstAttribute="leading" secondItem="t9F-G8-lpy" secondAttribute="trailing" id="ZeR-Ha-Lfp"/>
                                             <constraint firstAttribute="trailing" secondItem="mX3-DZ-YtN" secondAttribute="trailing" id="fXT-Ea-LIh"/>
                                             <constraint firstItem="t9F-G8-lpy" firstAttribute="top" secondItem="OYP-m1-K7d" secondAttribute="top" id="gVs-Sc-Elh"/>
                                             <constraint firstAttribute="bottom" secondItem="t9F-G8-lpy" secondAttribute="bottom" id="lrW-30-ffp"/>
-                                            <constraint firstAttribute="trailing" secondItem="khc-NS-4Jp" secondAttribute="trailing" constant="10" id="oo4-87-VQl"/>
+                                            <constraint firstItem="TmK-z2-mAN" firstAttribute="centerY" secondItem="khc-NS-4Jp" secondAttribute="centerY" id="mAE-6q-hQ7"/>
+                                            <constraint firstAttribute="trailing" secondItem="khc-NS-4Jp" secondAttribute="trailing" constant="20" id="oo4-87-VQl"/>
                                             <constraint firstItem="mX3-DZ-YtN" firstAttribute="top" secondItem="OYP-m1-K7d" secondAttribute="top" constant="5" id="sHu-3q-tew"/>
+                                            <constraint firstItem="TmK-z2-mAN" firstAttribute="leading" secondItem="t9F-G8-lpy" secondAttribute="trailing" constant="20" id="zKn-wy-q1m"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="favorite" destination="khc-NS-4Jp" id="9Vl-87-JzO"/>
+                                            <outlet property="favoriteButton" destination="khc-NS-4Jp" id="E6c-3V-9Ws"/>
                                             <outlet property="name" destination="mX3-DZ-YtN" id="Y3w-f0-KNt"/>
                                             <outlet property="posterImage" destination="t9F-G8-lpy" id="psK-hp-5ps"/>
+                                            <outlet property="voteAverage" destination="TmK-z2-mAN" id="irR-6h-bqO"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -2305,7 +2362,7 @@
     <resources>
         <image name="Back icon" width="29" height="29"/>
         <image name="Calendar" width="20" height="20"/>
-        <image name="Favorite" width="60" height="60"/>
+        <image name="Favorite small" width="60" height="60"/>
         <image name="Film reel" width="512" height="512"/>
         <image name="More Toolbar Icon" width="20" height="20"/>
         <image name="Movies Tab Icon" width="30" height="30"/>

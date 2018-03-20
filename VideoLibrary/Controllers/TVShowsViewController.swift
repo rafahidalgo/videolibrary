@@ -193,6 +193,7 @@ extension TVShowsViewController {
         let showId = tvShows[(indexPath?.row)!].id
         let showName = tvShows[(indexPath?.row)!].name
         let showImage = tvShows[(indexPath?.row)!].posterUrl
+        let showVotes = tvShows[(indexPath?.row)!].vote
         
         //Hay que mirar si debemos borrar o agregar una serie a favoritos.
         if favorite.searchTVShow(id: tvShows[(indexPath?.row)!].id) != nil && favorite.deleteFavoriteShow(id: showId) {
@@ -203,9 +204,9 @@ extension TVShowsViewController {
         }
         else {
             
-            if favorite.addFavoriteShow(id: showId, name: showName, image: showImage) {
+            if favorite.addFavoriteShow(id: showId, name: showName, image: showImage, vote: showVotes) {
                 
-                cell.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                cell.favoriteButton.setImage(UIImage(named: "Favorite small"), for: .normal)
                 utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
             }
         }

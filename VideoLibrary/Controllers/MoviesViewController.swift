@@ -194,6 +194,7 @@ extension MoviesViewController {
         let movieId = movies[(indexPath?.row)!].id
         let movieTitle = movies[(indexPath?.row)!].title
         let movieImage = movies[(indexPath?.row)!].posterUrl
+        let movieVote = movies[(indexPath?.row)!].vote
         
         //Hay que mirar si debemos borrar o agregar una película a favoritos.
         if favorite.searchMovie(id: movies[(indexPath?.row)!].id) != nil && favorite.deleteFavoriteMovie(id: movieId) {
@@ -204,9 +205,9 @@ extension MoviesViewController {
         }
         else {
             
-            if favorite.addFavoriteMovie(id: movieId, title: movieTitle, image: movieImage) {
+            if favorite.addFavoriteMovie(id: movieId, title: movieTitle, image: movieImage, vote: movieVote) {
                 
-                cell.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                cell.favoriteButton.setImage(UIImage(named: "Favorite small"), for: .normal)
                 utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
             }
         }

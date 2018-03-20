@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import UICircularProgressRing
 
 class FavoriteViewCell: UICollectionViewCell {
     
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var favorite: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var voteAverage: UICircularProgressRingView!
 }

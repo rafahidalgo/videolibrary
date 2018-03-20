@@ -191,7 +191,7 @@ extension MovieDetailViewController {
         }
         else {
             
-            if favorite.addFavoriteMovie(id: movieDetail.id, title: movieDetail.title, image: movieDetail.posterUrl) {
+            if favorite.addFavoriteMovie(id: movieDetail.id, title: movieDetail.title, image: movieDetail.posterUrl, vote: movieDetail.vote) {
                 
                 favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
                 utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)

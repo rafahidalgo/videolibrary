@@ -31,7 +31,7 @@ class FavoritesViewController: ViewController, UICollectionViewDelegate, UIColle
 
         getFavoriteMovies()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -83,6 +83,7 @@ extension FavoritesViewController {
         if segment.selectedSegmentIndex == 0 {
             
             cell.name.text = userMovies[indexPath.row].movieName
+            cell.voteAverage.setProgress(value: CGFloat(truncating: userMovies[indexPath.row].movieVotes!), animationDuration: 0)
             if let poster = userMovies[indexPath.row].posterUrl {
                 let posterImage = repository.getPosterImage(poster: poster)
                 cell.posterImage.image = posterImage
@@ -94,6 +95,7 @@ extension FavoritesViewController {
         else {
             
             cell.name.text = userShows[indexPath.row].tvShowName
+            cell.voteAverage.setProgress(value: CGFloat(truncating: userShows[indexPath.row].showVotes!), animationDuration: 0)
             if let poster = userShows[indexPath.row].posterUrl {
                 let posterImage = repository.getPosterImage(poster: poster)
                 cell.posterImage.image = posterImage
@@ -105,7 +107,6 @@ extension FavoritesViewController {
         
         return utils.customCardMoviesAndTVShows(cell: cell)
     }
-
 }
 
 
@@ -136,52 +137,63 @@ extension FavoritesViewController {
 
 
 
+//Ver los detalles de un elemento y eliminarlo de la lista de favoritos
 extension FavoritesViewController {
     
-    /*Cuando se selecciona un elemento de favoritos se lanza esta función que muestra un action sheet con las opciones de
-    borrar el elemento de favoritos o ver sus detalles. Como los detalles pueden llevar a dos viewcontrollers diferentes
+    /*Como los detalles pueden llevar a dos viewcontrollers diferentes
     los llamo por código en vez de desde el storyboard.*/
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let view = FloatingAction(title: NSLocalizedString("viewDetails", comment: "")) { action in //Ver detalles
-            
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            
-            switch self.segment.selectedSegmentIndex {
-                case 0:
-
-                    if let movieDetail = storyBoard.instantiateViewController(withIdentifier: "Movie Detail") as? MovieDetailViewController {
-                        movieDetail.id = self.userMovies[indexPath.row].id as? Int
-                        self.navigationController?.pushViewController(movieDetail, animated: true)
-                    }
-                default:
-                    
-                    if let tvShowDetail = storyBoard.instantiateViewController(withIdentifier: "TVShow Detail") as? TVShowDetailViewController {
-                        tvShowDetail.id = self.userShows[indexPath.row].id as? Int
-                        self.navigationController?.pushViewController(tvShowDetail, animated: true)
-                    }
-            }
-        }
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         
-        let delete = FloatingAction(title: NSLocalizedString("deleteFavorite", comment: "")) {action in //Borrar de favoritos
-            
-            switch self.segment.selectedSegmentIndex {
-                case 0:
-                    if self.favorite.deleteFavoriteMovie(id: self.userMovies[indexPath.row].id as! Int) {
-                        self.userMovies.remove(at: indexPath.row)
-                    }
-                default:
-                    if self.favorite.deleteFavoriteShow(id: self.userShows[indexPath.row].id as! Int) {
-                        self.userShows.remove(at: indexPath.row)
-                    }
-            }
-            self.collectionView.reloadData()
+        switch self.segment.selectedSegmentIndex {
+            case 0:
+                
+                if let movieDetail = storyBoard.instantiateViewController(withIdentifier: "Movie Detail") as? MovieDetailViewController {
+                    movieDetail.id = self.userMovies[indexPath.row].id as? Int
+                    self.navigationController?.pushViewController(movieDetail, animated: true)
+                }
+            default:
+                
+                if let tvShowDetail = storyBoard.instantiateViewController(withIdentifier: "TVShow Detail") as? TVShowDetailViewController {
+                    tvShowDetail.id = self.userShows[indexPath.row].id as? Int
+                    self.navigationController?.pushViewController(tvShowDetail, animated: true)
+                }
         }
-        
-        delete.textColor = UIColor.red
-        let group = FloatingActionGroup(action: view, delete)
-        let actionSheet = FloatingActionSheetController(actionGroup: group).present(in: self)
-        actionSheet.animationStyle = .pop
     }
+    
+    @IBAction func removeFromFavorites(_ sender: UIButton) {
+        
+        switch self.segment.selectedSegmentIndex {
+        case 0:
+            
+            guard let cell = sender.superview?.superview as? FavoriteViewCell else {
+                utils.showAlertWithCustomMessage(title: "Error", message: NSLocalizedString("favoriteError", comment: ""), view: self)
+                return
+            }
+            
+            let indexPath = collectionView.indexPath(for: cell)
+            if self.favorite.deleteFavoriteMovie(id: userMovies[(indexPath?.row)!].id as! Int) {
+                
+                cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
+                self.userMovies.remove(at: (indexPath?.row)!)
+            }
+        default:
+            
+            guard let cell = sender.superview?.superview as? FavoriteViewCell else {
+                utils.showAlertWithCustomMessage(title: "Error", message: NSLocalizedString("favoriteError", comment: ""), view: self)
+                return
+            }
+            
+            let indexPath = collectionView.indexPath(for: cell)
+            if self.favorite.deleteFavoriteShow(id: userShows[(indexPath?.row)!].id as! Int) {
+                
+                cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
+                self.userShows.remove(at: (indexPath?.row)!)
+            }
+        }
+        self.collectionView.reloadData()
+    }
+    
 }

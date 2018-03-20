@@ -14,4 +14,5 @@ extension FavoriteTVShows {
     @NSManaged var id: NSNumber?
     @NSManaged var tvShowName: String?
     @NSManaged var posterUrl: String?
+    @NSManaged var showVotes: NSNumber?
 }

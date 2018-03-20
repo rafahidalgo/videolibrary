@@ -192,7 +192,7 @@ extension TVShowDetailViewController {
         }
         else {
             
-            if favorite.addFavoriteShow(id: showDetail.id, name: showDetail.name, image: showDetail.posterUrl) {
+            if favorite.addFavoriteShow(id: showDetail.id, name: showDetail.name, image: showDetail.posterUrl, vote: showDetail.vote) {
                 
                 favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
                 utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)

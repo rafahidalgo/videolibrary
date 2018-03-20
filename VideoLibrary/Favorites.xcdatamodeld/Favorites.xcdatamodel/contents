@@ -3,15 +3,17 @@
     <entity name="FavoriteMovies" representedClassName="FavoriteMovies" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="movieName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="movieVotes" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="posterUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="FavoriteTVShows" representedClassName="FavoriteTVShows" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="posterUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="showVotes" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tvShowName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FavoriteMovies" positionX="-342" positionY="9" width="128" height="90"/>
-        <element name="FavoriteTVShows" positionX="-54" positionY="9" width="128" height="90"/>
+        <element name="FavoriteMovies" positionX="-342" positionY="9" width="128" height="105"/>
+        <element name="FavoriteTVShows" positionX="-54" positionY="9" width="128" height="105"/>
     </elements>
 </model>

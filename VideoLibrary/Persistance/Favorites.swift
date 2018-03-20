@@ -11,7 +11,7 @@ import CoreData
 
 class Favorites {
     
-    func addFavoriteMovie(id: Int, title: String, image: String?) -> Bool {
+    func addFavoriteMovie(id: Int, title: String, image: String?, vote: Float) -> Bool {
     
         //Comprobamos si la película ya está en favoritos
         if searchMovie(id: id) != nil {
@@ -23,6 +23,7 @@ class Favorites {
         movie.id = id as NSNumber
         movie.movieName = title
         movie.posterUrl = image
+        movie.movieVotes = vote as NSNumber
 
         CoreDataStack.sharedInstance.saveContext()
         return true
@@ -77,7 +78,7 @@ class Favorites {
         return true
     }
     
-    func addFavoriteShow(id: Int, name: String, image: String?) -> Bool{
+    func addFavoriteShow(id: Int, name: String, image: String?, vote: Float) -> Bool{
         
         //Comprobamos si la serie ya está en favoritos
         if searchTVShow(id: id) != nil {
@@ -89,6 +90,7 @@ class Favorites {
         show.id = id as NSNumber
         show.tvShowName = name
         show.posterUrl = image
+        show.showVotes = vote as NSNumber
         
         CoreDataStack.sharedInstance.saveContext()
         return true
