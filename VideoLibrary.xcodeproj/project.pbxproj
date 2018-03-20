@@ -137,6 +137,8 @@
 				3A1BAAE5203CAEF1008E7B1D /* TVShowViewCell.swift */,
 				3A8A1396203444A800D022FE /* PeopleViewCell.swift */,
 				3A20243A205709FA00EAA625 /* FavoriteViewCell.swift */,
+				3AB2923A2059795E00A6508E /* TVShowCreditsViewCell.swift */,
+				3A188CA9205944C90090CC4C /* MovieCreditsViewCell.swift */,
 			);
 			path = ViewCells;
 			sourceTree = "<group>";
@@ -224,8 +226,6 @@
 				3AC6736D2046C11D00D26B9F /* MenuViewController.swift */,
 				3A21BB62204B1A07005BF434 /* TrailerViewController.swift */,
 				3AB3ED9420560FAF004E2893 /* FavoritesViewController.swift */,
-				3A188CA9205944C90090CC4C /* MovieCreditsViewCell.swift */,
-				3AB2923A2059795E00A6508E /* TVShowCreditsViewCell.swift */,
 				3A7558C82061213B008D47EB /* LicenseViewController.swift */,
 			);
 			path = Controllers;

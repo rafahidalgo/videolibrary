@@ -19,8 +19,6 @@ class LicenseViewController: UIViewController {
         LibraryEntity(name: "AKSwiftSlideMenu", organization: "Ashish Kakkad", url: "https://github.com/ashishkakkad8/AKSwiftSlideMenu", copyright: "Copyright (c) 2017 Ashish Kakkad", license: MITLicense())        
     ]
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         createTableView()
@@ -37,8 +35,6 @@ extension LicenseViewController {
     
     func createTableView (){
         tableView.setLibraries(librariesArray)
-//        tableView.layer.borderColor = UIColor(named: "PrimaryColor")?.cgColor
-//        tableView.layer.borderWidth = 1
         tableView.appearance.headerBackgroundColor = UIColor(named: "SecondaryColor")
         tableView.appearance.headerContentColor = UIColor(named: "PrimaryColor")
         tableView.appearance.accentColor = UIColor(named: "SecondaryColor")
