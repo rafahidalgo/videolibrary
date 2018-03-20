@@ -6,6 +6,9 @@ import Licensy
 class LicenseViewController: UIViewController {
 
     @IBOutlet weak var tableView: LicensyTable!
+    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
+    @IBOutlet weak var buttonWidth: NSLayoutConstraint!
     
     let librariesArray: Array<LibraryEntity> = [
         LibraryEntity(name: "Alamofire", organization: "Alamofire Software Foundation", url: "https://github.com/Alamofire/Alamofire", copyright: "Copyright (c) 2014-2018 Alamofire Software Foundation", license: MITLicense()),
@@ -28,6 +31,10 @@ class LicenseViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    @IBAction func dismissModal(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 //TableView
@@ -42,6 +49,24 @@ extension LicenseViewController {
     }
     
 }
+
+//Botón
+extension LicenseViewController {
+    
+    func resizeButton() {
+        let widthScreen = view.bounds.width
+        let heightScreen = view.bounds.height
+        let widthConstraint = widthScreen < heightScreen ? 0.12 : 0.075
+        let heightConstraint = widthScreen < heightScreen ? 0.06 : 0.1
+        buttonWidth.constant = self.view.frame.width * CGFloat(widthConstraint)
+        buttonHeight.constant = self.view.frame.height * CGFloat(heightConstraint)
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.green.cgColor
+    }
+
+}
+
 
 
 
