@@ -18,6 +18,8 @@ class PeopleDetailViewController: UIViewController {
     var photo: String?
     var credits: [Any] = []
 
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,15 +30,7 @@ class PeopleDetailViewController: UIViewController {
         getMovies(id: id)
         getTVShows(id: id)
         
-        collectionHeigthConstraint.constant = view.bounds.height / 3
-        let padding: CGFloat = 10
-        let itemHeight = collectionHeigthConstraint.constant - padding * 2
-        let itemWidth = itemHeight * (3/4)
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsetsMake(padding, padding, padding, padding)
-        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        layout.scrollDirection = .horizontal
-        collectionView.collectionViewLayout = layout
+        collectionFormat(heightScreen: view.bounds.height)
         
     }
 
@@ -198,5 +192,22 @@ extension PeopleDetailViewController {
             detailViewController.id = item.id
         }
     }
+}
+
+//Formato del collection view
+extension PeopleDetailViewController {
+    
+    func collectionFormat(heightScreen: CGFloat) {
+        collectionHeigthConstraint.constant = heightScreen / 3
+        let padding: CGFloat = 10
+        let itemHeight = collectionHeigthConstraint.constant - padding * 2
+        let itemWidth = itemHeight * (3/4)
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(padding, padding, padding, padding)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.scrollDirection = .horizontal
+        collectionView.collectionViewLayout = layout
+    }
+    
 }
 
