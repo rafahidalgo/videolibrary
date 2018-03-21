@@ -42,7 +42,18 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         getData {() -> () in
             self.collectionView.reloadData()
         }
+        
+        //Formateamos la celda
+        self.sizeMovieCell(widthScreen: view.bounds.width)
+        
     }
+    
+    //Se formatea la celda en cada cambio de orientación
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard tabBarController?.selectedIndex == 0 else {return}
+        self.sizeMovieCell(widthScreen: size.width)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -340,3 +351,22 @@ extension MoviesViewController {
         searchBar.endEditing(true)
     }
 }
+
+//Formato de las celdas
+extension MoviesViewController {
+    func sizeMovieCell(widthScreen: CGFloat) {
+        //Horizontal -> 2 columnas   Vertical -> 1 columna
+        let itemsPerRow: CGFloat = UIDevice.current.orientation.isLandscape ? 2 : 1
+        let padding: CGFloat = 10
+        let utilWidth = widthScreen - padding * (itemsPerRow * 2)
+        let itemWidth = utilWidth / itemsPerRow
+        let itemHeight = itemWidth * (2/5)
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        collectionView.collectionViewLayout = layout
+    }
+}
+
+
+
