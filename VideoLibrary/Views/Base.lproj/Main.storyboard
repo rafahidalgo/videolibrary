@@ -47,14 +47,14 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TVShowCell" id="Z4V-cd-fy3" userLabel="TVShowCell" customClass="TVShowViewCell" customModule="VideoLibrary" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="10" width="300" height="115"/>
+                                        <rect key="frame" x="10" y="10" width="300" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="115"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6U-wm-fql" userLabel="Show Name">
-                                                    <rect key="frame" x="82" y="0.0" width="218" height="37"/>
+                                                    <rect key="frame" x="86" y="0.0" width="214" height="36.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="t6U-wm-fql" secondAttribute="height" multiplier="109:14" constant="-70.071428571428555" id="OTR-n8-HtI"/>
@@ -64,10 +64,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gt2-Bn-RML" userLabel="Air Date">
-                                                    <rect key="frame" x="90" y="45" width="124" height="25"/>
+                                                    <rect key="frame" x="94" y="44.5" width="120" height="24"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKl-4O-XaJ" userLabel="TV Air Date">
-                                                            <rect key="frame" x="32" y="0.0" width="92" height="25"/>
+                                                            <rect key="frame" x="31" y="0.0" width="89" height="24"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="MKl-4O-XaJ" secondAttribute="height" multiplier="92:25" id="5w3-Pg-N13"/>
@@ -77,7 +77,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="Kor-WZ-p9w" userLabel="Calendar">
-                                                            <rect key="frame" x="0.0" y="0.0" width="32" height="25"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="31" height="24"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -94,7 +94,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="B2I-rz-ArG" userLabel="Vote Average" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                    <rect key="frame" x="90" y="81" width="30" height="30"/>
+                                                    <rect key="frame" x="91" y="74" width="40" height="40"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="B2I-rz-ArG" secondAttribute="height" multiplier="29:30" constant="1.5" id="rtL-4h-CNL"/>
@@ -138,20 +138,14 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value=" "/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="points" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Chm-QU-gvs" userLabel="Points">
-                                                    <rect key="frame" x="130" y="81" width="48.5" height="27"/>
-                                                    <fontDescription key="fontDescription" name="OriyaSangamMN-Bold" family="Oriya Sangam MN" pointSize="16"/>
-                                                    <color key="textColor" name="PrimaryColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eRr-MO-1iB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="115"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="120"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="eRr-MO-1iB" secondAttribute="height" multiplier="4:5" constant="-10" id="clM-hM-Vb6"/>
+                                                        <constraint firstAttribute="width" secondItem="eRr-MO-1iB" secondAttribute="height" multiplier="4:5" constant="-14" id="clM-hM-Vb6"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UpT-aa-GJg" userLabel="Favorite">
-                                                    <rect key="frame" x="253" y="51" width="40" height="40"/>
+                                                    <rect key="frame" x="247.5" y="50.5" width="45.5" height="45.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="UpT-aa-GJg" secondAttribute="height" multiplier="1:1" id="PAF-cy-Dcg"/>
                                                     </constraints>
@@ -160,23 +154,29 @@
                                                         <action selector="addFavoriteShow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Rg-m0-Kr8"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="points" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Chm-QU-gvs" userLabel="Points">
+                                                    <rect key="frame" x="137" y="77" width="48.5" height="33.5"/>
+                                                    <fontDescription key="fontDescription" name="OriyaSangamMN-Bold" family="Oriya Sangam MN" pointSize="16"/>
+                                                    <color key="textColor" name="PrimaryColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <color key="tintColor" name="SecondaryColor"/>
                                         <constraints>
-                                            <constraint firstItem="Chm-QU-gvs" firstAttribute="leading" secondItem="B2I-rz-ArG" secondAttribute="trailing" constant="10" id="0v5-B2-39d"/>
-                                            <constraint firstItem="B2I-rz-ArG" firstAttribute="leading" secondItem="eRr-MO-1iB" secondAttribute="trailing" constant="8" id="4ZC-Nk-IhL"/>
+                                            <constraint firstItem="Chm-QU-gvs" firstAttribute="leading" secondItem="B2I-rz-ArG" secondAttribute="trailing" constant="6" id="0v5-B2-39d"/>
+                                            <constraint firstItem="B2I-rz-ArG" firstAttribute="leading" secondItem="eRr-MO-1iB" secondAttribute="trailing" constant="9" id="4ZC-Nk-IhL"/>
                                             <constraint firstItem="t6U-wm-fql" firstAttribute="top" secondItem="Z4V-cd-fy3" secondAttribute="top" id="9ou-DY-ydl"/>
                                             <constraint firstAttribute="bottom" secondItem="eRr-MO-1iB" secondAttribute="bottom" id="G0C-Ll-Twg"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="B2I-rz-ArG" secondAttribute="bottom" constant="-4" id="JMm-f8-74L"/>
-                                            <constraint firstItem="t6U-wm-fql" firstAttribute="leading" secondItem="eRr-MO-1iB" secondAttribute="trailing" id="M1C-x7-gR5"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="B2I-rz-ArG" secondAttribute="bottom" constant="-2" id="JMm-f8-74L"/>
+                                            <constraint firstItem="t6U-wm-fql" firstAttribute="leading" secondItem="eRr-MO-1iB" secondAttribute="trailing" constant="4" id="M1C-x7-gR5"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="UpT-aa-GJg" secondAttribute="bottom" constant="16" id="Ms7-s8-QiR"/>
-                                            <constraint firstItem="B2I-rz-ArG" firstAttribute="top" secondItem="gt2-Bn-RML" secondAttribute="bottom" constant="11" id="WM0-Lr-Fdb"/>
+                                            <constraint firstItem="B2I-rz-ArG" firstAttribute="top" secondItem="gt2-Bn-RML" secondAttribute="bottom" constant="5.5" id="WM0-Lr-Fdb"/>
                                             <constraint firstItem="UpT-aa-GJg" firstAttribute="top" secondItem="t6U-wm-fql" secondAttribute="bottom" constant="14" id="YMn-PQ-RdZ"/>
-                                            <constraint firstItem="gt2-Bn-RML" firstAttribute="leading" secondItem="eRr-MO-1iB" secondAttribute="trailing" constant="8" id="ac3-DP-vVF"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="Chm-QU-gvs" secondAttribute="bottom" constant="-1" id="d0b-KS-zZI"/>
-                                            <constraint firstItem="Chm-QU-gvs" firstAttribute="top" secondItem="gt2-Bn-RML" secondAttribute="bottom" constant="11" id="diT-8a-hlt"/>
+                                            <constraint firstItem="gt2-Bn-RML" firstAttribute="leading" secondItem="eRr-MO-1iB" secondAttribute="trailing" constant="12" id="ac3-DP-vVF"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="Chm-QU-gvs" secondAttribute="bottom" constant="1.5" id="d0b-KS-zZI"/>
+                                            <constraint firstItem="Chm-QU-gvs" firstAttribute="top" secondItem="gt2-Bn-RML" secondAttribute="bottom" constant="8.5" id="diT-8a-hlt"/>
                                             <constraint firstAttribute="trailing" secondItem="t6U-wm-fql" secondAttribute="trailing" id="fFZ-1z-gl7"/>
                                             <constraint firstItem="eRr-MO-1iB" firstAttribute="top" secondItem="Z4V-cd-fy3" secondAttribute="top" id="fG8-3A-5tg"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="gt2-Bn-RML" secondAttribute="trailing" constant="78" id="gNV-ds-GhF"/>
@@ -184,7 +184,7 @@
                                             <constraint firstItem="gt2-Bn-RML" firstAttribute="top" secondItem="t6U-wm-fql" secondAttribute="bottom" constant="8" id="mgm-XW-vkm"/>
                                             <constraint firstItem="eRr-MO-1iB" firstAttribute="leading" secondItem="Z4V-cd-fy3" secondAttribute="leading" id="vGX-JS-fQp"/>
                                         </constraints>
-                                        <size key="customSize" width="300" height="115"/>
+                                        <size key="customSize" width="300" height="120"/>
                                         <connections>
                                             <outlet property="favoriteButton" destination="UpT-aa-GJg" id="b17-lG-4gd"/>
                                             <outlet property="showAirDate" destination="MKl-4O-XaJ" id="rVV-y2-rNn"/>
