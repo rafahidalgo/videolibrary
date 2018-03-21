@@ -38,6 +38,8 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             }
             
         }
+        
+        addNotificationObserver()
 
         getData {[weak self] () -> () in
             self?.collectionView.reloadData()
@@ -63,6 +65,21 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         detailViewController.id = movies[(indexPath?.row)!].id
     }
     
+}
+
+
+
+//Notificaciones locales
+extension MoviesViewController {
+    
+    func addNotificationObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setNotification(notification:)), name: Notification.Name(notificationKeyMovies), object: nil)
+    }
+    
+    @objc func setNotification(notification: NSNotification) {
+        collectionView.reloadData()
+    }
 }
 
 

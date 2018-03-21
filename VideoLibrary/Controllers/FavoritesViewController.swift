@@ -29,6 +29,8 @@ class FavoritesViewController: ViewController, UICollectionViewDelegate, UIColle
         collectionView.delegate = self
         collectionView.dataSource = self
 
+        addNotificationObserver()
+        
         getFavoriteMovies()
     }
     
@@ -56,7 +58,31 @@ class FavoritesViewController: ViewController, UICollectionViewDelegate, UIColle
         
         dismiss(animated: true, completion: nil)
     }
+}
+
+
+
+//Notificaciones locales
+extension FavoritesViewController {
     
+    func addNotificationObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setNotification(notification:)), name: Notification.Name(notificationKeyFavorites), object: nil)
+    }
+    
+    @objc func setNotification(notification: NSNotification) {
+
+        //Cuando llega la notificacion vaciamos el array correspondiente para cargar los datos actualizados
+        switch segment.selectedSegmentIndex {
+        case 0:
+            userMovies.removeAll()
+            getFavoriteMovies()
+        default:
+            userShows.removeAll()
+            getFavoriteShows()
+        }
+        collectionView.reloadData()
+    }
 }
 
 
@@ -176,6 +202,7 @@ extension FavoritesViewController {
                 
                 cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
                 self.userMovies.remove(at: (indexPath?.row)!)
+                NotificationCenter.default.post(name: Notification.Name(notificationKeyMovies), object: nil)
             }
         default:
             
@@ -189,6 +216,7 @@ extension FavoritesViewController {
                 
                 cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
                 self.userShows.remove(at: (indexPath?.row)!)
+                NotificationCenter.default.post(name: Notification.Name(notificationKeyShows), object: nil)
             }
         }
         self.collectionView.reloadData()

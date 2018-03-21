@@ -198,6 +198,9 @@ extension TVShowDetailViewController {
                 utils.showToast(message: NSLocalizedString("showAdded", comment: ""), view: view)
             }
         }
+        
+        NotificationCenter.default.post(name: Notification.Name(notificationKeyShows), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(notificationKeyFavorites), object: nil)
     }
 }
 

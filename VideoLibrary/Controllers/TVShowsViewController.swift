@@ -39,6 +39,8 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             
         }
         
+        addNotificationObserver()
+        
         getData {[weak self] () -> () in
             self?.collectionView.reloadData()
         }
@@ -64,6 +66,21 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         detailViewController.id = tvShows[(indexPath?.row)!].id
     }
     
+}
+
+
+
+//Notificaciones locales
+extension TVShowsViewController {
+    
+    func addNotificationObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setNotification(notification:)), name: Notification.Name(notificationKeyShows), object: nil)
+    }
+    
+    @objc func setNotification(notification: NSNotification) {
+        collectionView.reloadData()
+    }
 }
 
 

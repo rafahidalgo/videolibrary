@@ -9,8 +9,12 @@
 import Foundation
 import CoreData
 
+let notificationKeyMovies = "es.upsa.mimo.VideoLibrary.Movies"
+let notificationKeyShows = "es.upsa.mimo.VideoLibrary.TVShows"
+let notificationKeyFavorites = "es.upsa.mimo.VideoLibrary.Favorites"
+
 class Favorites {
-    
+    //poner aqui la clave de NSnotification
     func addFavoriteMovie(id: Int, title: String, image: String?, vote: Float) -> Bool {
     
         //Comprobamos si la película ya está en favoritos

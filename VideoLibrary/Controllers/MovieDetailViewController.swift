@@ -197,6 +197,9 @@ extension MovieDetailViewController {
                 utils.showToast(message: NSLocalizedString("movieAdded", comment: ""), view: view)
             }
         }
+        
+        NotificationCenter.default.post(name: Notification.Name(notificationKeyMovies), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(notificationKeyFavorites), object: movieDetail.id)
     }
 }
 
