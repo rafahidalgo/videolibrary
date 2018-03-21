@@ -39,8 +39,8 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             
         }
         
-        getData {() -> () in
-            self.collectionView.reloadData()
+        getData {[weak self] () -> () in
+            self?.collectionView.reloadData()
         }
     }
 
@@ -226,8 +226,8 @@ extension TVShowsViewController {
             resetContent()
             filterShows = state
             view = nil
-            getData {
-                self.collectionView.reloadData()
+            getData {[weak self] in
+                self?.collectionView.reloadData()
             }
         }
         else {
@@ -248,9 +248,9 @@ extension TVShowsViewController {
             resetContent()
             state = filterShows
             filterShows = .searchTVShow
-            getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
                 searchBar.endEditing(true)
             }
         }
@@ -269,9 +269,9 @@ extension TVShowsViewController {
             self.resetContent()
             self.filterShows = .discoverTVShow
             self.state = self.filterShows
-            self.getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            self.getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
             }
         }
         
@@ -280,9 +280,9 @@ extension TVShowsViewController {
             self.resetContent()
             self.filterShows = .popularTVShow
             self.state = self.filterShows
-            self.getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            self.getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
             }
         }
         
@@ -291,9 +291,9 @@ extension TVShowsViewController {
             self.resetContent()
             self.filterShows = .topRatedTVShow
             self.state = self.filterShows
-            self.getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            self.getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
             }
         }
         
@@ -302,9 +302,9 @@ extension TVShowsViewController {
             self.resetContent()
             self.filterShows = .on_air
             self.state = self.filterShows
-            self.getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            self.getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
             }
         }
         
@@ -324,8 +324,8 @@ extension TVShowsViewController {
         
         if indexPath.row == tvShows.count - 1 && page < total_pages{
             page += 1
-            getData {() -> () in
-                self.collectionView.reloadData()
+            getData {[weak self] () -> () in
+                self?.collectionView.reloadData()
             }
         }
     }

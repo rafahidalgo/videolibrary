@@ -41,9 +41,9 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
         //no se realizará la closure de getTVShowDetails.
         getTVShowDetails(id: id!) { () -> () in
             
-            self.getTVShowCredits(id: self.id!) {() -> () in
-                self.collectionCast.reloadData()
-                self.utils.stopLoadingIndicator(indicator: indicator)
+            self.getTVShowCredits(id: self.id!) {[weak self] () -> () in
+                self?.collectionCast.reloadData()
+                self?.utils.stopLoadingIndicator(indicator: indicator)
             }
         }
     }

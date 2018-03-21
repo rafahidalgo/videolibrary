@@ -31,10 +31,9 @@ class LicenseViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func dismissModal(_ sender: UIButton) {
+    @IBAction func dismissLicense(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 //TableView

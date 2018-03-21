@@ -117,7 +117,6 @@ extension FavoritesViewController {
     func getFavoriteMovies() {
         
         guard let favoriteMovies = favorite.checkFavoritesMovies() else {
-            utils.showAlertWithCustomMessage(title: "No favorite movies", message: NSLocalizedString("noFavoriteMovies", comment: ""), view: self)
             return
         }
         
@@ -127,7 +126,6 @@ extension FavoritesViewController {
     func getFavoriteShows() {
         
         guard let favoriteShows = favorite.checkFavoritesShows() else {
-            utils.showAlertWithCustomMessage(title: "No favorite tv shows", message: NSLocalizedString("noFavoriteShows", comment: ""), view: self)
             return
         }
         

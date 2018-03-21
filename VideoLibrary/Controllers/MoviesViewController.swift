@@ -39,8 +39,8 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
             
         }
 
-        getData {() -> () in
-            self.collectionView.reloadData()
+        getData {[weak self] () -> () in
+            self?.collectionView.reloadData()
         }
     }
 
@@ -227,8 +227,8 @@ extension MoviesViewController {
             resetContent()
             filterMovies = state
             view = nil
-            getData {
-                self.collectionView.reloadData()
+            getData {[weak self] in
+                self?.collectionView.reloadData()
             }
         }
         else {
@@ -249,9 +249,9 @@ extension MoviesViewController {
             resetContent()
             state = filterMovies
             filterMovies = .searchMovie
-            getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
                 searchBar.endEditing(true)
             }
         }
@@ -270,9 +270,9 @@ extension MoviesViewController {
             self.resetContent()
             self.filterMovies = .discoverMovie
             self.state = self.filterMovies
-            self.getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            self.getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
             }
             
         }
@@ -282,9 +282,9 @@ extension MoviesViewController {
             self.resetContent()
             self.filterMovies = .popularMovie
             self.state = self.filterMovies
-            self.getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            self.getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
             }
             
         }
@@ -294,9 +294,9 @@ extension MoviesViewController {
             self.resetContent()
             self.filterMovies = .topRatedMovie
             self.state = self.filterMovies
-            self.getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            self.getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
             }
             
         }
@@ -306,9 +306,9 @@ extension MoviesViewController {
             self.resetContent()
             self.filterMovies = .release_date
             self.state = self.filterMovies
-            self.getData {() -> () in
-                self.collectionView.setContentOffset(CGPoint.zero, animated: true)
-                self.collectionView.reloadData()
+            self.getData {[weak self] () -> () in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
+                self?.collectionView.reloadData()
             }
             
         }
@@ -329,8 +329,8 @@ extension MoviesViewController {
         
         if indexPath.row == movies.count - 1 && page < total_pages{
             page += 1
-            getData {() -> () in
-                self.collectionView.reloadData()
+            getData {[weak self] () -> () in
+                self?.collectionView.reloadData()
             }
         }
     }

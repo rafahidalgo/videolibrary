@@ -39,11 +39,11 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         //Con el siguiente código se busca que primero se obtengan los detalles de la película y cuando esten almacenados y listos para usar
         //se obtiene el cast de actores. Si por algún motivo falla la conexión a internet al entrar en la vista de detalles de una película
         //no se realizará la closure de getMovieDetails.
-        getMovieDetails(id: id!) {() -> () in
+        getMovieDetails(id: id!) { () -> () in
 
-            self.getMovieCredits(id: self.id!) {() -> () in
-                self.collectionCast.reloadData()
-                self.utils.stopLoadingIndicator(indicator: indicator)
+            self.getMovieCredits(id: self.id!) {[weak self] () -> () in
+                self?.collectionCast.reloadData()
+                self?.utils.stopLoadingIndicator(indicator: indicator)
             }
         }
         
