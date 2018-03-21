@@ -43,9 +43,11 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
             self.collectionView.reloadData()
         }
         
+        //Formateamos la celda
         self.sizeTVShowCell(widthScreen: view.bounds.width)
     }
     
+    //Se formatea la celda en cada cambio de orientación
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         guard tabBarController?.selectedIndex == 1 else {return}
         self.sizeTVShowCell(widthScreen: size.width)
@@ -349,9 +351,12 @@ extension TVShowsViewController {
 extension TVShowsViewController {
     func sizeTVShowCell(widthScreen: CGFloat) {
         //Horizontal -> 2 columnas   Vertical -> 1 columna
-        let itemsPerRow: CGFloat = UIDevice.current.orientation.isLandscape ? 2 : 1
+        //Si la pantalla del iphone es inferior a 568 puntos siempre habrá una columna
+        let landscape = UIDevice.current.orientation.isLandscape
+        let itemsPerRow: CGFloat = landscape && widthScreen > 568 ? 2 : 1
         let padding: CGFloat = 10
-        let utilWidth = widthScreen - padding * (itemsPerRow * 2)
+        //Si está en horizontal y solo hay una columna (pantalla < 568) el ancho de la celda será el 60%
+        let utilWidth = landscape && itemsPerRow == 1 ? widthScreen * 0.6 : widthScreen - padding * (itemsPerRow * 2)
         let itemWidth = utilWidth / itemsPerRow
         let itemHeight = itemWidth * (2/5)
         let layout = UICollectionViewFlowLayout()
