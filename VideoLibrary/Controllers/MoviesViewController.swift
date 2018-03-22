@@ -44,6 +44,21 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         getData {[weak self] () -> () in
             self?.collectionView.reloadData()
         }
+        
+        //Formateamos la celda
+        self.sizeMovieCell(widthScreen: view.bounds.width)        
+    }
+    
+    //Se formatea la celda en cada cambio de orientación
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard tabBarController?.selectedIndex == 0 else {return}
+        self.sizeMovieCell(widthScreen: size.width)
+    }
+    
+    //Si se cambia la orientación en otra pestaña, al volver a ésta se redimensiona
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.sizeMovieCell(widthScreen: view.bounds.width)
     }
 
     override func didReceiveMemoryWarning() {
@@ -357,3 +372,25 @@ extension MoviesViewController {
         searchBar.endEditing(true)
     }
 }
+
+//Formato de las celdas
+extension MoviesViewController {
+    func sizeMovieCell(widthScreen: CGFloat) {
+        //Horizontal -> 2 columnas   Vertical -> 1 columna
+        //Si la pantalla del iphone es inferior a 568 puntos siempre habrá una columna
+        let landscape = UIDevice.current.orientation.isLandscape
+        let itemsPerRow: CGFloat = landscape && widthScreen > 568 ? 2 : 1
+        let padding: CGFloat = 10
+        //Si está en horizontal y solo hay una columna (pantalla < 568) el ancho de la celda será el 60%
+        let utilWidth = landscape && itemsPerRow == 1 ? widthScreen * 0.6 : widthScreen - padding * (itemsPerRow * 2)
+        let itemWidth = utilWidth / itemsPerRow
+        let itemHeight = itemWidth * (2/5)
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        collectionView.collectionViewLayout = layout
+    }
+}
+
+
+
