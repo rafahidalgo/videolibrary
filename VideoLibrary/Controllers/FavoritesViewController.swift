@@ -200,7 +200,6 @@ extension FavoritesViewController {
             let indexPath = collectionView.indexPath(for: cell)
             if self.favorite.deleteFavoriteMovie(id: userMovies[(indexPath?.row)!].id as! Int) {
                 
-                cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
                 self.userMovies.remove(at: (indexPath?.row)!)
                 NotificationCenter.default.post(name: Notification.Name(notificationKeyMovies), object: nil)
             }
@@ -214,7 +213,6 @@ extension FavoritesViewController {
             let indexPath = collectionView.indexPath(for: cell)
             if self.favorite.deleteFavoriteShow(id: userShows[(indexPath?.row)!].id as! Int) {
                 
-                cell.favoriteButton.setImage(UIImage(named: "No favorite"), for: .normal)
                 self.userShows.remove(at: (indexPath?.row)!)
                 NotificationCenter.default.post(name: Notification.Name(notificationKeyShows), object: nil)
             }
