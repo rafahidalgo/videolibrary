@@ -39,9 +39,9 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         //Con el siguiente código se busca que primero se obtengan los detalles de la película y cuando esten almacenados y listos para usar
         //se obtiene el cast de actores. Si por algún motivo falla la conexión a internet al entrar en la vista de detalles de una película
         //no se realizará la closure de getMovieDetails.
-        getMovieDetails(id: id!) { () -> () in
+        getMovieDetails(id: id!) {[weak self] () -> () in
 
-            self.getMovieCredits(id: self.id!) {[weak self] () -> () in
+            self?.getMovieCredits(id: (self?.id!)!) {[weak self] () -> () in
                 self?.collectionCast.reloadData()
                 self?.utils.stopLoadingIndicator(indicator: indicator)
             }
@@ -61,57 +61,57 @@ extension MovieDetailViewController {
     
     func getMovieDetails(id: Int, completionHandler:@escaping (() -> ())) { 
         
-        repository.getMovie(id: id) {responseObject, error in
+        repository.getMovie(id: id) {[weak self] responseObject, error in
             
             if let response = responseObject {
                 
-                self.movieDetail = response //asignamos los detalles de la película al objeto OMMovieDetails de esta clase
+                self?.movieDetail = response //asignamos los detalles de la película al objeto OMMovieDetails de esta clase
                 
-                self.movieTitle.text = self.movieDetail.title
-                self.background.layer.cornerRadius = 10.0
+                self?.movieTitle.text = self?.movieDetail.title
+                self?.background.layer.cornerRadius = 10.0
                 
-                if let backdropImage =  self.movieDetail.backDropPath {
+                if let backdropImage =  self?.movieDetail.backDropPath {
                     
-                    let image = self.repository.getBackdropImage(backdrop: backdropImage)
-                    self.background.image = image
+                    let image = self?.repository.getBackdropImage(backdrop: backdropImage)
+                    self?.background.image = image
                 }
                 else {
                     
-                    self.background.image = UIImage(named: "No Image")
+                    self?.background.image = UIImage(named: "No Image")
                 }
                 
-                self.puntuation.setProgress(value: CGFloat((self.movieDetail.vote)), animationDuration: 2.0)
+                self?.puntuation.setProgress(value: CGFloat((self?.movieDetail.vote)!), animationDuration: 2.0)
                 
-                if self.movieDetail.overview.count != 0 {
+                if self?.movieDetail.overview.count != 0 {
                     
-                    self.overview.text = self.movieDetail.overview
+                    self?.overview.text = self?.movieDetail.overview
                 }
                 else {
-                    self.overview.textAlignment = .center
-                    self.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
+                    self?.overview.textAlignment = .center
+                    self?.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
                 
-                if self.movieDetail.genres?.count != 0 {
+                if self?.movieDetail.genres?.count != 0 {
                     
                     var nombres = ""
                     
-                    for item in (self.movieDetail.genres)! {
+                    for item in (self?.movieDetail.genres)! {
                         nombres += item as! String + " "
                     }
-                    self.genres.text = nombres
+                    self?.genres.text = nombres
                 }
                 else {
-                    self.genres.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
+                    self?.genres.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
                 
                 //Comprobamos si la película está en favoritos
-                if self.favorite.searchMovie(id: id) != nil {
+                if self?.favorite.searchMovie(id: id) != nil {
                     
-                    self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                    self?.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
                 }
                 else {
                     
-                    self.favoriteButton.setImage(UIImage(named: "No favorite green"), for: .normal)
+                    self?.favoriteButton.setImage(UIImage(named: "No favorite green"), for: .normal)
                 }
                 
                 completionHandler()
@@ -119,31 +119,31 @@ extension MovieDetailViewController {
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }
     
     func getMovieCredits(id: Int, completionHandler:@escaping (() -> ())) {
         
-        repository.getMovieCast(id: id) { responseObject, error in
+        repository.getMovieCast(id: id) {[weak self] responseObject, error in
             
             if let response = responseObject {
                 
-                self.cast = response //asignamos el cast de la película
+                self?.cast = response //asignamos el cast de la película
                 
                 completionHandler()
                 return
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }

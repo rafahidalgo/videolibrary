@@ -32,7 +32,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         collectionView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) {[weak self] in
             
             self?.resetContent()
-            self?.getData {() -> () in
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.reloadData()
                 self?.collectionView.cr.endHeaderRefresh()
             }
@@ -296,45 +296,45 @@ extension TVShowsViewController {
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
         
-        let discover = FloatingAction(title: NSLocalizedString("discoverTVShows", comment: "")) { action in
+        let discover = FloatingAction(title: NSLocalizedString("discoverTVShows", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterShows = .discoverTVShow
-            self.state = self.filterShows
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterShows = .discoverTVShow
+            self?.state = (self?.filterShows)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
         }
         
-        let popular = FloatingAction(title: NSLocalizedString("popularTVShows", comment: "")) { action in
+        let popular = FloatingAction(title: NSLocalizedString("popularTVShows", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterShows = .popularTVShow
-            self.state = self.filterShows
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterShows = .popularTVShow
+            self?.state = (self?.filterShows)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
         }
         
-        let top = FloatingAction(title: NSLocalizedString("topRatedShows", comment: "")) { action in
+        let top = FloatingAction(title: NSLocalizedString("topRatedShows", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterShows = .topRatedTVShow
-            self.state = self.filterShows
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterShows = .topRatedTVShow
+            self?.state = (self?.filterShows)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
         }
         
-        let on_air = FloatingAction(title: NSLocalizedString("onAir", comment: "")) { action in
+        let on_air = FloatingAction(title: NSLocalizedString("onAir", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterShows = .on_air
-            self.state = self.filterShows
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterShows = .on_air
+            self?.state = (self?.filterShows)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
@@ -371,18 +371,34 @@ extension TVShowsViewController {
 //Formato de las celdas
 extension TVShowsViewController {
     func sizeTVShowCell(widthScreen: CGFloat) {
-        //Horizontal -> 2 columnas   Vertical -> 1 columna
-        //Si la pantalla del iphone es inferior a 568 puntos siempre habrá una columna
-        let landscape = UIDevice.current.orientation.isLandscape
-        let itemsPerRow: CGFloat = landscape && widthScreen > 568 ? 2 : 1
-        let padding: CGFloat = 10
-        //Si está en horizontal y solo hay una columna (pantalla < 568) el ancho de la celda será el 60%
-        let utilWidth = landscape && itemsPerRow == 1 ? widthScreen * 0.6 : widthScreen - padding * (itemsPerRow * 2)
-        let itemWidth = utilWidth / itemsPerRow
-        let itemHeight = itemWidth * (2/5)
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
-        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        collectionView.collectionViewLayout = layout
+        
+        if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
+            //Horizontal -> 2 columnas   Vertical -> 1 columna
+            //Si la pantalla del iphone es inferior a 568 puntos siempre habrá una columna
+            let landscape = UIDevice.current.orientation.isLandscape
+            let itemsPerRow: CGFloat = landscape && widthScreen > 568 ? 2 : 1
+            let padding: CGFloat = 10
+            //Si está en horizontal y solo hay una columna (pantalla < 568) el ancho de la celda será el 60%
+            let utilWidth = landscape && itemsPerRow == 1 ? widthScreen * 0.6 : widthScreen - padding * (itemsPerRow * 2)
+            let itemWidth = utilWidth / itemsPerRow
+            let itemHeight = itemWidth * (2/5)
+            let layout = UICollectionViewFlowLayout()
+            layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
+            layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+            collectionView.collectionViewLayout = layout
+        } else if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
+            //Horizontal -> 3 columnas   Vertical -> 2 columnas
+            let landscape = UIDevice.current.orientation.isLandscape
+            let itemsPerRow: CGFloat = landscape ? 3 : 2
+            let padding: CGFloat = 10
+            let utilWidth = widthScreen - padding * (itemsPerRow * 2)
+            let itemWidth = utilWidth / itemsPerRow
+            let itemHeight = itemWidth * (2/5)
+            let layout = UICollectionViewFlowLayout()
+            layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
+            layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+            collectionView.collectionViewLayout = layout
+        }
+        
     }
 }

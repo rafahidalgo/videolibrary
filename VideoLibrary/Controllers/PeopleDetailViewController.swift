@@ -33,6 +33,11 @@ class PeopleDetailViewController: UIViewController {
         collectionFormat(heightScreen: view.bounds.height)
         
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.collectionFormat(heightScreen: view.bounds.height)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -46,36 +51,36 @@ extension PeopleDetailViewController {
         
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
-        repository.getPersonDetail(id: id) { (responseObject, error) in
+        repository.getPersonDetail(id: id) {[weak self] (responseObject, error) in
             if let response = responseObject {
                 
                 let person = response
                 
                 if let imageURL = person.photoURL {
-                    let photoImage = self.repository.getPosterImage(poster: imageURL)
-                    self.image.image = photoImage
+                    let photoImage = self?.repository.getPosterImage(poster: imageURL)
+                    self?.image.image = photoImage
                 } else {
-                    self.image.image = UIImage(named: "No Image")
+                    self?.image.image = UIImage(named: "No Image")
                 }
                 
-                self.image.layer.cornerRadius = 10
-                self.nameLabel.text = person.name
-                self.birthdayLabel.text = person.birthday
-                self.deathdayLabel.text = person.deathday
-                self.biographyLabel.text = person.biography
-                self.biographyLabel.sizeToFit()
-                self.placeOfBirthLabel.text = person.placeOfBirth
+                self?.image.layer.cornerRadius = 10
+                self?.nameLabel.text = person.name
+                self?.birthdayLabel.text = person.birthday
+                self?.deathdayLabel.text = person.deathday
+                self?.biographyLabel.text = person.biography
+                self?.biographyLabel.sizeToFit()
+                self?.placeOfBirthLabel.text = person.placeOfBirth
                 
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 return
             }
             
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
             
         }
@@ -87,44 +92,44 @@ extension PeopleDetailViewController {
 extension PeopleDetailViewController {
     
     func getMovies(id: Int) {
-        repository.getMovieCredits(id: id) { (responseObject, error) in
+        repository.getMovieCredits(id: id) {[weak self] (responseObject, error) in
             if let response = responseObject {
                 
                 for movie in response {
                     
-                    self.credits.append(movie)
+                    self?.credits.append(movie)
                 }
                 
-                self.collectionView.reloadData()
+                self?.collectionView.reloadData()
                 return
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }
     
     func getTVShows(id: Int) {
-        repository.getTVShowCredits(id: id) { (responseObject, error) in
+        repository.getTVShowCredits(id: id) {[weak self] (responseObject, error) in
             if let response = responseObject {
                
                 for show in response {
                     
-                    self.credits.append(show)
+                    self?.credits.append(show)
                 }
                 
-                self.collectionView.reloadData()
+                self?.collectionView.reloadData()
                 return
             }
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }
@@ -198,7 +203,9 @@ extension PeopleDetailViewController {
 extension PeopleDetailViewController {
     
     func collectionFormat(heightScreen: CGFloat) {
-        collectionHeigthConstraint.constant = heightScreen / 3
+        //En vertical la altura será un tercio de la pantalla y en horizontal la mitad
+        let size: CGFloat = view.bounds.width > view.bounds.height ? 1/2 : 1/3
+        collectionHeigthConstraint.constant = heightScreen * size
         let padding: CGFloat = 10
         let itemHeight = collectionHeigthConstraint.constant - padding * 2
         let itemWidth = itemHeight * (3/4)

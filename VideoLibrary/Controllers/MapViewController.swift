@@ -61,9 +61,18 @@ extension MapViewController: CLLocationManagerDelegate  {
             }
         case .denied:
             utils.showAlertWithCustomMessage(title: "Authorization error", message: "The device can not get the location without authorization", view: self)            
-        default:
+        
+        case .authorizedAlways:
             print("Status: \(status)")
+            
+        case .notDetermined:
+            print("Status: \(status)")
+            
+        case.restricted:
+            print("Status: \(status)")
+        
         }
+        
     }
     
 }
@@ -106,20 +115,20 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController {
     
     func getCinemas(region: MKCoordinateRegion) {
-        nearbyCinemas.getCinemaLocations(coordinates: region) { (response, error) in
+        nearbyCinemas.getCinemaLocations(coordinates: region) {[weak self] (response, error) in
             if let cinemas = response {
                 for cinema in cinemas {
                     let name = cinema.name ?? ""
                     let phone = cinema.phoneNumber ?? ""
                     let coordinate = cinema.placemark.coordinate
                     let cinemaPin = CinemaPin(title: name, subtitle: phone, coordinate: coordinate)
-                    self.cinemaPins.append(cinemaPin)
+                    self?.cinemaPins.append(cinemaPin)
                     print(name)
                 }
-                self.mapView.addAnnotations(self.cinemaPins)
+                self?.mapView.addAnnotations((self?.cinemaPins)!)
                 return
             }
-            self.utils.showAlertWithCustomMessage(title: "Connection error", message: "The device could not connect to the server", view: self)
+            self?.utils.showAlertWithCustomMessage(title: "Connection error", message: "The device could not connect to the server", view: self!)
         }
     }
     
