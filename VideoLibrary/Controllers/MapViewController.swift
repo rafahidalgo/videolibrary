@@ -61,9 +61,18 @@ extension MapViewController: CLLocationManagerDelegate  {
             }
         case .denied:
             utils.showAlertWithCustomMessage(title: "Authorization error", message: "The device can not get the location without authorization", view: self)            
-        default:
+        
+        case .authorizedAlways:
             print("Status: \(status)")
+            
+        case .notDetermined:
+            print("Status: \(status)")
+            
+        case.restricted:
+            print("Status: \(status)")
+        
         }
+        
     }
     
 }
