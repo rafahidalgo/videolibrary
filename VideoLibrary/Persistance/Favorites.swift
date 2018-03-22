@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+//Claves de las notificaciones que permiten actualizar la vista cuando se producen cambios en el modelo de Favoritos
 let notificationKeyMovies = "es.upsa.mimo.VideoLibrary.Movies"
 let notificationKeyShows = "es.upsa.mimo.VideoLibrary.TVShows"
 let notificationKeyFavorites = "es.upsa.mimo.VideoLibrary.Favorites"

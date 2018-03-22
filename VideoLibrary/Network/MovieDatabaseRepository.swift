@@ -29,7 +29,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)\("discover/movie")",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES",
+                         "language":"en-US",
                          "sort_by":"popularity.desc",
                          "include_adult":"false",
                          "include_video":"false",
@@ -65,7 +65,7 @@ struct MovieDatabaseRepository: MovieRepository {
         
         Alamofire.request("\(self.apiUrl)movie/popular",
             method: .get,
-            parameters: ["api_key":self.apiKey, "language":"es-ES", "page":page])
+            parameters: ["api_key":self.apiKey, "language":"en-US", "page":page])
             .responseJSON { (response) in
                 
                 let result = self.checkResponseCode(response: response)
@@ -94,7 +94,7 @@ struct MovieDatabaseRepository: MovieRepository {
         
         Alamofire.request("\(self.apiUrl)movie/top_rated",
             method: .get,
-            parameters: ["api_key":self.apiKey, "language":"es-ES", "page":page])
+            parameters: ["api_key":self.apiKey, "language":"en-US", "page":page])
             .responseJSON { (response) in
                 
                 let result = self.checkResponseCode(response: response)
@@ -124,7 +124,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)discover/movie",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES",
+                         "language":"en-US",
                          "sort_by":"release_date.asc",
                          "include_adult":"false",
                          "include_video":"false",
@@ -159,7 +159,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)search/movie",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES",
+                         "language":"en-US",
                          "query": query,
                          "page":page,
                          "include_adult":"false"])
@@ -193,7 +193,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)movie/\(id)",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES"])
+                         "language":"en-US"])
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
@@ -248,7 +248,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)movie/\(id)/videos",
             method: .get,
             parameters: ["api_key":self.apiKey,
-            "language":"es-ES"])
+            "language":"en-US"])
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
@@ -285,7 +285,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)discover/tv",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES",
+                         "language":"en-US",
                          "sort_by":"popularity.desc",
                           "page":page,
                          "timezone":"Europe/Madrid",
@@ -320,7 +320,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)tv/popular",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES",
+                         "language":"en-US",
                          "page":page])
             .responseJSON(completionHandler: {response in
                 
@@ -352,7 +352,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)tv/top_rated",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES",
+                         "language":"en-US",
                          "page":page])
             .responseJSON(completionHandler: {response in
                 
@@ -384,7 +384,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)tv/on_the_air",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES"])
+                         "language":"en-US"])
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
@@ -415,7 +415,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)search/tv",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES",
+                         "language":"en-US",
                          "query": query,
                          "page":page])
             .responseJSON(completionHandler: {response in
@@ -448,7 +448,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)tv/\(id)",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES"])
+                         "language":"en-US"])
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
@@ -474,7 +474,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)tv/\(id)/credits",
             method: .get,
             parameters: ["api_key":self.apiKey,
-                         "language":"es-ES"])
+                         "language":"en-US"])
             .responseJSON(completionHandler: {response in
                 
                 let result = self.checkResponseCode(response: response)
@@ -546,7 +546,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)person/popular",
             method: .get,
             parameters: ["api_key": self.apiKey,
-                         "language": "es-ES",
+                         "language": "en-US",
                          "page": page])
             .responseJSON { response in
                 
@@ -585,7 +585,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)search/person",
             method: .get,
             parameters: ["api_key": self.apiKey,
-                         "language": "es-ES",
+                         "language": "en-US",
                          "query": name,
                          "page": page])
             .responseJSON { response in
@@ -623,7 +623,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)person/\(id)",
             method: .get,
             parameters: ["api_key": self.apiKey,
-                         "language": "es-ES"])
+                         "language": "en-US"])
             .responseJSON { response in
                 
                 let result = self.checkResponseCode(response: response)
@@ -653,7 +653,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)person/\(id)/movie_credits",
             method: .get,
             parameters: ["api_key": self.apiKey,
-                         "language": "es-ES"])
+                         "language": "en-US"])
             .responseJSON { response in
                 
                 let result = self.checkResponseCode(response: response)
@@ -682,7 +682,7 @@ struct MovieDatabaseRepository: MovieRepository {
         Alamofire.request("\(self.apiUrl)person/\(id)/tv_credits",
             method: .get,
             parameters: ["api_key": self.apiKey,
-                         "language": "es-ES"])
+                         "language": "en-US"])
             .responseJSON { response in
                 let result = self.checkResponseCode(response: response)
                 
