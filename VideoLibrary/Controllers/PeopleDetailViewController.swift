@@ -33,6 +33,11 @@ class PeopleDetailViewController: UIViewController {
         collectionFormat(heightScreen: view.bounds.height)
         
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.collectionFormat(heightScreen: view.bounds.height)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -198,7 +203,9 @@ extension PeopleDetailViewController {
 extension PeopleDetailViewController {
     
     func collectionFormat(heightScreen: CGFloat) {
-        collectionHeigthConstraint.constant = heightScreen / 3
+        //En vertical la altura será un tercio de la pantalla y en horizontal la mitad
+        let size: CGFloat = view.bounds.width > view.bounds.height ? 1/2 : 1/3
+        collectionHeigthConstraint.constant = heightScreen * size
         let padding: CGFloat = 10
         let itemHeight = collectionHeigthConstraint.constant - padding * 2
         let itemWidth = itemHeight * (3/4)
