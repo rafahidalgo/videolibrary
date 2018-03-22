@@ -32,7 +32,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         collectionView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) {[weak self] in
             
             self?.resetContent()
-            self?.getData {() -> () in
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.reloadData()
                 self?.collectionView.cr.endHeaderRefresh()
             }
@@ -297,48 +297,48 @@ extension MoviesViewController {
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
         
-        let discover = FloatingAction(title: NSLocalizedString("discoverMovies", comment: "")) { action in
+        let discover = FloatingAction(title: NSLocalizedString("discoverMovies", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterMovies = .discoverMovie
-            self.state = self.filterMovies
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterMovies = .discoverMovie
+            self?.state = (self?.filterMovies)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
             
         }
         
-        let popular = FloatingAction(title: NSLocalizedString("popularMovies", comment: "")) { action in
+        let popular = FloatingAction(title: NSLocalizedString("popularMovies", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterMovies = .popularMovie
-            self.state = self.filterMovies
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterMovies = .popularMovie
+            self?.state = (self?.filterMovies)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
             
         }
         
-        let top = FloatingAction(title: NSLocalizedString("topRatedMovies", comment: "")) { action in
+        let top = FloatingAction(title: NSLocalizedString("topRatedMovies", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterMovies = .topRatedMovie
-            self.state = self.filterMovies
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterMovies = .topRatedMovie
+            self?.state = (self?.filterMovies)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
             
         }
         
-        let release = FloatingAction(title: NSLocalizedString("releaseDate", comment: "")) { action in
+        let release = FloatingAction(title: NSLocalizedString("releaseDate", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterMovies = .release_date
-            self.state = self.filterMovies
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterMovies = .release_date
+            self?.state = (self?.filterMovies)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }

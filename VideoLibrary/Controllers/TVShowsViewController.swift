@@ -32,7 +32,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         collectionView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) {[weak self] in
             
             self?.resetContent()
-            self?.getData {() -> () in
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.reloadData()
                 self?.collectionView.cr.endHeaderRefresh()
             }
@@ -296,45 +296,45 @@ extension TVShowsViewController {
     
     @IBAction func showActionSheet(_ sender: UIBarButtonItem) {
         
-        let discover = FloatingAction(title: NSLocalizedString("discoverTVShows", comment: "")) { action in
+        let discover = FloatingAction(title: NSLocalizedString("discoverTVShows", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterShows = .discoverTVShow
-            self.state = self.filterShows
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterShows = .discoverTVShow
+            self?.state = (self?.filterShows)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
         }
         
-        let popular = FloatingAction(title: NSLocalizedString("popularTVShows", comment: "")) { action in
+        let popular = FloatingAction(title: NSLocalizedString("popularTVShows", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterShows = .popularTVShow
-            self.state = self.filterShows
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterShows = .popularTVShow
+            self?.state = (self?.filterShows)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
         }
         
-        let top = FloatingAction(title: NSLocalizedString("topRatedShows", comment: "")) { action in
+        let top = FloatingAction(title: NSLocalizedString("topRatedShows", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterShows = .topRatedTVShow
-            self.state = self.filterShows
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterShows = .topRatedTVShow
+            self?.state = (self?.filterShows)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }
         }
         
-        let on_air = FloatingAction(title: NSLocalizedString("onAir", comment: "")) { action in
+        let on_air = FloatingAction(title: NSLocalizedString("onAir", comment: "")) {[weak self] action in
             
-            self.resetContent()
-            self.filterShows = .on_air
-            self.state = self.filterShows
-            self.getData {[weak self] () -> () in
+            self?.resetContent()
+            self?.filterShows = .on_air
+            self?.state = (self?.filterShows)!
+            self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)
                 self?.collectionView.reloadData()
             }

@@ -115,23 +115,23 @@ extension PeopleViewController {
         
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
-        repository.discoverPeople(page: page) { (responseObject, error, pages) in
+        repository.discoverPeople(page: page) {[weak self] (responseObject, error, pages) in
             if let response = responseObject {
                 
-                self.totalPages = (pages == nil) ? 0: pages!
+                self?.totalPages = (pages == nil) ? 0: pages!
                 
-                self.people.append(contentsOf: response)
+                self?.people.append(contentsOf: response)
                 
-                self.collectionView.reloadData()
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.collectionView.reloadData()
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 return
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }
@@ -142,23 +142,23 @@ extension PeopleViewController {
         
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
-        repository.getPerson(name: name, page: page) { (responseObject, error, pages) in
+        repository.getPerson(name: name, page: page) {[weak self] (responseObject, error, pages) in
             if let response = responseObject {
                 
-                self.totalPages = (pages == nil) ? 0: pages!
+                self?.totalPages = (pages == nil) ? 0: pages!
                 
-                self.people.append(contentsOf: response)
+                self?.people.append(contentsOf: response)
                 
-                self.collectionView.reloadData()
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.collectionView.reloadData()
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 return
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }

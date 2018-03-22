@@ -46,36 +46,36 @@ extension PeopleDetailViewController {
         
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
-        repository.getPersonDetail(id: id) { (responseObject, error) in
+        repository.getPersonDetail(id: id) {[weak self] (responseObject, error) in
             if let response = responseObject {
                 
                 let person = response
                 
                 if let imageURL = person.photoURL {
-                    let photoImage = self.repository.getPosterImage(poster: imageURL)
-                    self.image.image = photoImage
+                    let photoImage = self?.repository.getPosterImage(poster: imageURL)
+                    self?.image.image = photoImage
                 } else {
-                    self.image.image = UIImage(named: "No Image")
+                    self?.image.image = UIImage(named: "No Image")
                 }
                 
-                self.image.layer.cornerRadius = 10
-                self.nameLabel.text = person.name
-                self.birthdayLabel.text = person.birthday
-                self.deathdayLabel.text = person.deathday
-                self.biographyLabel.text = person.biography
-                self.biographyLabel.sizeToFit()
-                self.placeOfBirthLabel.text = person.placeOfBirth
+                self?.image.layer.cornerRadius = 10
+                self?.nameLabel.text = person.name
+                self?.birthdayLabel.text = person.birthday
+                self?.deathdayLabel.text = person.deathday
+                self?.biographyLabel.text = person.biography
+                self?.biographyLabel.sizeToFit()
+                self?.placeOfBirthLabel.text = person.placeOfBirth
                 
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 return
             }
             
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
             
         }
@@ -87,44 +87,44 @@ extension PeopleDetailViewController {
 extension PeopleDetailViewController {
     
     func getMovies(id: Int) {
-        repository.getMovieCredits(id: id) { (responseObject, error) in
+        repository.getMovieCredits(id: id) {[weak self] (responseObject, error) in
             if let response = responseObject {
                 
                 for movie in response {
                     
-                    self.credits.append(movie)
+                    self?.credits.append(movie)
                 }
                 
-                self.collectionView.reloadData()
+                self?.collectionView.reloadData()
                 return
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }
     
     func getTVShows(id: Int) {
-        repository.getTVShowCredits(id: id) { (responseObject, error) in
+        repository.getTVShowCredits(id: id) {[weak self] (responseObject, error) in
             if let response = responseObject {
                
                 for show in response {
                     
-                    self.credits.append(show)
+                    self?.credits.append(show)
                 }
                 
-                self.collectionView.reloadData()
+                self?.collectionView.reloadData()
                 return
             }
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }

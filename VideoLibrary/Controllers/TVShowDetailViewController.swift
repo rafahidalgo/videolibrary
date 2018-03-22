@@ -39,9 +39,9 @@ class TVShowDetailViewController: UIViewController, UICollectionViewDelegate, UI
         //Con el siguiente código se busca que primero se obtengan los detalles de la serie y cuando esten almacenados y listos para usar
         //se obtiene el cast de actores. Si por algún motivo falla la conexión a internet al entrar en la vista de detalles de una serie
         //no se realizará la closure de getTVShowDetails.
-        getTVShowDetails(id: id!) { () -> () in
+        getTVShowDetails(id: id!) {[weak self] () -> () in
             
-            self.getTVShowCredits(id: self.id!) {[weak self] () -> () in
+            self?.getTVShowCredits(id: (self?.id!)!) {[weak self] () -> () in
                 self?.collectionCast.reloadData()
                 self?.utils.stopLoadingIndicator(indicator: indicator)
             }
@@ -61,58 +61,58 @@ extension TVShowDetailViewController {
     
     func getTVShowDetails(id: Int, completionHandler:@escaping (() -> ())) {
         
-        repository.getTVShow(id: id) {responseObject, error in
+        repository.getTVShow(id: id) {[weak self] responseObject, error in
             
             if let response = responseObject {
                 
-                self.showDetail = response
+                self?.showDetail = response
                 
-                self.name.text = self.showDetail.name
-                self.background.layer.cornerRadius = 10.0
+                self?.name.text = self?.showDetail.name
+                self?.background.layer.cornerRadius = 10.0
                 
-                if let backdropImage =  self.showDetail.backdropPath {
+                if let backdropImage =  self?.showDetail.backdropPath {
                     
-                    let image = self.repository.getBackdropImage(backdrop: backdropImage)
-                    self.background.image = image
+                    let image = self?.repository.getBackdropImage(backdrop: backdropImage)
+                    self?.background.image = image
                 }
                 else {
                     
-                    self.background.image = UIImage(named: "No Image")
+                    self?.background.image = UIImage(named: "No Image")
                 }
                 
-                self.puntuation.setProgress(value: CGFloat(self.showDetail.vote), animationDuration: 2.0)
-                self.numberSeasons.text = "Seasons: \(self.showDetail.numberOfSeasons)"
+                self?.puntuation.setProgress(value: CGFloat((self?.showDetail.vote)!), animationDuration: 2.0)
+                self?.numberSeasons.text = "Seasons: \(self?.showDetail.numberOfSeasons)"
                 
-                if self.showDetail.overview.count != 0 {
+                if self?.showDetail.overview.count != 0 {
                     
-                    self.overview.text = self.showDetail.overview
+                    self?.overview.text = self?.showDetail.overview
                 }
                 else {
-                    self.overview.textAlignment = .center
-                    self.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
+                    self?.overview.textAlignment = .center
+                    self?.overview.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
                 
-                if self.showDetail.genres?.count != 0 {
+                if self?.showDetail.genres?.count != 0 {
                     
                     var nombres = ""
                     
-                    for item in (self.showDetail.genres)! {
+                    for item in (self?.showDetail.genres)! {
                         nombres += item as! String + " "
                     }
-                    self.genres.text = nombres
+                    self?.genres.text = nombres
                 }
                 else {
-                    self.genres.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
+                    self?.genres.text = NSLocalizedString("notAvailable", comment: "Mensaje que informa de que los datos no están disponibles")
                 }
                 
                 //Comprobamos si la serie está en favoritos
-                if self.favorite.searchTVShow(id: id) != nil {
+                if self?.favorite.searchTVShow(id: id) != nil {
                     
-                    self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                    self?.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
                 }
                 else {
                     
-                    self.favoriteButton.setImage(UIImage(named: "No favorite green"), for: .normal)
+                    self?.favoriteButton.setImage(UIImage(named: "No favorite green"), for: .normal)
                 }
                 
                 completionHandler()
@@ -120,31 +120,31 @@ extension TVShowDetailViewController {
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }
     
     func getTVShowCredits(id: Int, completionHandler:@escaping (() -> ())) {
 
-        repository.getTVShowCast(id: id) { responseObject, error in
+        repository.getTVShowCast(id: id) {[weak self] responseObject, error in
             
             if let response = responseObject {
 
-                self.cast = response //asignamos el cast de la serie
+                self?.cast = response //asignamos el cast de la serie
                 
                 completionHandler()
                 return
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }

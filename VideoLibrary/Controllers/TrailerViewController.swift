@@ -35,21 +35,21 @@ class TrailerViewController: UIViewController {
     
     func getTrailer() {
         
-        repository.getMovieTrailer(id: id!) { responseObject, error in
+        repository.getMovieTrailer(id: id!) {[weak self] responseObject, error in
             
             if let videoUrl = responseObject {
                 
                 //Puede haber trailer o no, lo comprobamos
                 if videoUrl == "" {
                     
-                    self.utils.showAlertWithCustomMessage(title: "Not trailer available", message: "This film does not currently have a trailer", view: self)
-                    self.dismiss(animated: true, completion: nil)
+                    self?.utils.showAlertWithCustomMessage(title: "Not trailer available", message: "This film does not currently have a trailer", view: self!)
+                    self?.dismiss(animated: true, completion: nil)
                     
                 }
                 else {
                     
                     if let url = URL(string: videoUrl) {
-                        self.webView.load(URLRequest(url: url))
+                        self?.webView.load(URLRequest(url: url))
                     }
                 }
                 
@@ -57,10 +57,10 @@ class TrailerViewController: UIViewController {
             }
             
             if (error?.code)! < 0 {
-                self.utils.showAlertConnectionLost(view: self)
+                self?.utils.showAlertConnectionLost(view: self!)
             }
             else {
-                self.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self)
+                self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
         }
     }
