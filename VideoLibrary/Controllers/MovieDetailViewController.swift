@@ -59,7 +59,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
 //Obtención de los datos de una película y del cast
 extension MovieDetailViewController {
     
-    func getMovieDetails(id: Int, completionHandler:@escaping (() -> ())) { //https://stackoverflow.com/questions/27102666/how-to-parse-string-array-with-swiftyjson
+    func getMovieDetails(id: Int, completionHandler:@escaping (() -> ())) { 
         
         repository.getMovie(id: id) {responseObject, error in
             

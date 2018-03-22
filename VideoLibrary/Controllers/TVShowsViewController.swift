@@ -136,38 +136,38 @@ extension TVShowsViewController {
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         switch filterShows {
         case .discoverTVShow:
-            repository.discoverTVShows(page: page){ responseObject, error, pages in
+            repository.discoverTVShows(page: page){[weak self] responseObject, error, pages in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .popularTVShow:
-            repository.getPopularTVShows(page: page){ responseObject, error, pages in
+            repository.getPopularTVShows(page: page){[weak self] responseObject, error, pages in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .topRatedTVShow:
-            repository.getTopRatedTVShows(page: page) { responseObject, error, pages in
+            repository.getTopRatedTVShows(page: page) {[weak self] responseObject, error, pages in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .on_air:
-            repository.getOnAirTVShows(page: page) { responseObject, error, pages in
+            repository.getOnAirTVShows(page: page) {[weak self] responseObject, error, pages in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         default:
-            repository.searchTVShow(page: page, query: searchBar.text!) { responseObject, error, pages in
+            repository.searchTVShow(page: page, query: searchBar.text!) {[weak self] responseObject, error, pages in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         }

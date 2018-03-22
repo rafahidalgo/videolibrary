@@ -138,38 +138,38 @@ extension MoviesViewController {
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         switch filterMovies {
         case .discoverMovie:
-            repository.discoverMovies(page: page){ responseObject, error, pages in
+            repository.discoverMovies(page: page){[weak self] responseObject, error, pages in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .popularMovie:
-            repository.getPopularMovies(page: page){ responseObject, error, pages  in
+            repository.getPopularMovies(page: page){[weak self] responseObject, error, pages  in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .topRatedMovie:
-            repository.getTopRatedMovies(page: page) { responseObject, error, pages in
+            repository.getTopRatedMovies(page: page) {[weak self] responseObject, error, pages in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .release_date:
-            repository.moviesReleaseDateAsc(page: page) { responseObject, error, pages  in
+            repository.moviesReleaseDateAsc(page: page) {[weak self] responseObject, error, pages  in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         default:
-            repository.searchMovie(page: page, query: searchBar.text!) {responseObject, error, pages in
+            repository.searchMovie(page: page, query: searchBar.text!) {[weak self] responseObject, error, pages in
                 
-                self.saveDataToModel(data: responseObject, error: error, pages: pages!)
-                self.utils.stopLoadingIndicator(indicator: indicator)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         }

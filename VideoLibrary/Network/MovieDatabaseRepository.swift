@@ -188,7 +188,7 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
-    func getMovie(id: Int, completionHandler: @escaping (OMMovieDetails?, NSError?) -> ()) {
+    func getMovie(id: Int, completionHandler: @escaping (OMMovieDetails?, NSError?) -> ()) {//https://stackoverflow.com/questions/27102666/how-to-parse-string-array-with-swiftyjson
         
         Alamofire.request("\(self.apiUrl)movie/\(id)",
             method: .get,
