@@ -34,14 +34,14 @@ class FavoritesViewController: ViewController, UICollectionViewDelegate, UIColle
         getFavoriteMovies()
         
         //Formateamos la celda
-        self.sizeFavoriteCell(widthScreen: view.bounds.width)
+        self.utils.sizeCell(widthScreen: self.view.bounds.width, collectionView: self.collectionView)
         
     }
     
     //Se formatea la celda en cada cambio de orientación
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        self.sizeFavoriteCell(widthScreen: size.width)
+        self.utils.sizeCell(widthScreen: size.width, collectionView: self.collectionView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -231,41 +231,3 @@ extension FavoritesViewController {
     }
     
 }
-
-//Formato de las celdas
-extension FavoritesViewController {
-    func sizeFavoriteCell(widthScreen: CGFloat) {
-        
-        if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
-            //Horizontal -> 2 columnas   Vertical -> 1 columna
-            //Si la pantalla del iphone es inferior a 568 puntos siempre habrá una columna
-            let landscape = UIDevice.current.orientation.isLandscape
-            let itemsPerRow: CGFloat = landscape && widthScreen > 568 ? 2 : 1
-            let padding: CGFloat = 10
-            //Si está en horizontal y solo hay una columna (pantalla < 568) el ancho de la celda será el 60%
-            let utilWidth = landscape && itemsPerRow == 1 ? widthScreen * 0.6 : widthScreen - padding * (itemsPerRow * 2)
-            let itemWidth = utilWidth / itemsPerRow
-            let itemHeight = itemWidth * (2/5)
-            let layout = UICollectionViewFlowLayout()
-            layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
-            layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-            collectionView.collectionViewLayout = layout
-        } else if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
-            //Horizontal -> 3 columnas   Vertical -> 2 columnas
-            let landscape = UIDevice.current.orientation.isLandscape
-            let itemsPerRow: CGFloat = landscape ? 3 : 2
-            let padding: CGFloat = 10
-            let utilWidth = widthScreen - padding * (itemsPerRow * 2)
-            let itemWidth = utilWidth / itemsPerRow
-            let itemHeight = itemWidth * (2/5)
-            let layout = UICollectionViewFlowLayout()
-            layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
-            layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-            collectionView.collectionViewLayout = layout
-        }
-        
-    }
-}
-
-
-
