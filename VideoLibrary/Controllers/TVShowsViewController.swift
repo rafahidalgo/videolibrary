@@ -53,7 +53,11 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         self.sizeTVShowCell(widthScreen: size.width)
     }
     
-    
+    //Si se cambia la orientación en otra pestaña, al volver a ésta se redimensiona
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.sizeTVShowCell(widthScreen: view.bounds.width)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

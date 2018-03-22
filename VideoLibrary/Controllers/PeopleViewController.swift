@@ -42,6 +42,13 @@ class PeopleViewController: BaseViewController {
         sizePeopleCell(widthScreen: size.width)
     }
     
+    //Si se cambia la orientación en otra pestaña, al volver a ésta se redimensiona
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.sizePeopleCell(widthScreen: view.bounds.width)
+    }
+    
+    
     //Pasar id al controlador de detalle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! PeopleViewCell

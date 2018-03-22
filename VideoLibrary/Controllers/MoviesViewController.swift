@@ -53,6 +53,11 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         self.sizeMovieCell(widthScreen: size.width)
     }
     
+    //Si se cambia la orientación en otra pestaña, al volver a ésta se redimensiona
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.sizeMovieCell(widthScreen: view.bounds.width)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
