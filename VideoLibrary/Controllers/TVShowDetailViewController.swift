@@ -81,7 +81,7 @@ extension TVShowDetailViewController {
                 }
                 
                 self?.puntuation.setProgress(value: CGFloat((self?.showDetail.vote)!), animationDuration: 2.0)
-                self?.numberSeasons.text = "Seasons: \(self?.showDetail.numberOfSeasons)"
+                self?.numberSeasons.text = "Seasons: \(self!.showDetail.numberOfSeasons)"
                 
                 if self?.showDetail.overview.count != 0 {
                     

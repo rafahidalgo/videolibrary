@@ -2016,37 +2016,39 @@
                                 <rect key="frame" x="0.0" y="43" width="320" height="461"/>
                                 <color key="backgroundColor" name="SecondaryColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="10" id="e5q-YC-n3n">
-                                    <size key="itemSize" width="300" height="132"/>
+                                    <size key="itemSize" width="300" height="120"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="center" reuseIdentifier="FavoriteCell" id="OYP-m1-K7d" customClass="FavoriteViewCell" customModule="VideoLibrary" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="0.0" width="300" height="132"/>
+                                        <rect key="frame" x="10" y="0.0" width="300" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="132"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t9F-G8-lpy" userLabel="Poster">
-                                                    <rect key="frame" x="0.0" y="0.0" width="105" height="132"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="85" height="120"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="105" id="PQ7-Py-V4v"/>
+                                                        <constraint firstAttribute="width" secondItem="t9F-G8-lpy" secondAttribute="height" multiplier="17:24" id="PiJ-fg-EP8"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="mX3-DZ-YtN" userLabel="Name">
-                                                    <rect key="frame" x="105" y="5" width="195" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="mX3-DZ-YtN" userLabel="Name">
+                                                    <rect key="frame" x="90" y="0.0" width="210" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="mX3-DZ-YtN" secondAttribute="height" multiplier="21:5" id="ppb-OM-B3d"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
                                                     <color key="textColor" name="PrimaryColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </label>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khc-NS-4Jp">
-                                                    <rect key="frame" x="230" y="72" width="50" height="50"/>
+                                                    <rect key="frame" x="230" y="60" width="50" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="GhR-YQ-AVs"/>
-                                                        <constraint firstAttribute="width" constant="50" id="Mb1-ku-qqi"/>
+                                                        <constraint firstAttribute="width" secondItem="khc-NS-4Jp" secondAttribute="height" multiplier="1:1" id="aRQ-bW-4cL"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <state key="normal" image="Favorite small">
@@ -2057,11 +2059,10 @@
                                                     </connections>
                                                 </button>
                                                 <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-z2-mAN" userLabel="Votes" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                    <rect key="frame" x="125" y="72" width="50" height="50"/>
+                                                    <rect key="frame" x="110" y="60" width="50" height="50"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="De1-dX-aBt"/>
-                                                        <constraint firstAttribute="height" constant="50" id="dGy-t7-OdW"/>
+                                                        <constraint firstAttribute="width" secondItem="TmK-z2-mAN" secondAttribute="height" multiplier="1:1" id="jlB-4m-Ahn"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="minValue">
@@ -2106,18 +2107,21 @@
                                         </view>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="khc-NS-4Jp" secondAttribute="bottom" constant="10" id="7wk-fY-zjE"/>
-                                            <constraint firstItem="t9F-G8-lpy" firstAttribute="leading" secondItem="OYP-m1-K7d" secondAttribute="leading" id="SSf-yl-xls"/>
-                                            <constraint firstAttribute="bottom" secondItem="TmK-z2-mAN" secondAttribute="bottom" constant="10" id="Vsi-i8-pDp"/>
-                                            <constraint firstItem="mX3-DZ-YtN" firstAttribute="leading" secondItem="t9F-G8-lpy" secondAttribute="trailing" id="ZeR-Ha-Lfp"/>
-                                            <constraint firstAttribute="trailing" secondItem="mX3-DZ-YtN" secondAttribute="trailing" id="fXT-Ea-LIh"/>
-                                            <constraint firstItem="t9F-G8-lpy" firstAttribute="top" secondItem="OYP-m1-K7d" secondAttribute="top" id="gVs-Sc-Elh"/>
-                                            <constraint firstAttribute="bottom" secondItem="t9F-G8-lpy" secondAttribute="bottom" id="lrW-30-ffp"/>
-                                            <constraint firstItem="TmK-z2-mAN" firstAttribute="centerY" secondItem="khc-NS-4Jp" secondAttribute="centerY" id="mAE-6q-hQ7"/>
-                                            <constraint firstAttribute="trailing" secondItem="khc-NS-4Jp" secondAttribute="trailing" constant="20" id="oo4-87-VQl"/>
-                                            <constraint firstItem="mX3-DZ-YtN" firstAttribute="top" secondItem="OYP-m1-K7d" secondAttribute="top" constant="5" id="sHu-3q-tew"/>
-                                            <constraint firstItem="TmK-z2-mAN" firstAttribute="leading" secondItem="t9F-G8-lpy" secondAttribute="trailing" constant="20" id="zKn-wy-q1m"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="TmK-z2-mAN" secondAttribute="bottom" constant="2" id="1cn-6F-3Aa"/>
+                                            <constraint firstItem="TmK-z2-mAN" firstAttribute="top" secondItem="mX3-DZ-YtN" secondAttribute="bottom" constant="10" id="5Tt-Lu-khS"/>
+                                            <constraint firstItem="t9F-G8-lpy" firstAttribute="top" secondItem="OYP-m1-K7d" secondAttribute="top" id="6Di-ws-l94"/>
+                                            <constraint firstItem="t9F-G8-lpy" firstAttribute="leading" secondItem="OYP-m1-K7d" secondAttribute="leading" id="Frn-sc-RLc"/>
+                                            <constraint firstItem="TmK-z2-mAN" firstAttribute="leading" secondItem="t9F-G8-lpy" secondAttribute="trailing" constant="25" id="OMv-E1-apl"/>
+                                            <constraint firstAttribute="bottom" secondItem="t9F-G8-lpy" secondAttribute="bottom" id="Qym-rk-NnA"/>
+                                            <constraint firstItem="mX3-DZ-YtN" firstAttribute="top" secondItem="OYP-m1-K7d" secondAttribute="top" id="Ucf-aR-XOs"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="khc-NS-4Jp" secondAttribute="bottom" constant="2" id="WSn-Aq-cMf"/>
+                                            <constraint firstItem="khc-NS-4Jp" firstAttribute="leading" secondItem="TmK-z2-mAN" secondAttribute="trailing" constant="70" id="YUG-qW-hWn"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="khc-NS-4Jp" secondAttribute="trailing" constant="12" id="e1P-iD-g1z"/>
+                                            <constraint firstItem="khc-NS-4Jp" firstAttribute="top" secondItem="mX3-DZ-YtN" secondAttribute="bottom" constant="10" id="f4O-8k-NH4"/>
+                                            <constraint firstItem="mX3-DZ-YtN" firstAttribute="leading" secondItem="t9F-G8-lpy" secondAttribute="trailing" constant="5" id="lgM-hf-GXk"/>
+                                            <constraint firstAttribute="trailing" secondItem="mX3-DZ-YtN" secondAttribute="trailing" id="wck-Kl-o2T"/>
                                         </constraints>
+                                        <size key="customSize" width="300" height="120"/>
                                         <connections>
                                             <outlet property="favoriteButton" destination="khc-NS-4Jp" id="E6c-3V-9Ws"/>
                                             <outlet property="name" destination="mX3-DZ-YtN" id="Y3w-f0-KNt"/>
@@ -2640,8 +2644,8 @@
         <image name="People Tab Icon" width="30" height="30"/>
         <image name="TV Shows Tab Icon" width="30" height="30"/>
         <image name="Video" width="40" height="40"/>
-        <image name="logoMIMO" width="295" height="177"/>
-        <image name="logoMoviedb" width="97" height="100"/>
+        <image name="logoMIMO" width="292" height="175"/>
+        <image name="logoMoviedb" width="96" height="99"/>
         <namedColor name="PrimaryColor">
             <color red="0.0040000001899898052" green="0.82400000095367432" blue="0.46700000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -2651,7 +2655,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MYh-EP-ZDH"/>
-        <segue reference="aHR-u9-KDl"/>
+        <segue reference="ASJ-lx-4Dq"/>
         <segue reference="n0c-mV-ZPM"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="PrimaryColor"/>
