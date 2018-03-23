@@ -16,6 +16,9 @@ class CinemaPin: NSObject, MKAnnotation {
         super.init()
     }
     
+    
+    //https://www.raywenderlich.com/160517/mapkit-tutorial-getting-started
+    //El boton de la anotación abre el mapItem en la aplicación de mapas
     func mapItem() -> MKMapItem {
         let addressDict = [CNPostalAddressStreetKey: subtitle!]
         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
