@@ -43,8 +43,8 @@ class PeopleViewController: BaseViewController {
     }
     
     //Si se cambia la orientación en otra pestaña, al volver a ésta se redimensiona
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.sizePeopleCell(widthScreen: view.bounds.width)
     }
     
