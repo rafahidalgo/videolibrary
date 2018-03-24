@@ -2144,7 +2144,7 @@
                                                             <real key="value" value="10"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
-                                                            <real key="value" value="0.0"/>
+                                                            <real key="value" value="270"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                                                             <color key="value" name="PrimaryColor"/>
