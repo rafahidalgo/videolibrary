@@ -14,14 +14,14 @@
 //Cadenas relacionadas con los action sheet de series, películas y favoritos
 //Películas
 "discoverMovies" = "Discover movies";
-"popularMovies" = "Popular movies";
+"popularMovies" = "Upcoming movies";
 "topRatedMovies" = "Top rated movies";
 "releaseDate" = "Release date (asc)";
 
 //Series
 "onAir" = "On air";
 "discoverTVShows" = "Discover TV Shows";
-"popularTVShows" = "Popular TV Shows";
+"popularTVShows" = "Airing today";
 "topRatedShows" = "Top rated TV Shows";
 
 

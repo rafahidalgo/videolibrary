@@ -10,7 +10,7 @@ import Foundation
 
 enum FilterMovies: String {
     case discoverMovie
-    case popularMovie
+    case upcomingMovie
     case topRatedMovie
     case release_date
     case searchMovie
@@ -18,7 +18,7 @@ enum FilterMovies: String {
 
 enum FilterShows: String {
     case discoverTVShow
-    case popularTVShow
+    case airingToday
     case topRatedTVShow
     case on_air
     case searchTVShow

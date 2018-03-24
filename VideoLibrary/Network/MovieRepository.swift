@@ -20,7 +20,7 @@ protocol MovieRepository {
     
     //Movies
     func discoverMovies(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ())
-    func getPopularMovies(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ())
+    func getUpcomingMovies(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ())
     func getTopRatedMovies(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ())
     func moviesReleaseDateAsc(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ())
     func searchMovie(page: Int, query: String, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ())
@@ -30,7 +30,7 @@ protocol MovieRepository {
     
     //TV Shows
     func discoverTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
-    func getPopularTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
+    func getAiringToday(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
     func getTopRatedTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
     func getOnAirTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())
     func searchTVShow(page: Int, query: String, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ())

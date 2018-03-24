@@ -159,8 +159,8 @@ extension MoviesViewController {
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
-        case .popularMovie:
-            repository.getPopularMovies(page: page){[weak self] responseObject, error, pages  in
+        case .upcomingMovie:
+            repository.getUpcomingMovies(page: page){[weak self] responseObject, error, pages  in
                 
                 self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
@@ -312,7 +312,7 @@ extension MoviesViewController {
         let popular = FloatingAction(title: NSLocalizedString("popularMovies", comment: "")) {[weak self] action in
             
             self?.resetContent()
-            self?.filterMovies = .popularMovie
+            self?.filterMovies = .upcomingMovie
             self?.state = (self?.filterMovies)!
             self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)

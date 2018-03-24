@@ -157,8 +157,8 @@ extension TVShowsViewController {
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
-        case .popularTVShow:
-            repository.getPopularTVShows(page: page){[weak self] responseObject, error, pages in
+        case .airingToday:
+            repository.getAiringToday(page: page){[weak self] responseObject, error, pages in
                 
                 self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
@@ -310,7 +310,7 @@ extension TVShowsViewController {
         let popular = FloatingAction(title: NSLocalizedString("popularTVShows", comment: "")) {[weak self] action in
             
             self?.resetContent()
-            self?.filterShows = .popularTVShow
+            self?.filterShows = .airingToday
             self?.state = (self?.filterShows)!
             self?.getData {[weak self] () -> () in
                 self?.collectionView.setContentOffset(CGPoint.zero, animated: true)

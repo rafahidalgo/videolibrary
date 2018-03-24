@@ -61,9 +61,9 @@ struct MovieDatabaseRepository: MovieRepository {
         
     }
     
-    func getPopularMovies(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ()) {
+    func getUpcomingMovies(page: Int, completionHandler: @escaping ([OMMovie]?, NSError?, Int?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)movie/popular",
+        Alamofire.request("\(self.apiUrl)movie/upcoming",
             method: .get,
             parameters: ["api_key":self.apiKey, "language":"en-US", "page":page])
             .responseJSON { (response) in
@@ -315,9 +315,9 @@ struct MovieDatabaseRepository: MovieRepository {
         )
     }
     
-    func getPopularTVShows(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ()) {
+    func getAiringToday(page: Int, completionHandler: @escaping ([OMTVShow]?, NSError?, Int?) -> ()) {
         
-        Alamofire.request("\(self.apiUrl)tv/popular",
+        Alamofire.request("\(self.apiUrl)tv/airing_today",
             method: .get,
             parameters: ["api_key":self.apiKey,
                          "language":"en-US",
