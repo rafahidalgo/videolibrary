@@ -50,6 +50,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
     
     //Se formatea la celda en cada cambio de orientación
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         guard tabBarController?.selectedIndex == 1 else {return}
         self.utils.sizeCell(widthScreen: size.width, collectionView: self.collectionView)
     }

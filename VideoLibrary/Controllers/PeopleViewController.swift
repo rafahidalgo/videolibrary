@@ -40,6 +40,7 @@ class PeopleViewController: BaseViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         guard tabBarController?.selectedIndex == 2 else {return}
         sizePeopleCell(widthScreen: size.width)
     }

@@ -18,7 +18,6 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     var state = FilterMovies.discoverMovie// para poder volver al estado anterior al realizar búsquedas. Hay cinco estados diferentes determinados por la enum.
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         addSlideMenuButton()
@@ -51,6 +50,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     
     //Se formatea la celda en cada cambio de orientación
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         guard tabBarController?.selectedIndex == 0 else {return}
         self.utils.sizeCell(widthScreen: size.width, collectionView: self.collectionView)
     }
