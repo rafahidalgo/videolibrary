@@ -60,7 +60,7 @@ extension MapViewController: CLLocationManagerDelegate  {
                 manager.startUpdatingLocation()
             }
         case .denied:
-            utils.showAlertWithCustomMessage(title: "Authorization error", message: "The device can not get the location without authorization", view: self)            
+            utils.showAlertWithCustomMessage(title: "Authorization error", message: NSLocalizedString("notMapPermission", comment: ""), view: self)
         
         case .authorizedAlways:
             print("Status: \(status)")
@@ -128,7 +128,7 @@ extension MapViewController {
                 self?.mapView.addAnnotations((self?.cinemaPins)!)
                 return
             }
-            self?.utils.showAlertWithCustomMessage(title: "Connection error", message: "The device could not connect to the server", view: self!)
+            self?.utils.showAlertWithCustomMessage(title: "Connection error", message: NSLocalizedString("connectionError", comment: ""), view: self!)
         }
     }
     

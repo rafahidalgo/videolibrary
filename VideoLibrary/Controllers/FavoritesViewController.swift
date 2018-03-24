@@ -9,7 +9,7 @@
 import UIKit
 import FloatingActionSheetController
 
-class FavoritesViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var segment: UISegmentedControl!

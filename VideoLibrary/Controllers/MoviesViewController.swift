@@ -1,6 +1,5 @@
 
 import UIKit
-import SwiftyJSON
 import CRRefresh
 import FloatingActionSheetController
 
@@ -16,7 +15,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
     var page = 1
     var total_pages = 1
     var filterMovies = FilterMovies.discoverMovie
-    var state = FilterMovies.discoverMovie// para poder volver al estado anterior al realizar búsquedas
+    var state = FilterMovies.discoverMovie// para poder volver al estado anterior al realizar búsquedas. Hay cinco estados diferentes determinados por la enum.
     
     override func viewDidLoad() {
         
@@ -47,6 +46,7 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
         
         //Formateamos la celda
         self.utils.sizeCell(widthScreen: self.view.bounds.width, collectionView: self.collectionView)
+
     }
     
     //Se formatea la celda en cada cambio de orientación

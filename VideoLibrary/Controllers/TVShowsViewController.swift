@@ -1,6 +1,5 @@
 
 import UIKit
-import SwiftyJSON
 import CRRefresh
 import FloatingActionSheetController
 
@@ -16,7 +15,7 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
     var page = 1
     var total_pages = 1
     var filterShows = FilterShows.discoverTVShow
-    var state = FilterShows.discoverTVShow// para poder volver al estado anterior al realizar búsquedas
+    var state = FilterShows.discoverTVShow// para poder volver al estado anterior al realizar búsquedas. Hay cinco estados diferentes determinados por la enum.
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -273,7 +272,7 @@ extension TVShowsViewController {
         
         if searchBar.text == "" {
             utils.showToast(message: NSLocalizedString("emptySearchBar",
-                                                       comment: "Mensaje que se muestra cuando se le da a buscar una película con la barra vacía"),
+                            comment: "Mensaje que se muestra cuando se le da a buscar una película con la barra vacía"),
                             view: view)
         }
         else {

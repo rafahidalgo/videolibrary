@@ -210,6 +210,7 @@ extension TVShowDetailViewController {
 extension TVShowDetailViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         let cell = sender as! CastViewCell
         let indexPath = collectionCast.indexPath(for: cell)
         let detailViewController = segue.destination as! PeopleDetailViewController

@@ -8,7 +8,6 @@
 
 import UIKit
 import UICircularProgressRing
-import SwiftyJSON
 
 class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     

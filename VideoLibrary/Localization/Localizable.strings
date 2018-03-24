@@ -10,6 +10,7 @@
 //Cadenas relacionadas con la barra de búsqueda de las vistas principales
 "emptySearchBar" = "The search bar is empty";
 
+
 //Cadenas relacionadas con los action sheet de series, películas y favoritos
 //Películas
 "discoverMovies" = "Discover movies";
@@ -35,9 +36,15 @@
 "noFavoriteShows" = "There are no favorite tv shows";
 
 
+//Cadenas relacionadas con mapas
+"notMapPermission" = "The device can not get the location without authorization";
+"connectionError" = "The device could not connect to the server";
+
+
 //Cadenas relacionadas con la carga de recursos
 "loading" = "Loading...";
 "notAvailable" = "Information not available";
+
 
 //Cadenas relacionadas con errores
 "favoriteError" = "An error ocurred with favorites";

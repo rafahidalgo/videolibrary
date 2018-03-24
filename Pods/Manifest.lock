@@ -10,14 +10,14 @@ PODS:
   - UICircularProgressRing (1.8.0)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 4.6.0)
   - AlamofireImage (~> 3.3)
-  - CRRefresh
-  - FloatingActionSheetController
-  - Licensy
-  - RAMAnimatedTabBarController
-  - SwiftyJSON
-  - UICircularProgressRing
+  - CRRefresh (~> 1.0.6)
+  - FloatingActionSheetController (~> 2.1.0)
+  - Licensy (~> 1.0.9)
+  - RAMAnimatedTabBarController (~> 3.0.4)
+  - SwiftyJSON (~> 4.0.0)
+  - UICircularProgressRing (~> 1.8.0)
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -29,6 +29,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   UICircularProgressRing: c37a16e6b71c92eb31824e773e881203ba669306
 
-PODFILE CHECKSUM: 1d506136f698890c6462f9c911e58e393df40ca6
+PODFILE CHECKSUM: 1f9f1a336995adadc315d7d2ea99507723efc670
 
 COCOAPODS: 1.4.0

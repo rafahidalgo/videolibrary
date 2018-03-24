@@ -26,13 +26,15 @@ class PeopleViewController: BaseViewController {
         //Se encarga de refrescar el contenido cuando el usuario desliza el dedo hacia abajo
         collectionView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) {[weak self] in
             self?.resetContent()
-            self?.searchPopularPeople(page: (self?.page)!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            self?.searchPopularPeople(page: (self?.page)!) {[weak self] () -> () in
+                self?.collectionView.reloadData()
                 self?.collectionView.cr.endHeaderRefresh()
-            })
+            }
         }
         
-        searchPopularPeople(page: page)
+        searchPopularPeople(page: page){[weak self] in
+            self?.collectionView.reloadData()
+        }
         sizePeopleCell(widthScreen: view.bounds.width)
         
     }
@@ -70,6 +72,7 @@ extension PeopleViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PeopleViewCell
+
         cell.actorName.text = self.people[indexPath.row].name
         if let imageURL = self.people[indexPath.row].photoURL {
             let posterImage = repository.getPosterImage(poster: imageURL)
@@ -126,7 +129,7 @@ extension PeopleViewController {
 extension PeopleViewController {
     
     //Búsqueda de actores populares
-    func searchPopularPeople(page: Int) {
+    func searchPopularPeople(page: Int, completionHandler:@escaping (() -> ())) {
         
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
@@ -136,9 +139,9 @@ extension PeopleViewController {
                 self?.totalPages = (pages == nil) ? 0: pages!
                 
                 self?.people.append(contentsOf: response)
-                
-                self?.collectionView.reloadData()
+
                 self?.utils.stopLoadingIndicator(indicator: indicator)
+                completionHandler()
                 return
             }
             
@@ -153,7 +156,7 @@ extension PeopleViewController {
     
     
     //Búsqueda de actores por nombre completo
-    func searchPerson(name: String, page: Int) {
+    func searchPerson(name: String, page: Int, completionHandler:@escaping (() -> ())) {
         
         let indicator = utils.showLoadingIndicator(title: NSLocalizedString("loading", comment: "Texto que indica la carga de un recurso"), view: view)
         
@@ -164,8 +167,9 @@ extension PeopleViewController {
                 
                 self?.people.append(contentsOf: response)
                 
-                self?.collectionView.reloadData()
                 self?.utils.stopLoadingIndicator(indicator: indicator)
+                
+                completionHandler()
                 return
             }
             
@@ -186,7 +190,20 @@ extension PeopleViewController: UISearchBarDelegate {
     
     //Funcionalidad botón search
     @IBAction func showSearchBar(_ sender: UIBarButtonItem) {
-        let view = (navigationItem.titleView == searchBar) ? nil : searchBar
+
+        let view: UISearchBar?
+        
+        if (navigationItem.titleView == searchBar) {
+            resetContent()
+            view = nil
+            searchPopularPeople(page: page) {[weak self] in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: false)
+                self?.collectionView.reloadData()
+            }
+        }
+        else {
+            view = searchBar
+        }
         navigationItem.titleView = view
         searchBar.text = nil
     }
@@ -196,13 +213,18 @@ extension PeopleViewController: UISearchBarDelegate {
         searchBar.endEditing(true)
         if searchBar.text == "" {
             self.searching = false
-            resetContent()
-            searchPopularPeople(page: page)
+            utils.showToast(message: NSLocalizedString("emptySearchBar",
+                            comment: "Mensaje que se muestra cuando se le da a buscar una película con la barra vacía"),
+                            view: view)
+
         } else {
             self.searching = true
             resetContent()
             self.nameSearched = searchBar.text!
-            searchPerson(name: self.nameSearched, page: page)
+            searchPerson(name: self.nameSearched, page: page) {[weak self] in
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: false)
+                self?.collectionView.reloadData()
+            }
         }
     }
     
@@ -215,7 +237,7 @@ extension PeopleViewController: UISearchBarDelegate {
     func resetContent() {
         self.page = 1
         self.people.removeAll()
-        self.collectionView.setContentOffset(CGPoint.zero, animated: false)
+        //self.collectionView.setContentOffset(CGPoint.zero, animated: false)
     }
     
 }
@@ -232,9 +254,13 @@ extension PeopleViewController {
         if indexPath.row == people.count - 1 {
             page += 1
             if self.searching {
-                self.searchPerson(name: self.nameSearched, page: page)
+                self.searchPerson(name: self.nameSearched, page: page) {[weak self] in
+                    self?.collectionView.reloadData()
+                }
             } else {
-                self.searchPopularPeople(page: page)
+                self.searchPopularPeople(page: page) {[weak self] in
+                    self?.collectionView.reloadData()
+                }
             }
         }
     }
