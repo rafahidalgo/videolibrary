@@ -48,6 +48,15 @@ class MoviesViewController: BaseViewController, UICollectionViewDelegate, UIColl
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if movies.count == 0 {
+            getData {[weak self] () -> () in
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
     //Se formatea la celda en cada cambio de orientación
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -155,35 +164,35 @@ extension MoviesViewController {
         case .discoverMovie:
             repository.discoverMovies(page: page){[weak self] responseObject, error, pages in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .upcomingMovie:
             repository.getUpcomingMovies(page: page){[weak self] responseObject, error, pages  in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .topRatedMovie:
             repository.getTopRatedMovies(page: page) {[weak self] responseObject, error, pages in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .release_date:
             repository.moviesReleaseDateAsc(page: page) {[weak self] responseObject, error, pages  in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         default:
             repository.searchMovie(page: page, query: searchBar.text!) {[weak self] responseObject, error, pages in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
@@ -191,11 +200,11 @@ extension MoviesViewController {
     }
     
     //Esta función coge la información de las películas y almacena estos datos en el modelo
-    func saveDataToModel(data: [OMMovie]?, error: NSError?, pages: Int) {
+    func saveDataToModel(data: [OMMovie]?, error: NSError?, pages: Int?) {
         
         if let response = data {
             
-            total_pages = pages
+            total_pages = pages!
             
             self.movies.append(contentsOf: response)
             return

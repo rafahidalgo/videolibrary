@@ -39,6 +39,15 @@ class PeopleViewController: BaseViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if people.count == 0 {
+            searchPopularPeople(page: page){[weak self] in
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         guard tabBarController?.selectedIndex == 2 else {return}
@@ -152,6 +161,7 @@ extension PeopleViewController {
             else {
                 self?.utils.showAlertError(code: (error?.code)!, message: (error?.domain)!, view: self!)
             }
+            self?.utils.stopLoadingIndicator(indicator: indicator)
         }
     }
     

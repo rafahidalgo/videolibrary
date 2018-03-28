@@ -48,6 +48,15 @@ class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICol
         self.utils.sizeCell(widthScreen: self.view.bounds.width, collectionView: self.collectionView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if tvShows.count == 0 {
+            getData {[weak self] () -> () in
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
     //Se formatea la celda en cada cambio de orientación
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -153,35 +162,35 @@ extension TVShowsViewController {
         case .discoverTVShow:
             repository.discoverTVShows(page: page){[weak self] responseObject, error, pages in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .airingToday:
             repository.getAiringToday(page: page){[weak self] responseObject, error, pages in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .topRatedTVShow:
             repository.getTopRatedTVShows(page: page) {[weak self] responseObject, error, pages in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         case .on_air:
             repository.getOnAirTVShows(page: page) {[weak self] responseObject, error, pages in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
         default:
             repository.searchTVShow(page: page, query: searchBar.text!) {[weak self] responseObject, error, pages in
                 
-                self?.saveDataToModel(data: responseObject, error: error, pages: pages!)
+                self?.saveDataToModel(data: responseObject, error: error, pages: pages)
                 self?.utils.stopLoadingIndicator(indicator: indicator)
                 completionHandler()
             }
@@ -189,11 +198,11 @@ extension TVShowsViewController {
     }
     
     //Esta función coge la información de las series y almacena estos datos en el modelo
-    func saveDataToModel(data: [OMTVShow]?, error: NSError?, pages: Int) {
+    func saveDataToModel(data: [OMTVShow]?, error: NSError?, pages: Int?) {
         
         if let response = data {
             
-            total_pages = pages
+            total_pages = pages!
             
             self.tvShows.append(contentsOf: response)
             return
