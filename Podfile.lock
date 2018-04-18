@@ -6,6 +6,9 @@ PODS:
   - FloatingActionSheetController (2.1.0)
   - Licensy (1.0.9)
   - RAMAnimatedTabBarController (3.0.4)
+  - SDWebImage (4.3.0):
+    - SDWebImage/Core (= 4.3.0)
+  - SDWebImage/Core (4.3.0)
   - SwiftyJSON (4.0.0)
   - UICircularProgressRing (1.8.0)
 
@@ -16,6 +19,7 @@ DEPENDENCIES:
   - FloatingActionSheetController (~> 2.1.0)
   - Licensy (~> 1.0.9)
   - RAMAnimatedTabBarController (~> 3.0.4)
+  - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0.0)
   - UICircularProgressRing (~> 1.8.0)
 
@@ -26,9 +30,10 @@ SPEC CHECKSUMS:
   FloatingActionSheetController: 460dff2035765c89389fe83cea08f11b45058f19
   Licensy: 2b34f3d5d79e112a4832654338480d8e2df4847f
   RAMAnimatedTabBarController: f4df798eb3f374b80448908d3a18586421efb8f6
+  SDWebImage: 6da6c8bca115addc4de8613362e1b15f66333825
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   UICircularProgressRing: c37a16e6b71c92eb31824e773e881203ba669306
 
-PODFILE CHECKSUM: 1f9f1a336995adadc315d7d2ea99507723efc670
+PODFILE CHECKSUM: 137af9ad777c1ae214ffb0b26bf7abf7c3b9192a
 
 COCOAPODS: 1.4.0

@@ -12,6 +12,7 @@ target 'VideoLibrary' do
   pod 'CRRefresh', '~> 1.0.6'
   pod 'FloatingActionSheetController', '~> 2.1.0'
   pod 'Licensy', '~> 1.0.9'
+  pod 'SDWebImage', '~> 4.0'
 
   # Pods for VideoLibrary
 

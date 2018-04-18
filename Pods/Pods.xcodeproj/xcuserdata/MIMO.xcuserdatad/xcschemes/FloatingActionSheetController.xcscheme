@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '53C154809BC3D8C615A38B55646E96BC'
-               BlueprintName = 'FloatingActionSheetController'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'FloatingActionSheetController.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "53C154809BC3D8C615A38B55646E96BC"
+               BlueprintName = "FloatingActionSheetController"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "FloatingActionSheetController.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
