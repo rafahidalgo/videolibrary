@@ -12,7 +12,7 @@ class LicenseViewController: UIViewController {
     
     let librariesArray: Array<LibraryEntity> = [
         LibraryEntity(name: "Alamofire", organization: "Alamofire Software Foundation", url: "https://github.com/Alamofire/Alamofire", copyright: "Copyright (c) 2014-2018 Alamofire Software Foundation", license: MITLicense()),
-        LibraryEntity(name: "AlamofireImage", organization: "Alamofire Software Foundation", url: "https://github.com/Alamofire/AlamofireImage", copyright: "Copyright (c) 2015-2017 Alamofire Software Foundation", license: MITLicense()),
+        LibraryEntity(name: "SDWebImage", organization: "Olivier Poitrey", url: "https://github.com/rs/SDWebImage", copyright: "Copyright (c) 2009-2017 Olivier Poitrey rs@dailymotion.com", license: MITLicense()),
         LibraryEntity(name: "SwiftyJSON", organization: "Ruoyu Fu", url: "https://github.com/SwiftyJSON/SwiftyJSON", copyright: "Copyright (c) 2017 Ruoyu Fu", license: MITLicense()),
         LibraryEntity(name: "UICircularProgressRing", organization: "Luis Padron", url: "https://github.com/luispadron/UICircularProgressRing", copyright: "Copyright (c) 2017 Luis Padron", license: MITLicense()),
         LibraryEntity(name: "Animated Tab Bar", organization: "Ramotion Inc.", url: "https://github.com/Ramotion/animated-tab-bar", copyright: "Copyright (c) 2014 Ramotion", license: MITLicense()),
