@@ -1,6 +1,7 @@
 
 import UIKit
 import CRRefresh
+import SDWebImage
 
 class PeopleViewController: BaseViewController {
     
@@ -85,8 +86,8 @@ extension PeopleViewController: UICollectionViewDataSource, UICollectionViewDele
 
         cell.actorName.text = self.people[indexPath.row].name
         if let imageURL = self.people[indexPath.row].photoURL {
-            let posterImage = repository.getPosterImage(poster: imageURL)
-            cell.actorImage.image = posterImage
+            cell.actorImage.sd_setImage(with: URL(string: "\(repository.posterUrl)/\(imageURL)"), completed: nil)
+            print("\(repository.posterUrl)/\(imageURL))")
         } else {
             cell.actorImage.image = UIImage(named: "No Image")
         }

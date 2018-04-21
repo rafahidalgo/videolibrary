@@ -6,7 +6,6 @@ target 'VideoLibrary' do
   use_frameworks!
   pod 'Alamofire', '~> 4.6.0'
   pod 'SwiftyJSON', '~> 4.0.0'
-  pod 'AlamofireImage', '~> 3.3'
   pod 'UICircularProgressRing', '~> 1.8.0'
   pod 'RAMAnimatedTabBarController', '~> 3.0.4'
   pod 'CRRefresh', '~> 1.0.6'

@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-import AlamofireImage
 import SwiftyJSON
 
 struct MovieDatabaseRepository: MovieRepository {
@@ -497,45 +496,8 @@ struct MovieDatabaseRepository: MovieRepository {
                 }
             }
         )
-    }
-    
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////// RUTAS DE IMÁGENES ////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    func getPosterImage(poster: String) -> UIImage? {
-        
-        let url = URL(string: "\(self.posterUrl)\(poster)")
-        let posterImage: UIImage?
-        
-        if let data = try? Data(contentsOf: url!) {
-            
-            posterImage = UIImage(data: data)
-            posterImage?.af_inflate()
-        }
-        else {
-            posterImage = UIImage(named: "No image")
-        }
-        
-        return posterImage
-    }
-    
-    func getBackdropImage(backdrop: String) -> UIImage?{
-        
-        let url = URL(string: "\(self.backDropUrl)\(backdrop)")
-        let backdropImage: UIImage?
-        
-        if let data = try? Data(contentsOf: url!) {
-            
-            backdropImage = UIImage(data: data)
-            backdropImage?.af_inflate()
-        }
-        else {
-            backdropImage = UIImage(named: "No image")
-        }
-        
-        return backdropImage
-    }
+    }    
+
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// RUTAS DE ACTORES /////////////////////////////////////////////////////

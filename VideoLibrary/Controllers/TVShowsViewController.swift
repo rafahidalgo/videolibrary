@@ -2,6 +2,7 @@
 import UIKit
 import CRRefresh
 import FloatingActionSheetController
+import SDWebImage
 
 class TVShowsViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
 
@@ -125,10 +126,8 @@ extension TVShowsViewController {
         cell.showAirDate.text = tvShows[indexPath.row].first_air
         cell.tvPoster.layer.cornerRadius = 10.0
         if let poster = tvShows[indexPath.row].posterUrl {
-            let posterImage = repository.getPosterImage(poster: poster)
-            cell.tvPoster.image = posterImage
-        }
-        else {
+            cell.tvPoster.sd_setImage(with: URL(string: "\(repository.posterUrl)/\(poster)"), completed: nil)
+        } else {
             cell.tvPoster.image = UIImage(named: "No Image")
         }
         

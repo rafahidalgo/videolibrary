@@ -43,11 +43,7 @@ protocol MovieRepository {
     func getPersonDetail(id: Int, completionHandler: @escaping (RHActorDetails?, NSError?) -> ())
     func getMovieCredits(id: Int, completionHandler: @escaping ([OMMovie]?, NSError?) -> ())
     func getTVShowCredits(id: Int, completionHandler: @escaping ([OMTVShow]?, NSError?) -> ())
-    
-    //Resources
-    func getPosterImage(poster: String) -> UIImage?
-    func getBackdropImage(backdrop: String) -> UIImage?
-    
+   
     //Checkings
     func checkResponseCode(response: DataResponse<Any>) -> (JSON?, NSError?)
 

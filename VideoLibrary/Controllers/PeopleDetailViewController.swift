@@ -56,9 +56,8 @@ extension PeopleDetailViewController {
                 
                 let person = response
                 
-                if let imageURL = person.photoURL {
-                    let photoImage = self?.repository.getPosterImage(poster: imageURL)
-                    self?.image.image = photoImage
+                if let imageURL = person.photoURL {                    
+                    self?.image.sd_setImage(with: URL(string: "\(self!.repository.posterUrl)/\(imageURL)"), completed: nil)
                 } else {
                     self?.image.image = UIImage(named: "No Image")
                 }
@@ -154,8 +153,7 @@ extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionVi
         if let item = credits[indexPath.row] as? OMMovie {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieIdentifier, for: indexPath) as! MovieCreditsViewCell
             if let posterUrl = item.posterUrl {
-                let posterImage = repository.getPosterImage(poster: posterUrl)
-                cell.moviePoster.image = posterImage
+                cell.moviePoster.sd_setImage(with: URL(string: "\(repository.posterUrl)/\(posterUrl)"), completed: nil)
             } else {
                 cell.moviePoster.image = UIImage(named: "No Image narrow")
             }
@@ -164,8 +162,7 @@ extension PeopleDetailViewController: UICollectionViewDataSource, UICollectionVi
         } else if let item = credits[indexPath.row] as? OMTVShow {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tvShowIdentifier, for: indexPath) as! TVShowCreditsViewCell
             if let posterUrl = item.posterUrl {
-                let posterImage = repository.getPosterImage(poster: posterUrl)
-                cell.tvShowPoster.image = posterImage
+                cell.tvShowPoster.sd_setImage(with: URL(string: "\(repository.posterUrl)/\(posterUrl)"), completed: nil)
             } else {
                 cell.tvShowPoster.image = UIImage(named: "No Image narrow")
             }

@@ -72,8 +72,7 @@ extension TVShowDetailViewController {
                 
                 if let backdropImage =  self?.showDetail.backdropPath {
                     
-                    let image = self?.repository.getBackdropImage(backdrop: backdropImage)
-                    self?.background.image = image
+                    self?.background.sd_setImage(with: URL(string: "\(self!.repository.backDropUrl)/\(backdropImage)"), completed: nil)
                 }
                 else {
                     
@@ -164,8 +163,7 @@ extension TVShowDetailViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShowCell", for: indexPath) as! CastViewCell
         
         if let imageURL = cast[indexPath.row].photoURL {
-            let posterImage = repository.getPosterImage(poster: imageURL)
-            cell.castImage.image = posterImage
+            cell.castImage.sd_setImage(with: URL(string: "\(repository.posterUrl)/\(imageURL)"), completed: nil)
         } else {
             cell.castImage.image = UIImage(named: "No Image")
         }

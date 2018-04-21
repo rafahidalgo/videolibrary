@@ -121,8 +121,7 @@ extension FavoritesViewController {
             cell.name.text = userMovies[indexPath.row].movieName
             cell.voteAverage.setProgress(value: CGFloat(truncating: userMovies[indexPath.row].movieVotes!), animationDuration: 0)
             if let poster = userMovies[indexPath.row].posterUrl {
-                let posterImage = repository.getPosterImage(poster: poster)
-                cell.posterImage.image = posterImage
+                cell.posterImage.sd_setImage(with: URL(string: "\(repository.posterUrl)/\(poster)"), completed: nil)
             }
             else {
                 cell.posterImage.image = UIImage(named: "No Image")
@@ -132,9 +131,8 @@ extension FavoritesViewController {
             
             cell.name.text = userShows[indexPath.row].tvShowName
             cell.voteAverage.setProgress(value: CGFloat(truncating: userShows[indexPath.row].showVotes!), animationDuration: 0)
-            if let poster = userShows[indexPath.row].posterUrl {
-                let posterImage = repository.getPosterImage(poster: poster)
-                cell.posterImage.image = posterImage
+            if let poster = userShows[indexPath.row].posterUrl {                
+                cell.posterImage.sd_setImage(with: URL(string: "\(repository.posterUrl)/\(poster)"), completed: nil)
             }
             else {
                 cell.posterImage.image = UIImage(named: "No Image")

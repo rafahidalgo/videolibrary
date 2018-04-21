@@ -2,6 +2,7 @@
 import UIKit
 import CRRefresh
 import FloatingActionSheetController
+import SDWebImage
 
 class MoviesViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
     
@@ -124,8 +125,7 @@ extension MoviesViewController {
         cell.movieRelease.text = movies[indexPath.row].releaseDate
         cell.moviePoster.layer.cornerRadius = 10.0
         if let poster = movies[indexPath.row].posterUrl {
-            let posterImage = repository.getPosterImage(poster: poster)
-            cell.moviePoster.image = posterImage
+            cell.moviePoster.sd_setImage(with: URL(string: "\(repository.posterUrl)/\(poster)"), completed: nil)
         }
         else {
             cell.moviePoster.image = UIImage(named: "No Image")
